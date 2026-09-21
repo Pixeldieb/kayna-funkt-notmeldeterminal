@@ -1,6 +1,7 @@
 # SenseCAP Indicator (D1L) — Board-Notizen
 
-Zweites unterstütztes Board neben der XIAO-ESP32-S3-Säule (siehe Haupt-README).
+Aktuelles Hauptziel des Projekts, neben dem historischen (zurückgestellten)
+XIAO-ESP32-S3-Interface-Board + XIAO-nRF52-Funkgerät (siehe Haupt-README).
 Touchscreen-Terminal mit Display, Datenbank und (angefangener) Meshtastic-Anbindung
 auf **einem** Board statt der ESP32↔nRF52-Zwei-Board-Lösung.
 
@@ -15,12 +16,12 @@ Build/Flash: `pio run -e sensecap_indicator -t upload`
 | Display (ST7701S 480x480 RGB) + Touch (FT6336U) | ✅ läuft stabil (LVGL-Refresh-Rate am 2026-09-18 von 10ms/"100fps" auf 33ms/"30fps" korrigiert, siehe Abschnitt 5.6 — vorher hat LVGL schneller geflusht als `full_refresh=1` + das Panel synchron liefern konnten) |
 | Menü/Notfall-Flow (LVGL, `ui_model.cpp`) | ✅ läuft, inkl. Halte-Bestätigung (kreisrunder Fortschrittsring, kein Balken mehr), CLI-artigem 2-Stationen-Sende-Screen, Erfolg/Fehlschlag-Screens |
 | Lagemeldungen in SQLite (`lage_db`, wiederverwendet von der XIAO-Säule) | ✅ läuft — siehe Abschnitt 5.6 für eine wichtige Plattform-Einschränkung (Query-Form) die am 2026-09-18 gefunden wurde |
-| Uhrzeit | ⚠️ kein RTC/NTP. Jetzt 3-stufig: (1) echte Mesh-Position-Pakete mit `time`-Feld, falls je eines ankommt, (2) letzter bekannter Stand aus NVS (überlebt Neustarts monoton), (3) Build-Zeitpunkt als letzter Fallback. `settime YYYY-MM-DD HH:MM:SS` überschreibt immer. |
+| Uhrzeit | ⚠️ kein RTC-Chip, kein NTP/GPS auf diesem Board — läuft frei mit dem ESP32-S3-eigenen Quarz und driftet daher unkorrigiert (typisch einige Sekunden/Tag, nach mehreren Tagen spürbar). 3-stufige Quelle: (1) echte Mesh-Position-Pakete mit `time`-Feld, falls je eines ankommt, (2) letzter bekannter Stand aus NVS (überlebt Neustarts monoton), (3) Build-Zeitpunkt als letzter Fallback. Seit 2026-09-21 zusätzlich per Touchscreen stellbar (Einstellungen-Seite, Feld "Uhrzeit", `wallClockNowYMDHMS`-Vorbefüllung) — vorher ging das nur per Serial-Kommando `settime YYYY-MM-DD HH:MM:SS`, ohne Laptop im Feld also gar nicht korrigierbar. Ein echter I²C-RTC-Baustein (z.B. über den Grove-Port, der am RP2040 hängt) würde das strukturell lösen, ist für den Prototyp aber bewusst zurückgestellt (siehe Wiki, Hardware-Bring-up). |
 | Meshtastic-Anbindung | ✅ **echtes Meshtastic-Protokoll**, live gegen ein reales Gerät verifiziert: Broadcast bidirektional, Direktnachricht mit echtem **Anwendungs-ACK** (nicht nur Transport-ACK — siehe Abschnitt 5.6, B5-Fix) an eine konfigurierbare, persistente Leitstelle. Details siehe Abschnitt 5. |
 | Absender-Allowlist / Ratenbegrenzung (Issues #1, #3) | ✅ eingebaut (`src/common/mesh_security.h`) — sicherer Default: leere Allowlist verwirft alle eingehenden Lagemeldungen, `allow add <hex-node-id>` zum Freischalten |
 | Heartbeat an Leitstelle (Issue #13) | ✅ periodischer Status-Broadcast (alle 15 Min., war 2 Min. bis 2026-09-18 — siehe Fix-Plan), ehrlich ohne Akku-/Sabotage-Werte (keine Sensorik vorhanden) |
 | Standby-Screen, Alarm-Blinken, Batterie/Solar/Netz-Symbol | ❌ noch nicht begonnen (kein ADC/Batterie-Hardware vorhanden, bewusst keine Fake-Anzeige) |
-| Lokaler Betreiber / Onboarding | ⚠️ Datenstruktur (`station_config.h`) + jetzt eine **PIN-geschützte Einstellungen-Seite** im Hauptmenü (Testmodus-Umschalter, Leitstelle-Node-ID, Ort als Freitext) — PIN aktuell Platzhalter `1234`, siehe `station_config.h`. Sprach-Button vorhanden, zeigt ehrlich "noch nicht umgesetzt" (keine echte Übersetzung). |
+| Lokaler Betreiber / Onboarding | ⚠️ Datenstruktur (`station_config.h`) + jetzt eine **PIN-geschützte Einstellungen-Seite** im Hauptmenü (Testmodus-Umschalter, Leitstelle-Node-ID, Ort als Freitext, seit 2026-09-21 zusätzlich Uhrzeit) — PIN aktuell Platzhalter `1234`, siehe `station_config.h`. Sprach-Button vorhanden, zeigt ehrlich "noch nicht umgesetzt" (keine echte Übersetzung). |
 
 ---
 
@@ -320,7 +321,9 @@ Funde:
   etwas gesendet wurde.
 - Vorgangsnummer (`VG-<DB-ID>`) und Zeitstempel in der Notmeldungshistorie sind echt
   (DB-Rowid bzw. echte Wall-Clock-Sekunden, siehe `lageDbSetTimeProvider` in
-  `main.cpp`) — vorausgesetzt die Uhr wurde gestellt (siehe Uhrzeit-Zeile oben).
+  `main.cpp`) — vorausgesetzt die Uhr wurde gestellt (per Touchscreen-Feld oder
+  Serial-Kommando, siehe Uhrzeit-Zeile oben) und ist nicht schon wieder
+  weggedriftet (kein RTC-Chip, siehe dort).
 - Leitstellen-Node-Nummer (`dispatch set`) ist persistent in NVS, seit 2026-09-18 auch
   per Touchscreen setzbar (Einstellungen-Seite, PIN-geschützt) — kein Dropdown mit
   "zertifizierten" Leitstellen, da es noch keine echte Liste davon gibt, nur ein

@@ -46,20 +46,44 @@ navigation:
     - id: main_menu
       title: "Hauptmenü"
       description: >
-        Main emergency selection menu. Only available when
-        external power has failed.
+        Main emergency selection menu. Original design intent was
+        "only available when external power has failed" (see
+        availability_note below) -- not yet true in the firmware:
+        there is no mains-loss detection hardware yet (see
+        Hardware-Bringup wiki page), so this page is always
+        available today. Revisit once #4 (Netzausfallerkennung)
+        lands.
 
-      availability:
-        condition: system.power_failure == true
+      availability_note: >
+        Design goal, not current behavior: system.power_failure ==
+        true. No power-sensing hardware exists yet, so the firmware
+        does not gate this page on anything.
 
       indicator:
         type: pulse
         target: signal_led
         description: "Light pulse indicating that the terminal is active."
 
-      # Root page: no parent, so the context bar has nothing to go
-      # "back" to. All three context buttons are inactive here.
-      context_bar: []
+      # Root page: no parent, so the "back"/"cancel" middle slot (ctx_2)
+      # stays unused. The other two slots are real, always-visible
+      # menu entry points (ui_model.cpp's ctx_main[]), not context-
+      # dependent actions like on every other page.
+      context_bar:
+        - id: language
+          slot: ctx_1
+          type: button
+          label: "Sprache"
+          action:
+            type: navigate
+            target: language
+
+        - id: settings
+          slot: ctx_3
+          type: button
+          label: "Einstellungen"
+          action:
+            type: navigate
+            target: pin_entry
 
       elements:
 
@@ -576,6 +600,143 @@ navigation:
             direction: down
 
 
+    # ==========================================================
+    # LANGUAGE (placeholder)
+    # ==========================================================
+
+    - id: language
+      title: "Sprache"
+      parent: main_menu
+      description: >
+        Reachable from main_menu's ctx_1. Honestly shows "not
+        implemented yet" instead of a language picker that doesn't
+        work -- real per-string translation is a separate, larger
+        project (see UI-Bedienkonzept wiki page), not a quick add.
+
+      elements:
+        - id: not_implemented_notice
+          type: notice
+          style: info
+          label: "Andere Sprachen sind noch nicht umgesetzt. Die Oberflaeche ist bisher nur auf Deutsch verfuegbar."
+
+      context_bar:
+        - id: back
+          slot: ctx_2
+          type: button
+          label: "Zurück"
+          action:
+            type: back
+
+
+    # ==========================================================
+    # SETTINGS: PIN ENTRY
+    # ==========================================================
+
+    - id: pin_entry
+      title: "Einstellungen (PIN)"
+      parent: main_menu
+      description: >
+        Numeric-keyboard PIN gate in front of the settings page.
+        PIN is currently a hardcoded placeholder ("1234", see
+        station_config.h) -- no UI to change it yet.
+
+      elements:
+        - id: pin_input
+          type: text_input
+          input_mode: numeric
+          masked: true
+          label: "Code"
+
+        - id: pin_error
+          type: notice
+          style: warning
+          label: "Falscher Code."
+          visible_on: pin_incorrect
+
+      context_bar:
+        - id: back
+          slot: ctx_2
+          type: button
+          label: "Zurück"
+          action:
+            type: back
+
+
+    # ==========================================================
+    # SETTINGS
+    # ==========================================================
+
+    - id: settings
+      title: "Einstellungen"
+      parent: pin_entry
+      description: >
+        Reached only after a correct PIN. Fields are edited in
+        place and applied together by one "Speichern" button --
+        there is no per-field save. All fields share one popup
+        on-screen keyboard bound to whichever text field currently
+        has focus, with a live preview line above the keyboard
+        (the field itself is covered by the keyboard popup while
+        typing).
+
+      elements:
+        - id: test_mode_toggle
+          type: button
+          label: "Testmodus umschalten"
+          description: >
+            Forces the status bar's ONLINE/OFFLINE indicator for
+            testing -- the touchscreen equivalent of the serial
+            command "testconnect on|off".
+
+        - id: dispatch_node
+          type: text_input
+          label: "Leitstelle (Node-ID, z.B. !ce0ffa28):"
+          description: >
+            Hex Meshtastic node number of the configured Leitstelle.
+            Free text -- no picker/allowlist of "certified" dispatch
+            nodes exists yet. Persisted to NVS.
+
+        - id: location
+          type: text_input
+          label: "Ort (Freitext, kein GPS auf diesem Board):"
+          description: >
+            Manual location text shown on the emergency success
+            screen. No GPS on this board, so this is the only way
+            to set it. Persisted to NVS.
+
+        - id: clock
+          type: text_input
+          label: "Uhrzeit (JJJJ-MM-TT HH:MM:SS):"
+          description: >
+            Manual wall-clock set, added 2026-09-21 -- this board
+            has no RTC chip and no NTP/GPS, so without this field
+            there was no way to correct the clock in the field
+            without a laptop (see Hardware-Bringup wiki page). Same
+            "YYYY-MM-DD HH:MM:SS" format as the serial "settime"
+            command. Prefilled with the board's current time; a
+            field that fails to parse gets its own error instead of
+            silently being ignored.
+
+        - id: save
+          type: button
+          label: "Speichern"
+          action:
+            type: execute
+            command: save_settings
+
+        - id: saved_feedback
+          type: notice
+          label: "Gespeichert."
+          visible_on: settings_saved
+
+      context_bar:
+        - id: back
+          slot: ctx_2
+          type: button
+          label: "Zurück"
+          action:
+            type: back
+
+
 # ============================================================
 # GLOBAL UI CHROME
 # ============================================================
@@ -643,12 +804,20 @@ hardware:
       touch: capacitive
       description: >
         Seeed SenseCAP Indicator (D1L). ESP32-S3 + RP2040 dual-MCU,
-        color touchscreen, built-in LoRa (SX1262) running Meshtastic
-        firmware on the RP2040, microSD for local storage. The RP2040
-        talks to the ESP32-S3 over an internal UART using the same
-        Meshtastic serial client protocol this project already speaks
-        to an external node — the ESP32-S3 side is the candidate for
-        consolidating radio + storage + UI onto a single board.
+        color touchscreen. The built-in LoRa radio (SX1262) is wired
+        to the ESP32-S3, not the RP2040, and is driven directly via
+        RadioLib with this project's own Meshtastic-wire-format-
+        compatible implementation (packet header, AES-CTR, protobuf,
+        channel hash) -- no external Meshtastic node needed, unlike
+        the older XIAO ESP32-S3 + XIAO nRF52 hardware path (no
+        screen, not listed here). The RP2040 co-processor's role is
+        the Micro-SD card (only reachable from that side, see
+        Hardware-Bringup wiki page) and Seeed's sensor telemetry,
+        neither of which this project's own code reads; ESP32-S3
+        <-> RP2040 talk over a plain COBS-framed UART link this
+        project defined itself, not the Meshtastic serial client
+        protocol (that one only runs between src/xiao/ and an
+        external XIAO nRF52).
 
     - id: epaper_touch_dev
       status: ui_smoke_test_only
