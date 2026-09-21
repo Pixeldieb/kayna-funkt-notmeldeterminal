@@ -32,8 +32,10 @@
 
 static sqlite3* db = nullptr;
 static LageDbTimeFn g_timeFn = nullptr;
+static LageDbMirrorFn g_mirrorFn = nullptr;
 
 void lageDbSetTimeProvider(LageDbTimeFn fn) { g_timeFn = fn; }
+void lageDbSetMirrorHook(LageDbMirrorFn fn) { g_mirrorFn = fn; }
 
 static unsigned long lageDbNow() { return g_timeFn ? g_timeFn() : millis(); }
 
@@ -114,7 +116,12 @@ int lageDbCreate(const String& kategorie, const String& status, const String& te
   sqlite3_finalize(stmt);
   if (rc != SQLITE_DONE) return -1;
 
-  return (int)sqlite3_last_insert_rowid(db); // funktioniert auch ohne PRIMARY KEY
+  int newId = (int)sqlite3_last_insert_rowid(db); // funktioniert auch ohne PRIMARY KEY
+  if (g_mirrorFn) {
+    String line = String(newId) + ";" + kategorie + ";" + status + ";" + fromNode + ";" + String(now) + ";" + text;
+    g_mirrorFn("lagemeldungen", line);
+  }
+  return newId;
 }
 
 bool lageDbUpdate(int id, const String& kategorie, const String& status, const String& text, const String& fromNode) {
@@ -160,7 +167,12 @@ bool lageDbUpdate(int id, const String& kategorie, const String& status, const S
   int rc = sqlite3_step(upd);
   sqlite3_finalize(upd);
 
-  return rc == SQLITE_DONE;
+  bool ok = rc == SQLITE_DONE;
+  if (ok && g_mirrorFn) {
+    String line = String(id) + ";" + kategorie + ";" + status + ";" + fromNode + ";" + String(now) + ";" + text;
+    g_mirrorFn("lagemeldungen", line);
+  }
+  return ok;
 }
 
 struct ListFilter {
@@ -250,11 +262,16 @@ int lageDbGetRecentSummaries(LageMeldungSummary* out, int maxCount) {
 
 void eventLog(const String& kategorie, const String& text) {
   Serial.printf("[EVENT] %s: %s\n", kategorie.c_str(), text.c_str());
+  unsigned long now = lageDbNow();
+  if (g_mirrorFn) {
+    String line = String(now) + ";" + kategorie + ";" + text;
+    g_mirrorFn("ereignisse", line);
+  }
   if (!db) return; // z.B. lageDbBegin() fehlgeschlagen -- nicht crashen, nur nicht persistieren
   sqlite3_stmt* stmt;
   const char* sql = "INSERT INTO ereignisse (zeit, kategorie, text) VALUES (?, ?, ?);";
   if (sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr) != SQLITE_OK) return;
-  sqlite3_bind_int64(stmt, 1, lageDbNow());
+  sqlite3_bind_int64(stmt, 1, now);
   sqlite3_bind_text(stmt, 2, kategorie.c_str(), -1, SQLITE_TRANSIENT);
   sqlite3_bind_text(stmt, 3, text.c_str(), -1, SQLITE_TRANSIENT);
   sqlite3_step(stmt);

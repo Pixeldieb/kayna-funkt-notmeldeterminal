@@ -31,6 +31,7 @@
 #include "mesh_security.h"
 #include "lora_radio.h"
 #include "meshtastic_proto.h"
+#include "sd_mirror.h"
 #include "station_config.h"
 #include "touch.h"
 #include "ui_model.h"
@@ -561,6 +562,15 @@ void setup() {
     return (unsigned long)t;
   });
 
+  // Write-only SD-card backup via the RP2040 co-processor (2026-09-21) --
+  // see sd_mirror.h for why it has to go through the RP2040 at all, and
+  // src/sensecap_rp2040/main.cpp for the receiving end. Best-effort: if
+  // that board isn't flashed with the mirror firmware yet, or the link is
+  // down, this just silently never gets acknowledged -- SPIFFS/SQLite
+  // above stays the real store either way.
+  sdMirrorBegin();
+  lageDbSetMirrorHook(sdMirrorSend);
+
   // Issues #1 (Allowlist) / #3 (Ratenlimit): eingehende Lagemeldungen wurden
   // bisher von jedem Absender ungeprueft uebernommen. Sicherer Default: eine
   // leere Allowlist verwirft ALLE eingehenden Lagemeldungen, bis mindestens
@@ -677,6 +687,17 @@ void loop() {
       lageDbListSummary("", line.substring(13));
     } else if (line.startsWith("detail ")) {
       lageDbShowDetail(line.substring(7).toInt());
+    } else if (line == "sd status") {
+      // Diagnostic for the SD-card mirror (2026-09-21, see sd_mirror.h) --
+      // the actual writes are fire-and-forget, this is the one place that
+      // waits for a reply, purely so a human can check the RP2040 link and
+      // SD-card state on demand.
+      bool sdOk = false;
+      if (sdMirrorPing(1000, &sdOk)) {
+        Serial.printf("[SD] RP2040 antwortet, SD-Karte %s\n", sdOk ? "gemountet" : "NICHT gemountet/Fehler");
+      } else {
+        Serial.println("[SD] Keine Antwort vom RP2040 (nicht geflasht, nicht verbunden, oder Firmware haengt)");
+      }
     }
   }
 

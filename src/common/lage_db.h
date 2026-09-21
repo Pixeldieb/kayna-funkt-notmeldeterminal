@@ -10,6 +10,17 @@
 typedef unsigned long (*LageDbTimeFn)();
 void lageDbSetTimeProvider(LageDbTimeFn fn);
 
+// Optional, same pattern: a board with somewhere else to keep a backup
+// copy (see sensecap/sd_mirror.h -- the RP2040's SD card, reachable only
+// from the SenseCAP board, not XIAO) can install a hook called after every
+// successful write to lagemeldungen or ereignisse. write-only, best-effort:
+// never blocks or fails the real write if unset or if the mirror target is
+// unavailable -- SPIFFS/SQLite stays the authoritative store either way.
+// table is "lagemeldungen" or "ereignisse"; line is a single already-
+// formatted text line (semicolon-separated, no embedded newline).
+typedef void (*LageDbMirrorFn)(const char* table, const String& line);
+void lageDbSetMirrorHook(LageDbMirrorFn fn);
+
 bool lageDbBegin();
 int  lageDbCreate(const String& kategorie, const String& status, const String& text, const String& fromNode);
 bool lageDbUpdate(int id, const String& kategorie, const String& status, const String& text, const String& fromNode);
