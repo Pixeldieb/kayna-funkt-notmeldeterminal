@@ -33,6 +33,8 @@ serielle Verbindung (UART) — nicht über LoRa direkt.
 
 ## Verkabelung
 
+![Verkabelung XIAO ESP32-S3 zu XIAO nRF52](../../assets/wiring-diagram.svg)
+
 TX/RX **gekreuzt**, GND gemeinsam:
 
 | XIAO ESP32-S3 (Interface-Board) | XIAO nRF52 (Funkgerät) |
