@@ -40,6 +40,11 @@ void wallClockSetFromEpoch(uint32_t epochSeconds, const char *sourceLabel);
 // "HH:MM:SS", or "--:--:--" if wallClockIsSet() is false.
 String wallClockNowHMS();
 
+// "YYYY-MM-DD HH:MM:SS" (same format wallClockSet()/wallClockHandleSerialLine()
+// accept back), or "" if wallClockIsSet() is false. For prefilling a UI field
+// with the board's current idea of the time before the user corrects it.
+String wallClockNowYMDHMS();
+
 // Resolves the boot-time clock: prefers the last value persisted to NVS
 // (from a previous boot) if it's newer than this firmware's own build
 // time, otherwise falls back to __DATE__/__TIME__ (the build machine's

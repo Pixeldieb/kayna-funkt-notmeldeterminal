@@ -87,6 +87,7 @@ lv_obj_t *g_scr_settings = nullptr;
 lv_obj_t *g_settings_test_btn_label = nullptr;
 lv_obj_t *g_settings_dispatch_ta = nullptr;
 lv_obj_t *g_settings_location_ta = nullptr;
+lv_obj_t *g_settings_clock_ta = nullptr;
 lv_obj_t *g_settings_saved_label = nullptr;
 lv_obj_t *g_settings_kb_preview = nullptr;
 
@@ -946,6 +947,7 @@ void pin_keyboard_event_cb(lv_event_t *e) {
                                 ? ""
                                 : String("!" + String(station_config().dispatchNodeNum, 16)).c_str());
       lv_textarea_set_text(g_settings_location_ta, station_config().locationText.c_str());
+      lv_textarea_set_text(g_settings_clock_ta, wallClockNowYMDHMS().c_str());
       lv_label_set_text_fmt(g_settings_test_btn_label, "Testmodus: %s (erzwungen)\nZum Umschalten tippen.",
                             g_meshtastic_connected ? "ONLINE" : "OFFLINE");
       lv_label_set_text(g_settings_saved_label, "");
@@ -1042,7 +1044,25 @@ void settings_save_cb(lv_event_t *e) {
   uint32_t nodeNum = strtoul(dispatchText[0] == '!' ? dispatchText + 1 : dispatchText, nullptr, 16);
   station_config_set_dispatch_node(nodeNum);
   station_config_set_location(String(lv_textarea_get_text(g_settings_location_ta)));
-  lv_label_set_text(g_settings_saved_label, "Gespeichert.");
+
+  // Same "YYYY-MM-DD HH:MM:SS" format the serial "settime" command accepts
+  // (wallClockHandleSerialLine) -- this field is prefilled with the board's
+  // current idea of the time, so leaving it untouched just re-confirms it.
+  // A field that fails to parse is a typo, not "leave the clock alone", so
+  // it gets its own error instead of the generic "Gespeichert." (this is
+  // the only way to correct the clock without a laptop -- see wall_clock.h).
+  int year, month, day, hour, minute, second;
+  int n = sscanf(lv_textarea_get_text(g_settings_clock_ta), "%d-%d-%d %d:%d:%d", &year, &month, &day, &hour,
+                 &minute, &second);
+  if (n == 6) {
+    wallClockSet(year, month, day, hour, minute, second);
+    lv_obj_set_style_text_color(g_settings_saved_label, lv_color_hex(COLOR_GREEN), 0);
+    lv_label_set_text(g_settings_saved_label, "Gespeichert.");
+  } else {
+    lv_obj_set_style_text_color(g_settings_saved_label, lv_color_hex(COLOR_WARN_RED), 0);
+    lv_label_set_text(g_settings_saved_label, "Leitstelle/Ort gespeichert. Uhrzeit-Format falsch, nicht "
+                                               "uebernommen: JJJJ-MM-TT HH:MM:SS");
+  }
 }
 
 // Testprotokoll A5/D4/D5/B3, 2026-09-18: bundles everything that came out
@@ -1092,6 +1112,22 @@ lv_obj_t *build_settings_page(lv_obj_t *back_target) {
   lv_obj_set_pos(g_settings_location_ta, 20, y);
   y += 46;
 
+  // Kein RTC-Chip, kein NTP/WiFi auf diesem Board -- ohne dieses Feld gibt
+  // es im Feld ohne Laptop keine Moeglichkeit, die Uhr zu stellen (bisher
+  // nur ueber das serielle "settime"-Kommando, siehe wall_clock.h). Ohne
+  // gestellte Uhr sind auch die Zeitstempel der Lagemeldungen falsch.
+  lv_obj_t *clock_caption = lv_label_create(scr);
+  lv_label_set_text(clock_caption, "Uhrzeit (JJJJ-MM-TT HH:MM:SS):");
+  lv_obj_set_style_text_color(clock_caption, lv_color_hex(0xFFFFFF), 0);
+  lv_obj_set_pos(clock_caption, 20, y);
+  y += 24;
+
+  g_settings_clock_ta = lv_textarea_create(scr);
+  lv_textarea_set_one_line(g_settings_clock_ta, true);
+  lv_obj_set_width(g_settings_clock_ta, SCR - 40);
+  lv_obj_set_pos(g_settings_clock_ta, 20, y);
+  y += 46;
+
   lv_obj_t *save_btn = lv_btn_create(scr);
   lv_obj_set_size(save_btn, 160, 46);
   lv_obj_set_pos(save_btn, 20, y);
@@ -1102,8 +1138,10 @@ lv_obj_t *build_settings_page(lv_obj_t *back_target) {
 
   g_settings_saved_label = lv_label_create(scr);
   lv_label_set_text(g_settings_saved_label, "");
+  lv_label_set_long_mode(g_settings_saved_label, LV_LABEL_LONG_WRAP);
+  lv_obj_set_width(g_settings_saved_label, SCR - 40);
   lv_obj_set_style_text_color(g_settings_saved_label, lv_color_hex(COLOR_GREEN), 0);
-  lv_obj_set_pos(g_settings_saved_label, 190, y + 12);
+  lv_obj_set_pos(g_settings_saved_label, 20, y + 56);
 
   // Popup keyboard (Testprotokoll B1-follow-up, 2026-09-18): fitting it
   // into whatever space happened to be left below the fields (originally
@@ -1132,8 +1170,10 @@ lv_obj_t *build_settings_page(lv_obj_t *back_target) {
 
   lv_obj_add_event_cb(g_settings_dispatch_ta, settings_ta_focus_cb, LV_EVENT_FOCUSED, kb);
   lv_obj_add_event_cb(g_settings_location_ta, settings_ta_focus_cb, LV_EVENT_FOCUSED, kb);
+  lv_obj_add_event_cb(g_settings_clock_ta, settings_ta_focus_cb, LV_EVENT_FOCUSED, kb);
   lv_obj_add_event_cb(g_settings_dispatch_ta, settings_ta_changed_cb, LV_EVENT_VALUE_CHANGED, nullptr);
   lv_obj_add_event_cb(g_settings_location_ta, settings_ta_changed_cb, LV_EVENT_VALUE_CHANGED, nullptr);
+  lv_obj_add_event_cb(g_settings_clock_ta, settings_ta_changed_cb, LV_EVENT_VALUE_CHANGED, nullptr);
   lv_obj_add_event_cb(kb, settings_kb_done_cb, LV_EVENT_READY, kb);
   lv_obj_add_event_cb(kb, settings_kb_done_cb, LV_EVENT_CANCEL, kb);
 

@@ -87,6 +87,18 @@ String wallClockNowHMS() {
   return String(buf);
 }
 
+String wallClockNowYMDHMS() {
+  if (!g_is_set) return "";
+  time_t now;
+  time(&now);
+  struct tm t;
+  localtime_r(&now, &t);
+  char buf[20];
+  snprintf(buf, sizeof(buf), "%04d-%02d-%02d %02d:%02d:%02d", t.tm_year + 1900, t.tm_mon + 1, t.tm_mday,
+           t.tm_hour, t.tm_min, t.tm_sec);
+  return String(buf);
+}
+
 void wallClockSetFromBuildTime() {
   // __DATE__ = "Mmm dd yyyy" (day is space-padded, e.g. "Sep  7 2026"),
   // __TIME__ = "hh:mm:ss" — both standard, compiler-filled, in whatever
