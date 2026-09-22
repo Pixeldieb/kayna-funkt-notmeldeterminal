@@ -5,6 +5,7 @@
 #include <string.h>
 #include <time.h>
 
+#include "districts_de.h"
 #include "lage_db.h"
 #include "meshtastic_proto.h"
 #include "station_config.h"
@@ -90,6 +91,20 @@ lv_obj_t *g_settings_location_ta = nullptr;
 lv_obj_t *g_settings_clock_ta = nullptr;
 lv_obj_t *g_settings_saved_label = nullptr;
 lv_obj_t *g_settings_kb_preview = nullptr;
+
+// --- Setup-Assistent (2026-09-23): erzwungen beim allerersten Start,
+// danach ueber Einstellungen erneut aufrufbar (siehe station_config.h's
+// setupCompleted-Kommentar). Ort-Auswahl zweistufig (Bundesland dann
+// Landkreis) statt einer flachen 401-Eintraege-Liste -- Bayern allein hat
+// 71 Landkreise/kreisfreie Staedte, das waere auf dem Touchscreen kaum
+// noch scrollbar.
+lv_obj_t *g_scr_setup_bundesland = nullptr;
+lv_obj_t *g_scr_setup_landkreis = nullptr;
+lv_obj_t *g_setup_landkreis_list = nullptr;
+lv_obj_t *g_scr_setup_leitstelle = nullptr;
+lv_obj_t *g_setup_leitstelle_ta = nullptr;
+lv_obj_t *g_setup_leitstelle_kb_preview = nullptr;
+lv_obj_t *g_setup_selected_ort_label = nullptr;
 
 lv_obj_t *g_confirm_label = nullptr;
 lv_obj_t *g_confirm_back_target = nullptr;
@@ -1128,6 +1143,18 @@ lv_obj_t *build_settings_page(lv_obj_t *back_target) {
   lv_obj_set_pos(g_settings_clock_ta, 20, y);
   y += 46;
 
+  // Wiedereinstieg in den Setup-Assistenten (2026-09-23) -- rein navigierend,
+  // aendert fuer sich genommen nichts an setupCompleted; das passiert nur,
+  // wenn der Assistent auch wirklich bis "Fertig" durchlaufen wird.
+  lv_obj_t *setup_btn = lv_btn_create(scr);
+  lv_obj_set_size(setup_btn, SCR - 40, 46);
+  lv_obj_set_pos(setup_btn, 20, y);
+  lv_obj_add_event_cb(setup_btn, nav_cb, LV_EVENT_CLICKED, g_scr_setup_bundesland);
+  lv_obj_t *setup_lbl = lv_label_create(setup_btn);
+  lv_label_set_text(setup_lbl, "Ersteinrichtung erneut starten");
+  lv_obj_center(setup_lbl);
+  y += 58;
+
   lv_obj_t *save_btn = lv_btn_create(scr);
   lv_obj_set_size(save_btn, 160, 46);
   lv_obj_set_pos(save_btn, 20, y);
@@ -1179,6 +1206,227 @@ lv_obj_t *build_settings_page(lv_obj_t *back_target) {
 
   CtxSlot ctx[3] = {};
   ctx[1] = CtxSlot{true, LV_SYMBOL_LEFT, "Zurueck", COLOR_GREEN, nav_cb, back_target};
+  build_context_bar(scr, ctx);
+  return scr;
+}
+
+// ---------------------------------------------------------------------
+// Setup-Assistent (2026-09-23)
+// ---------------------------------------------------------------------
+// Erzwungen beim allerersten Start (siehe ui_model_build()'s abschliessendes
+// lv_scr_load), danach ueber die Einstellungen-Seite erneut aufrufbar, ohne
+// dass ein Durchlauf ohne "Fertig" auf der letzten Seite irgendetwas
+// zuruecksetzt -- station_config_set_setup_completed(true) wird nur dort
+// aufgerufen, ein Abbruch mittendrin aendert am gespeicherten Zustand nichts.
+
+void district_selected_cb(lv_event_t *e) {
+  clear_pressed(lv_event_get_target(e));
+  const DistrictEntry *d = (const DistrictEntry *)lv_event_get_user_data(e);
+  // "Kennzeichen -- Name" statt nur des Namens: das Kennzeichen ist die
+  // kompakte, jedem bekannte Kurzform, die im Notfall schneller
+  // kommuniziert werden kann als der volle Landkreisname (siehe
+  // data/presets/README.md fuer die Begruendung dieses Systems).
+  String text = String(d->kennzeichen) + " -- " + d->name;
+  station_config_set_location(text);
+  if (g_setup_selected_ort_label) lv_label_set_text_fmt(g_setup_selected_ort_label, "Ort: %s", text.c_str());
+  nav_to(g_scr_setup_leitstelle);
+}
+
+void populate_setup_landkreis_list(int bundeslandIdx) {
+  lv_obj_clean(g_setup_landkreis_list);
+  for (uint16_t i = 0; i < kDistrictCount; i++) {
+    if (kDistricts[i].bundeslandIndex != bundeslandIdx) continue;
+    lv_obj_t *btn = lv_btn_create(g_setup_landkreis_list);
+    lv_obj_set_width(btn, LV_PCT(100));
+    lv_obj_set_height(btn, 44);
+    lv_obj_add_event_cb(btn, district_selected_cb, LV_EVENT_CLICKED, (void *)&kDistricts[i]);
+    lv_obj_t *lbl = lv_label_create(btn);
+    lv_label_set_text_fmt(lbl, "%s (%s)", kDistricts[i].name, kDistricts[i].kennzeichen);
+  }
+}
+
+void bundesland_selected_cb(lv_event_t *e) {
+  clear_pressed(lv_event_get_target(e));
+  const BundeslandEntry *be = (const BundeslandEntry *)lv_event_get_user_data(e);
+  int idx = (int)(be - kBundeslaender); // Index statt Pointer -- kDistricts speichert bundeslandIndex, keinen Pointer
+  populate_setup_landkreis_list(idx);
+  nav_to(g_scr_setup_landkreis);
+}
+
+// Root-Seite des Assistenten: kein Zurueck/Abbruch-Knopf, absichtlich wie
+// main_menu (siehe dessen context_bar-Kommentar) -- das ist der erzwungene
+// Einstieg, es gibt nichts, wohin man "zurueck" koennte.
+lv_obj_t *build_setup_bundesland_page() {
+  lv_obj_t *scr = make_screen("Ersteinrichtung: Bundesland", COLOR_CHROME_BG);
+  int32_t top = content_top(true);
+
+  lv_obj_t *intro = lv_label_create(scr);
+  lv_label_set_text(intro, "In welchem Bundesland steht dieses Geraet?");
+  lv_obj_set_style_text_color(intro, lv_color_hex(0xFFFFFF), 0);
+  lv_obj_set_pos(intro, 20, top);
+  top += 30;
+
+  lv_obj_t *list = lv_obj_create(scr);
+  lv_obj_set_size(list, SCR - 40, SCR - CTXBAR_H - top - 10);
+  lv_obj_set_pos(list, 20, top);
+  lv_obj_set_style_bg_color(list, lv_color_hex(0xFFFFFF), 0);
+  lv_obj_set_style_radius(list, 10, 0);
+  lv_obj_set_flex_flow(list, LV_FLEX_FLOW_COLUMN);
+  lv_obj_set_style_pad_all(list, 10, 0);
+  lv_obj_set_style_pad_row(list, 8, 0);
+  lv_obj_clear_flag(list, LV_OBJ_FLAG_SCROLL_MOMENTUM);
+
+  for (uint16_t i = 0; i < kBundeslandCount; i++) {
+    lv_obj_t *btn = lv_btn_create(list);
+    lv_obj_set_width(btn, LV_PCT(100));
+    lv_obj_set_height(btn, 44);
+    lv_obj_add_event_cb(btn, bundesland_selected_cb, LV_EVENT_CLICKED, (void *)&kBundeslaender[i]);
+    lv_obj_t *lbl = lv_label_create(btn);
+    lv_label_set_text(lbl, kBundeslaender[i].name);
+  }
+
+  CtxSlot ctx[3] = {};
+  ctx[0] = CtxSlot{true, LV_SYMBOL_UP, "Hoch", COLOR_TEAL,
+                   [](lv_event_t *e) { lv_obj_scroll_by((lv_obj_t *)lv_event_get_user_data(e), 0, 80, LV_ANIM_OFF); },
+                   list};
+  ctx[2] = CtxSlot{
+      true, LV_SYMBOL_DOWN, "Runter", COLOR_TEAL,
+      [](lv_event_t *e) { lv_obj_scroll_by((lv_obj_t *)lv_event_get_user_data(e), 0, -80, LV_ANIM_OFF); }, list};
+  build_context_bar(scr, ctx);
+  return scr;
+}
+
+// Inhalt wird erst bei Betreten dynamisch befuellt (populate_setup_landkreis_list,
+// aufgerufen von bundesland_selected_cb) -- anders als jede andere Seite in
+// dieser Datei, die ihren Inhalt einmalig bei ui_model_build() aufbaut, weil
+// hier die Auswahl vom vorherigen Schritt abhaengt.
+lv_obj_t *build_setup_landkreis_page() {
+  lv_obj_t *scr = make_screen("Ersteinrichtung: Landkreis", COLOR_CHROME_BG);
+  int32_t top = content_top(true);
+
+  g_setup_landkreis_list = lv_obj_create(scr);
+  lv_obj_set_size(g_setup_landkreis_list, SCR - 40, SCR - CTXBAR_H - top - 10);
+  lv_obj_set_pos(g_setup_landkreis_list, 20, top);
+  lv_obj_set_style_bg_color(g_setup_landkreis_list, lv_color_hex(0xFFFFFF), 0);
+  lv_obj_set_style_radius(g_setup_landkreis_list, 10, 0);
+  lv_obj_set_flex_flow(g_setup_landkreis_list, LV_FLEX_FLOW_COLUMN);
+  lv_obj_set_style_pad_all(g_setup_landkreis_list, 10, 0);
+  lv_obj_set_style_pad_row(g_setup_landkreis_list, 8, 0);
+  lv_obj_clear_flag(g_setup_landkreis_list, LV_OBJ_FLAG_SCROLL_MOMENTUM);
+
+  CtxSlot ctx[3] = {};
+  ctx[0] = CtxSlot{true, LV_SYMBOL_UP, "Hoch", COLOR_TEAL,
+                   [](lv_event_t *e) { lv_obj_scroll_by((lv_obj_t *)lv_event_get_user_data(e), 0, 80, LV_ANIM_OFF); },
+                   g_setup_landkreis_list};
+  ctx[1] = CtxSlot{true, LV_SYMBOL_LEFT, "Zurueck", COLOR_GREEN, nav_cb, g_scr_setup_bundesland};
+  ctx[2] = CtxSlot{true, LV_SYMBOL_DOWN, "Runter", COLOR_TEAL,
+                   [](lv_event_t *e) { lv_obj_scroll_by((lv_obj_t *)lv_event_get_user_data(e), 0, -80, LV_ANIM_OFF); },
+                   g_setup_landkreis_list};
+  build_context_bar(scr, ctx);
+  return scr;
+}
+
+// Eigene, auf diese Seite hartcodierte Fokus/Tastatur-Callbacks statt der
+// settings_ta_*-Funktionen: die dort verwendeten Globals (g_settings_kb_preview
+// etc.) gehoeren zur Einstellungen-Seite, ein Wiederverwenden wuerde die
+// Vorschauzeile auf der falschen, gerade unsichtbaren Seite aktualisieren.
+void setup_ta_focus_cb(lv_event_t *e) {
+  lv_obj_t *kb = (lv_obj_t *)lv_event_get_user_data(e);
+  lv_obj_t *ta = lv_event_get_target(e);
+  lv_keyboard_set_textarea(kb, ta);
+  lv_obj_clear_flag(kb, LV_OBJ_FLAG_HIDDEN);
+  lv_obj_move_foreground(kb);
+  if (g_setup_leitstelle_kb_preview) {
+    lv_obj_clear_flag(g_setup_leitstelle_kb_preview, LV_OBJ_FLAG_HIDDEN);
+    lv_obj_move_foreground(g_setup_leitstelle_kb_preview);
+    lv_label_set_text_fmt(g_setup_leitstelle_kb_preview, "> %s", lv_textarea_get_text(ta));
+  }
+}
+
+void setup_ta_changed_cb(lv_event_t *e) {
+  if (!g_setup_leitstelle_kb_preview) return;
+  lv_label_set_text_fmt(g_setup_leitstelle_kb_preview, "> %s", lv_textarea_get_text(lv_event_get_target(e)));
+}
+
+void setup_kb_done_cb(lv_event_t *e) {
+  lv_obj_t *kb = (lv_obj_t *)lv_event_get_user_data(e);
+  lv_obj_add_flag(kb, LV_OBJ_FLAG_HIDDEN);
+  if (g_setup_leitstelle_kb_preview) lv_obj_add_flag(g_setup_leitstelle_kb_preview, LV_OBJ_FLAG_HIDDEN);
+}
+
+void setup_finish_cb(lv_event_t *e) {
+  clear_pressed(lv_event_get_target(e));
+  const char *dispatchText = lv_textarea_get_text(g_setup_leitstelle_ta);
+  if (dispatchText[0] != '\0') {
+    uint32_t nodeNum = strtoul(dispatchText[0] == '!' ? dispatchText + 1 : dispatchText, nullptr, 16);
+    station_config_set_dispatch_node(nodeNum);
+  }
+  // Leitstelle bleibt bewusst optional (leer lassen + "Fertig" schliesst den
+  // Assistenten trotzdem ab) -- sie laesst sich jederzeit in den
+  // Einstellungen nachtragen, ein Notmeldeterminal soll wegen einer noch
+  // unbekannten Leitstellen-Adresse nicht in der Ersteinrichtung haengen
+  // bleiben.
+  station_config_set_setup_completed(true);
+  nav_to(g_scr_main);
+}
+
+lv_obj_t *build_setup_leitstelle_page() {
+  lv_obj_t *scr = make_screen("Ersteinrichtung: Leitstelle", COLOR_CHROME_BG);
+  int32_t top = content_top(true);
+  int32_t y = top;
+
+  g_setup_selected_ort_label = lv_label_create(scr);
+  lv_obj_set_style_text_color(g_setup_selected_ort_label, lv_color_hex(0xFFFFFF), 0);
+  lv_obj_set_pos(g_setup_selected_ort_label, 20, y);
+  y += 30;
+
+  lv_obj_t *caption = lv_label_create(scr);
+  lv_label_set_text(caption,
+                     "Leitstelle (Node-ID, z.B. !ce0ffa28) -- optional, spaeter in den Einstellungen aenderbar:");
+  lv_obj_set_style_text_color(caption, lv_color_hex(0xFFFFFF), 0);
+  lv_label_set_long_mode(caption, LV_LABEL_LONG_WRAP);
+  lv_obj_set_width(caption, SCR - 40);
+  lv_obj_set_pos(caption, 20, y);
+  y += 48;
+
+  g_setup_leitstelle_ta = lv_textarea_create(scr);
+  lv_textarea_set_one_line(g_setup_leitstelle_ta, true);
+  lv_obj_set_width(g_setup_leitstelle_ta, SCR - 40);
+  lv_obj_set_pos(g_setup_leitstelle_ta, 20, y);
+  y += 46;
+
+  lv_obj_t *finish_btn = lv_btn_create(scr);
+  lv_obj_set_size(finish_btn, 160, 46);
+  lv_obj_set_pos(finish_btn, 20, y);
+  lv_obj_add_event_cb(finish_btn, setup_finish_cb, LV_EVENT_CLICKED, nullptr);
+  lv_obj_t *finish_lbl = lv_label_create(finish_btn);
+  lv_label_set_text(finish_lbl, "Fertig");
+  lv_obj_center(finish_lbl);
+
+  lv_obj_t *kb = lv_keyboard_create(scr);
+  lv_keyboard_set_mode(kb, LV_KEYBOARD_MODE_TEXT_LOWER);
+  lv_obj_set_size(kb, SCR, 200);
+  lv_obj_align(kb, LV_ALIGN_BOTTOM_MID, 0, 0);
+  lv_obj_add_flag(kb, LV_OBJ_FLAG_HIDDEN);
+
+  g_setup_leitstelle_kb_preview = lv_label_create(scr);
+  lv_label_set_text(g_setup_leitstelle_kb_preview, "");
+  lv_obj_set_style_text_color(g_setup_leitstelle_kb_preview, lv_color_hex(0xFFFFFF), 0);
+  lv_obj_set_style_text_font(g_setup_leitstelle_kb_preview, &lv_font_montserrat_18, 0);
+  lv_obj_set_style_bg_color(g_setup_leitstelle_kb_preview, lv_color_hex(COLOR_CHROME_BG), 0);
+  lv_obj_set_style_bg_opa(g_setup_leitstelle_kb_preview, LV_OPA_COVER, 0);
+  lv_obj_set_style_pad_all(g_setup_leitstelle_kb_preview, 8, 0);
+  lv_obj_set_width(g_setup_leitstelle_kb_preview, SCR);
+  lv_obj_align_to(g_setup_leitstelle_kb_preview, kb, LV_ALIGN_OUT_TOP_MID, 0, 0);
+  lv_obj_add_flag(g_setup_leitstelle_kb_preview, LV_OBJ_FLAG_HIDDEN);
+
+  lv_obj_add_event_cb(g_setup_leitstelle_ta, setup_ta_focus_cb, LV_EVENT_FOCUSED, kb);
+  lv_obj_add_event_cb(g_setup_leitstelle_ta, setup_ta_changed_cb, LV_EVENT_VALUE_CHANGED, nullptr);
+  lv_obj_add_event_cb(kb, setup_kb_done_cb, LV_EVENT_READY, kb);
+  lv_obj_add_event_cb(kb, setup_kb_done_cb, LV_EVENT_CANCEL, kb);
+
+  CtxSlot ctx[3] = {};
+  ctx[1] = CtxSlot{true, LV_SYMBOL_LEFT, "Zurueck", COLOR_GREEN, nav_cb, g_scr_setup_landkreis};
   build_context_bar(scr, ctx);
   return scr;
 }
@@ -1311,6 +1559,14 @@ void ui_model_build() {
   // after g_scr_main exists, for the same reason g_scr_info's children are
   // (see comment above) -- their "Zurueck" targets must already be valid.
   g_scr_language = build_language_page(g_scr_main);
+  // Vor build_settings_page(): dessen "Ersteinrichtung erneut starten"-Knopf
+  // erfasst g_scr_setup_bundesland als Zeiger-WERT beim Registrieren des
+  // Callbacks, nicht als spaeter aufgeloeste Referenz -- muesste sonst noch
+  // nullptr sein.
+  g_scr_setup_bundesland = build_setup_bundesland_page();
+  g_scr_setup_landkreis = build_setup_landkreis_page();
+  g_scr_setup_leitstelle = build_setup_leitstelle_page();
+
   g_scr_settings = build_settings_page(g_scr_main);
   g_scr_pin_entry = build_pin_entry_page(g_scr_main);
 
@@ -1470,7 +1726,10 @@ void ui_model_build() {
     build_context_bar(g_scr_transmission_failed, ctx_failed);
   }
 
-  lv_scr_load(g_scr_main); // first load: no fade needed
+  // Erster Start (setupCompleted noch false, siehe station_config.h): der
+  // Setup-Assistent statt des Hauptmenues, damit ein frisch geflashtes oder
+  // -zurueckgesetztes Geraet nicht ohne Ort/Leitstelle in Betrieb geht.
+  lv_scr_load(station_config().setupCompleted ? g_scr_main : g_scr_setup_bundesland); // first load: no fade needed
 }
 
 void ui_model_tick() {
