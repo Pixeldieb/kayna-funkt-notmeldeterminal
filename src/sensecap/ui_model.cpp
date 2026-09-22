@@ -90,7 +90,6 @@ lv_obj_t *g_settings_dispatch_ta = nullptr;
 lv_obj_t *g_settings_location_ta = nullptr;
 lv_obj_t *g_settings_clock_ta = nullptr;
 lv_obj_t *g_settings_saved_label = nullptr;
-lv_obj_t *g_settings_kb_preview = nullptr;
 
 // --- Setup-Assistent (2026-09-23): erzwungen beim allerersten Start,
 // danach ueber Einstellungen erneut aufrufbar (siehe station_config.h's
@@ -103,7 +102,6 @@ lv_obj_t *g_scr_setup_landkreis = nullptr;
 lv_obj_t *g_setup_landkreis_list = nullptr;
 lv_obj_t *g_scr_setup_leitstelle = nullptr;
 lv_obj_t *g_setup_leitstelle_ta = nullptr;
-lv_obj_t *g_setup_leitstelle_kb_preview = nullptr;
 lv_obj_t *g_setup_selected_ort_label = nullptr;
 
 lv_obj_t *g_confirm_label = nullptr;
@@ -1011,35 +1009,138 @@ lv_obj_t *build_pin_entry_page(lv_obj_t *back_target) {
   return scr;
 }
 
-// The textareas themselves sit lower on the page than the popup keyboard
-// covers, so the field being edited was invisible while typing
-// (Testprotokoll B1-follow-up, 2026-09-18: "sieht man aktuell gar nicht
-// was man tippt"). Rather than relocating the actual textarea widget
-// (fragile -- would need to save/restore its original position), a
-// dedicated preview label sits just above the keyboard and mirrors
-// whichever field currently has focus.
-void settings_ta_focus_cb(lv_event_t *e) {
+// ---------------------------------------------------------------------
+// Generischer "beim Bearbeiten vergroessern"-Mechanismus fuer Textfelder
+// (Testprotokoll 2026-09-23, ersetzt die vorherige Vorschauzeile)
+// ---------------------------------------------------------------------
+// Vorher zeigte eine kleine Vorschauzeile ueber der Tastatur nur eine Kopie
+// des Textes an -- das eigentliche Feld blieb winzig, ohne dass man gezielt
+// eine Cursorposition antippen, zeichenweise navigieren oder alles auf
+// einmal loeschen konnte. Jetzt wird das ECHTE Feld selbst waehrend der
+// Bearbeitung groesser gezogen und direkt ueber die Tastatur gelegt --
+// zusammen mit einer festen Zeile aus drei Knoepfen (<, Alles loeschen, >).
+//
+// Nur ein Feld kann app-weit gleichzeitig fokussiert sein (eine Tastatur
+// zur Zeit), deshalb reicht ein gemeinsamer Speicher fuer die urspruengliche
+// Geometrie, auch wenn mehrere Seiten (Einstellungen, Setup-Assistent) das
+// hier jeweils fuer ihre eigenen Felder/Tastaturen nutzen.
+struct TaSavedGeometry {
+  int32_t x, y, w, h;
+  const lv_font_t *font;
+  lv_obj_t *parent;
+  bool valid;
+};
+TaSavedGeometry g_ta_saved_geometry{};
+
+constexpr int32_t kTaEnlargedHeight = 64;
+constexpr int32_t kTaEditRowHeight = 46;
+
+void ta_edit_left_cb(lv_event_t *e) {
+  lv_obj_t *ta = lv_keyboard_get_textarea((lv_obj_t *)lv_event_get_user_data(e));
+  if (ta) lv_textarea_cursor_left(ta);
+}
+
+void ta_edit_right_cb(lv_event_t *e) {
+  lv_obj_t *ta = lv_keyboard_get_textarea((lv_obj_t *)lv_event_get_user_data(e));
+  if (ta) lv_textarea_cursor_right(ta);
+}
+
+void ta_edit_clear_cb(lv_event_t *e) {
+  lv_obj_t *ta = lv_keyboard_get_textarea((lv_obj_t *)lv_event_get_user_data(e));
+  if (ta) lv_textarea_set_text(ta, "");
+}
+
+// Eine Zeile pro Tastatur (nicht global geteilt) -- der Zeiger wird ueber
+// lv_obj_set_user_data(kb, row) am jeweiligen Keyboard-Objekt hinterlegt,
+// damit ta_generic_focus_cb/ta_generic_kb_done_cb unten die richtige Zeile
+// fuer die gerade aktive Tastatur wiederfinden, ohne dass jede Seite ihre
+// eigene globale Variable dafuer bräuchte.
+lv_obj_t *build_ta_edit_controls_row(lv_obj_t *scr, lv_obj_t *kb) {
+  lv_obj_t *row = lv_obj_create(scr);
+  lv_obj_set_size(row, SCR - 40, kTaEditRowHeight - 6);
+  lv_obj_set_style_bg_opa(row, LV_OPA_TRANSP, 0);
+  lv_obj_set_style_border_width(row, 0, 0);
+  lv_obj_set_style_pad_all(row, 0, 0);
+  lv_obj_clear_flag(row, LV_OBJ_FLAG_SCROLLABLE);
+  lv_obj_set_flex_flow(row, LV_FLEX_FLOW_ROW);
+  lv_obj_set_flex_align(row, LV_FLEX_ALIGN_SPACE_BETWEEN, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER);
+  lv_obj_add_flag(row, LV_OBJ_FLAG_HIDDEN);
+  lv_obj_set_user_data(kb, row);
+
+  const char *labels[3] = {LV_SYMBOL_LEFT, "Alles loeschen", LV_SYMBOL_RIGHT};
+  lv_event_cb_t cbs[3] = {ta_edit_left_cb, ta_edit_clear_cb, ta_edit_right_cb};
+  for (int i = 0; i < 3; i++) {
+    lv_obj_t *btn = lv_btn_create(row);
+    lv_obj_set_size(btn, (SCR - 40 - 16) / 3, kTaEditRowHeight - 10);
+    lv_obj_add_event_cb(btn, cbs[i], LV_EVENT_CLICKED, kb);
+    lv_obj_t *lbl = lv_label_create(btn);
+    lv_label_set_text(lbl, labels[i]);
+    lv_obj_center(lbl);
+  }
+  return row;
+}
+
+// Blinkender Cursor ist LVGL-Standardverhalten eines fokussierten Textfelds
+// -- explizit gesetzt statt sich auf den Default zu verlassen, weil er auf
+// dem vorherigen winzigen Feld praktisch nicht wahrnehmbar war (zu klein,
+// zu kurze Blinkzeit gegen die Panel-Framerate dieses Boards, siehe
+// Hardware-Bringup-Wiki zur LVGL-Refreshrate).
+void style_editable_ta(lv_obj_t *ta) {
+  lv_textarea_set_one_line(ta, true);
+  lv_obj_set_style_anim_time(ta, 600, LV_PART_CURSOR);
+}
+
+void ta_generic_focus_cb(lv_event_t *e) {
   lv_obj_t *kb = (lv_obj_t *)lv_event_get_user_data(e);
   lv_obj_t *ta = lv_event_get_target(e);
   lv_keyboard_set_textarea(kb, ta);
-  lv_obj_clear_flag(kb, LV_OBJ_FLAG_HIDDEN);
-  lv_obj_move_foreground(kb); // popup: sit on top of the fields/button below it
-  if (g_settings_kb_preview) {
-    lv_obj_clear_flag(g_settings_kb_preview, LV_OBJ_FLAG_HIDDEN);
-    lv_obj_move_foreground(g_settings_kb_preview);
-    lv_label_set_text_fmt(g_settings_kb_preview, "> %s", lv_textarea_get_text(ta));
+
+  g_ta_saved_geometry.x = lv_obj_get_x(ta);
+  g_ta_saved_geometry.y = lv_obj_get_y(ta);
+  g_ta_saved_geometry.w = lv_obj_get_width(ta);
+  g_ta_saved_geometry.h = lv_obj_get_height(ta);
+  g_ta_saved_geometry.font = lv_obj_get_style_text_font(ta, LV_PART_MAIN);
+  g_ta_saved_geometry.parent = lv_obj_get_parent(ta);
+  g_ta_saved_geometry.valid = true;
+
+  // Aus einem ggf. scrollenden Inhalts-Container herausloesen: sonst waere
+  // die gleich gesetzte, bildschirmfeste Position relativ zum aktuellen
+  // Scroll-Versatz des Containers zu verstehen (und koennte durch dessen
+  // eigenes Clipping unsichtbar werden), nicht relativ zum Bildschirm.
+  lv_obj_t *screen_root = lv_obj_get_parent(kb);
+  lv_obj_set_parent(ta, screen_root);
+
+  int32_t kbTop = lv_obj_get_y(kb); // kb liegt per lv_obj_align(BOTTOM_MID) fest auf SCR-200
+  lv_obj_t *row = (lv_obj_t *)lv_obj_get_user_data(kb);
+  int32_t rowH = row ? kTaEditRowHeight : 0;
+
+  lv_obj_set_size(ta, SCR - 40, kTaEnlargedHeight);
+  lv_obj_set_pos(ta, 20, kbTop - rowH - kTaEnlargedHeight - 8);
+  lv_obj_set_style_text_font(ta, &lv_font_montserrat_22, 0);
+  lv_obj_move_foreground(ta);
+
+  if (row) {
+    lv_obj_set_pos(row, 20, kbTop - rowH - 4);
+    lv_obj_clear_flag(row, LV_OBJ_FLAG_HIDDEN);
+    lv_obj_move_foreground(row);
   }
+  lv_obj_clear_flag(kb, LV_OBJ_FLAG_HIDDEN);
+  lv_obj_move_foreground(kb);
 }
 
-void settings_ta_changed_cb(lv_event_t *e) {
-  if (!g_settings_kb_preview) return;
-  lv_label_set_text_fmt(g_settings_kb_preview, "> %s", lv_textarea_get_text(lv_event_get_target(e)));
-}
-
-void settings_kb_done_cb(lv_event_t *e) {
+void ta_generic_kb_done_cb(lv_event_t *e) {
   lv_obj_t *kb = (lv_obj_t *)lv_event_get_user_data(e);
+  lv_obj_t *ta = lv_keyboard_get_textarea(kb);
+  if (ta && g_ta_saved_geometry.valid) {
+    lv_obj_set_parent(ta, g_ta_saved_geometry.parent);
+    lv_obj_set_pos(ta, g_ta_saved_geometry.x, g_ta_saved_geometry.y);
+    lv_obj_set_size(ta, g_ta_saved_geometry.w, g_ta_saved_geometry.h);
+    lv_obj_set_style_text_font(ta, g_ta_saved_geometry.font, 0);
+    g_ta_saved_geometry.valid = false;
+  }
   lv_obj_add_flag(kb, LV_OBJ_FLAG_HIDDEN);
-  if (g_settings_kb_preview) lv_obj_add_flag(g_settings_kb_preview, LV_OBJ_FLAG_HIDDEN);
+  lv_obj_t *row = (lv_obj_t *)lv_obj_get_user_data(kb);
+  if (row) lv_obj_add_flag(row, LV_OBJ_FLAG_HIDDEN);
 }
 
 void settings_test_toggle_cb(lv_event_t *e) {
@@ -1087,14 +1188,33 @@ void settings_save_cb(lv_event_t *e) {
 lv_obj_t *build_settings_page(lv_obj_t *back_target) {
   lv_obj_t *scr = make_screen("Einstellungen", COLOR_CHROME_BG);
   int32_t top = content_top(true);
-  int32_t y = top;
 
-  g_settings_test_btn_label = lv_label_create(scr);
+  // Eigener scrollbarer Innenbereich fuer die Formularfelder (Testprotokoll
+  // 2026-09-23: nach Hinzufuegen des "Ersteinrichtung erneut starten"-Knopfs
+  // reichte eine feste Seite nicht mehr -- der Speichern-Knopf und die
+  // "Gespeichert."-Rueckmeldung landeten teilweise hinter der Kontextleiste,
+  // die Rueckmeldung sogar komplett ausserhalb des sichtbaren Bereichs.
+  // Tastatur, Bearbeitungs-Knopfzeile und Kontextleiste bleiben bewusst
+  // AUSSERHALB dieses Containers (direkte Kinder von scr) -- sonst wuerden
+  // sie beim Scrollen mitwandern statt an ihrer festen Position am
+  // Bildschirmrand zu bleiben (siehe ta_generic_focus_cb, das ein
+  // fokussiertes Feld temporaer aus diesem Container herausloest).
+  lv_obj_t *content = lv_obj_create(scr);
+  lv_obj_set_size(content, SCR, SCR - CTXBAR_H - top);
+  lv_obj_set_pos(content, 0, top);
+  lv_obj_set_style_bg_opa(content, LV_OPA_TRANSP, 0);
+  lv_obj_set_style_border_width(content, 0, 0);
+  lv_obj_set_style_pad_all(content, 0, 0);
+  lv_obj_clear_flag(content, LV_OBJ_FLAG_SCROLL_MOMENTUM);
+
+  int32_t y = 10;
+
+  g_settings_test_btn_label = lv_label_create(content);
   lv_obj_set_style_text_color(g_settings_test_btn_label, lv_color_hex(0xFFFFFF), 0);
   lv_obj_set_pos(g_settings_test_btn_label, 20, y);
   y += 40;
 
-  lv_obj_t *toggle_btn = lv_btn_create(scr);
+  lv_obj_t *toggle_btn = lv_btn_create(content);
   lv_obj_set_size(toggle_btn, SCR - 40, 50);
   lv_obj_set_pos(toggle_btn, 20, y);
   lv_obj_add_event_cb(toggle_btn, settings_test_toggle_cb, LV_EVENT_CLICKED, nullptr);
@@ -1103,26 +1223,26 @@ lv_obj_t *build_settings_page(lv_obj_t *back_target) {
   lv_obj_center(toggle_lbl);
   y += 62;
 
-  lv_obj_t *dispatch_caption = lv_label_create(scr);
+  lv_obj_t *dispatch_caption = lv_label_create(content);
   lv_label_set_text(dispatch_caption, "Leitstelle (Node-ID, z.B. !ce0ffa28):");
   lv_obj_set_style_text_color(dispatch_caption, lv_color_hex(0xFFFFFF), 0);
   lv_obj_set_pos(dispatch_caption, 20, y);
   y += 24;
 
-  g_settings_dispatch_ta = lv_textarea_create(scr);
-  lv_textarea_set_one_line(g_settings_dispatch_ta, true);
+  g_settings_dispatch_ta = lv_textarea_create(content);
+  style_editable_ta(g_settings_dispatch_ta);
   lv_obj_set_width(g_settings_dispatch_ta, SCR - 40);
   lv_obj_set_pos(g_settings_dispatch_ta, 20, y);
   y += 46;
 
-  lv_obj_t *location_caption = lv_label_create(scr);
+  lv_obj_t *location_caption = lv_label_create(content);
   lv_label_set_text(location_caption, "Ort (Freitext, kein GPS auf diesem Board):");
   lv_obj_set_style_text_color(location_caption, lv_color_hex(0xFFFFFF), 0);
   lv_obj_set_pos(location_caption, 20, y);
   y += 24;
 
-  g_settings_location_ta = lv_textarea_create(scr);
-  lv_textarea_set_one_line(g_settings_location_ta, true);
+  g_settings_location_ta = lv_textarea_create(content);
+  style_editable_ta(g_settings_location_ta);
   lv_obj_set_width(g_settings_location_ta, SCR - 40);
   lv_obj_set_pos(g_settings_location_ta, 20, y);
   y += 46;
@@ -1131,14 +1251,14 @@ lv_obj_t *build_settings_page(lv_obj_t *back_target) {
   // es im Feld ohne Laptop keine Moeglichkeit, die Uhr zu stellen (bisher
   // nur ueber das serielle "settime"-Kommando, siehe wall_clock.h). Ohne
   // gestellte Uhr sind auch die Zeitstempel der Lagemeldungen falsch.
-  lv_obj_t *clock_caption = lv_label_create(scr);
+  lv_obj_t *clock_caption = lv_label_create(content);
   lv_label_set_text(clock_caption, "Uhrzeit (JJJJ-MM-TT HH:MM:SS):");
   lv_obj_set_style_text_color(clock_caption, lv_color_hex(0xFFFFFF), 0);
   lv_obj_set_pos(clock_caption, 20, y);
   y += 24;
 
-  g_settings_clock_ta = lv_textarea_create(scr);
-  lv_textarea_set_one_line(g_settings_clock_ta, true);
+  g_settings_clock_ta = lv_textarea_create(content);
+  style_editable_ta(g_settings_clock_ta);
   lv_obj_set_width(g_settings_clock_ta, SCR - 40);
   lv_obj_set_pos(g_settings_clock_ta, 20, y);
   y += 46;
@@ -1146,7 +1266,7 @@ lv_obj_t *build_settings_page(lv_obj_t *back_target) {
   // Wiedereinstieg in den Setup-Assistenten (2026-09-23) -- rein navigierend,
   // aendert fuer sich genommen nichts an setupCompleted; das passiert nur,
   // wenn der Assistent auch wirklich bis "Fertig" durchlaufen wird.
-  lv_obj_t *setup_btn = lv_btn_create(scr);
+  lv_obj_t *setup_btn = lv_btn_create(content);
   lv_obj_set_size(setup_btn, SCR - 40, 46);
   lv_obj_set_pos(setup_btn, 20, y);
   lv_obj_add_event_cb(setup_btn, nav_cb, LV_EVENT_CLICKED, g_scr_setup_bundesland);
@@ -1155,7 +1275,7 @@ lv_obj_t *build_settings_page(lv_obj_t *back_target) {
   lv_obj_center(setup_lbl);
   y += 58;
 
-  lv_obj_t *save_btn = lv_btn_create(scr);
+  lv_obj_t *save_btn = lv_btn_create(content);
   lv_obj_set_size(save_btn, 160, 46);
   lv_obj_set_pos(save_btn, 20, y);
   lv_obj_add_event_cb(save_btn, settings_save_cb, LV_EVENT_CLICKED, nullptr);
@@ -1163,49 +1283,44 @@ lv_obj_t *build_settings_page(lv_obj_t *back_target) {
   lv_label_set_text(save_lbl, "Speichern");
   lv_obj_center(save_lbl);
 
-  g_settings_saved_label = lv_label_create(scr);
+  g_settings_saved_label = lv_label_create(content);
   lv_label_set_text(g_settings_saved_label, "");
   lv_label_set_long_mode(g_settings_saved_label, LV_LABEL_LONG_WRAP);
   lv_obj_set_width(g_settings_saved_label, SCR - 40);
   lv_obj_set_style_text_color(g_settings_saved_label, lv_color_hex(COLOR_GREEN), 0);
   lv_obj_set_pos(g_settings_saved_label, 20, y + 56);
+  y += 56 + 40; // Platz fuer die Rueckmeldung, damit sie beim Scrollen ans Ende noch sichtbar ist
 
   // Popup keyboard (Testprotokoll B1-follow-up, 2026-09-18): fitting it
   // into whatever space happened to be left below the fields (originally
   // as little as ~24px) squashed its rows into an unreadable mess. Fixed
   // height instead, overlaid on top of the rest of the page and only
-  // shown while a field actually has focus.
+  // shown while a field actually has focus. Direktes Kind von scr, nicht
+  // von content, damit es beim Scrollen des Formulars an Ort und Stelle
+  // bleibt statt mitzuwandern.
   lv_obj_t *kb = lv_keyboard_create(scr);
   lv_keyboard_set_mode(kb, LV_KEYBOARD_MODE_TEXT_LOWER);
   lv_obj_set_size(kb, SCR, 200);
   lv_obj_align(kb, LV_ALIGN_BOTTOM_MID, 0, 0);
   lv_obj_add_flag(kb, LV_OBJ_FLAG_HIDDEN); // shown once a field is focused
 
-  // Live preview of what's being typed, just above the keyboard -- the
-  // actual field further up the page is covered by the popup while it's
-  // open (see settings_ta_focus_cb's comment).
-  g_settings_kb_preview = lv_label_create(scr);
-  lv_label_set_text(g_settings_kb_preview, "");
-  lv_obj_set_style_text_color(g_settings_kb_preview, lv_color_hex(0xFFFFFF), 0);
-  lv_obj_set_style_text_font(g_settings_kb_preview, &lv_font_montserrat_18, 0);
-  lv_obj_set_style_bg_color(g_settings_kb_preview, lv_color_hex(COLOR_CHROME_BG), 0);
-  lv_obj_set_style_bg_opa(g_settings_kb_preview, LV_OPA_COVER, 0);
-  lv_obj_set_style_pad_all(g_settings_kb_preview, 8, 0);
-  lv_obj_set_width(g_settings_kb_preview, SCR);
-  lv_obj_align_to(g_settings_kb_preview, kb, LV_ALIGN_OUT_TOP_MID, 0, 0);
-  lv_obj_add_flag(g_settings_kb_preview, LV_OBJ_FLAG_HIDDEN);
+  lv_obj_t *edit_row = build_ta_edit_controls_row(scr, kb);
 
-  lv_obj_add_event_cb(g_settings_dispatch_ta, settings_ta_focus_cb, LV_EVENT_FOCUSED, kb);
-  lv_obj_add_event_cb(g_settings_location_ta, settings_ta_focus_cb, LV_EVENT_FOCUSED, kb);
-  lv_obj_add_event_cb(g_settings_clock_ta, settings_ta_focus_cb, LV_EVENT_FOCUSED, kb);
-  lv_obj_add_event_cb(g_settings_dispatch_ta, settings_ta_changed_cb, LV_EVENT_VALUE_CHANGED, nullptr);
-  lv_obj_add_event_cb(g_settings_location_ta, settings_ta_changed_cb, LV_EVENT_VALUE_CHANGED, nullptr);
-  lv_obj_add_event_cb(g_settings_clock_ta, settings_ta_changed_cb, LV_EVENT_VALUE_CHANGED, nullptr);
-  lv_obj_add_event_cb(kb, settings_kb_done_cb, LV_EVENT_READY, kb);
-  lv_obj_add_event_cb(kb, settings_kb_done_cb, LV_EVENT_CANCEL, kb);
+  lv_obj_add_event_cb(g_settings_dispatch_ta, ta_generic_focus_cb, LV_EVENT_FOCUSED, kb);
+  lv_obj_add_event_cb(g_settings_location_ta, ta_generic_focus_cb, LV_EVENT_FOCUSED, kb);
+  lv_obj_add_event_cb(g_settings_clock_ta, ta_generic_focus_cb, LV_EVENT_FOCUSED, kb);
+  lv_obj_add_event_cb(kb, ta_generic_kb_done_cb, LV_EVENT_READY, kb);
+  lv_obj_add_event_cb(kb, ta_generic_kb_done_cb, LV_EVENT_CANCEL, kb);
+  (void)edit_row; // Referenz haelt sich selbst am Leben (Kind von scr) -- Variable nur fuer Lesbarkeit benannt
 
   CtxSlot ctx[3] = {};
+  ctx[0] = CtxSlot{
+      true, LV_SYMBOL_UP, "Hoch", COLOR_TEAL,
+      [](lv_event_t *e) { lv_obj_scroll_by((lv_obj_t *)lv_event_get_user_data(e), 0, 80, LV_ANIM_OFF); }, content};
   ctx[1] = CtxSlot{true, LV_SYMBOL_LEFT, "Zurueck", COLOR_GREEN, nav_cb, back_target};
+  ctx[2] = CtxSlot{
+      true, LV_SYMBOL_DOWN, "Runter", COLOR_TEAL,
+      [](lv_event_t *e) { lv_obj_scroll_by((lv_obj_t *)lv_event_get_user_data(e), 0, -80, LV_ANIM_OFF); }, content};
   build_context_bar(scr, ctx);
   return scr;
 }
@@ -1232,17 +1347,39 @@ void district_selected_cb(lv_event_t *e) {
   nav_to(g_scr_setup_leitstelle);
 }
 
+// Testprotokoll 2026-09-23: Eintraege hingen teilweise uebereinander. Ursache
+// war eine feste Button-Hoehe (44px) mit einem Label ohne Breiten-/Umbruch-
+// Vorgabe -- laengere Namen ("Mecklenburgische Seenplatte") liefen dadurch
+// ueber die feste Hoehe hinaus statt sie zu vergroessern, und ueberlappten
+// sichtbar mit dem naechsten Button. Fix: Label bekommt eine explizite
+// Breite + LV_LABEL_LONG_DOT (kein Umbruch, sauber mit "..." abgeschnitten
+// statt zu ueberlaufen) UND der Button waechst mit LV_SIZE_CONTENT auf die
+// tatsaechlich benoetigte Hoehe, statt eine feste vorzugeben.
+void style_list_entry_label(lv_obj_t *btn, lv_obj_t *lbl) {
+  lv_obj_set_height(btn, LV_SIZE_CONTENT);
+  lv_label_set_long_mode(lbl, LV_LABEL_LONG_DOT);
+  lv_obj_set_width(lbl, SCR - 40 - 32); // Listenbreite minus Button-/Label-Innenabstand
+}
+
 void populate_setup_landkreis_list(int bundeslandIdx) {
   lv_obj_clean(g_setup_landkreis_list);
   for (uint16_t i = 0; i < kDistrictCount; i++) {
     if (kDistricts[i].bundeslandIndex != bundeslandIdx) continue;
     lv_obj_t *btn = lv_btn_create(g_setup_landkreis_list);
     lv_obj_set_width(btn, LV_PCT(100));
-    lv_obj_set_height(btn, 44);
     lv_obj_add_event_cb(btn, district_selected_cb, LV_EVENT_CLICKED, (void *)&kDistricts[i]);
     lv_obj_t *lbl = lv_label_create(btn);
     lv_label_set_text_fmt(lbl, "%s (%s)", kDistricts[i].name, kDistricts[i].kennzeichen);
+    style_list_entry_label(btn, lbl);
   }
+  // Frisch erzeugte Buttons sollen sofort korrekt layoutet gezeichnet werden,
+  // nicht erst beim naechsten ohnehin faelligen Redraw -- dieses Board hatte
+  // schon beim urspruenglichen Bring-up Probleme mit nicht synchron
+  // geflushten Aenderungen (siehe Hardware-Bringup-Wiki), und diese Liste
+  // ist die einzige Stelle im Projekt, die zur Laufzeit viele Widgets auf
+  // einmal neu erzeugt statt einmalig beim Start.
+  lv_obj_update_layout(g_setup_landkreis_list);
+  lv_obj_invalidate(g_setup_landkreis_list);
 }
 
 void bundesland_selected_cb(lv_event_t *e) {
@@ -1326,34 +1463,6 @@ lv_obj_t *build_setup_landkreis_page() {
   return scr;
 }
 
-// Eigene, auf diese Seite hartcodierte Fokus/Tastatur-Callbacks statt der
-// settings_ta_*-Funktionen: die dort verwendeten Globals (g_settings_kb_preview
-// etc.) gehoeren zur Einstellungen-Seite, ein Wiederverwenden wuerde die
-// Vorschauzeile auf der falschen, gerade unsichtbaren Seite aktualisieren.
-void setup_ta_focus_cb(lv_event_t *e) {
-  lv_obj_t *kb = (lv_obj_t *)lv_event_get_user_data(e);
-  lv_obj_t *ta = lv_event_get_target(e);
-  lv_keyboard_set_textarea(kb, ta);
-  lv_obj_clear_flag(kb, LV_OBJ_FLAG_HIDDEN);
-  lv_obj_move_foreground(kb);
-  if (g_setup_leitstelle_kb_preview) {
-    lv_obj_clear_flag(g_setup_leitstelle_kb_preview, LV_OBJ_FLAG_HIDDEN);
-    lv_obj_move_foreground(g_setup_leitstelle_kb_preview);
-    lv_label_set_text_fmt(g_setup_leitstelle_kb_preview, "> %s", lv_textarea_get_text(ta));
-  }
-}
-
-void setup_ta_changed_cb(lv_event_t *e) {
-  if (!g_setup_leitstelle_kb_preview) return;
-  lv_label_set_text_fmt(g_setup_leitstelle_kb_preview, "> %s", lv_textarea_get_text(lv_event_get_target(e)));
-}
-
-void setup_kb_done_cb(lv_event_t *e) {
-  lv_obj_t *kb = (lv_obj_t *)lv_event_get_user_data(e);
-  lv_obj_add_flag(kb, LV_OBJ_FLAG_HIDDEN);
-  if (g_setup_leitstelle_kb_preview) lv_obj_add_flag(g_setup_leitstelle_kb_preview, LV_OBJ_FLAG_HIDDEN);
-}
-
 void setup_finish_cb(lv_event_t *e) {
   clear_pressed(lv_event_get_target(e));
   const char *dispatchText = lv_textarea_get_text(g_setup_leitstelle_ta);
@@ -1390,7 +1499,7 @@ lv_obj_t *build_setup_leitstelle_page() {
   y += 48;
 
   g_setup_leitstelle_ta = lv_textarea_create(scr);
-  lv_textarea_set_one_line(g_setup_leitstelle_ta, true);
+  style_editable_ta(g_setup_leitstelle_ta);
   lv_obj_set_width(g_setup_leitstelle_ta, SCR - 40);
   lv_obj_set_pos(g_setup_leitstelle_ta, 20, y);
   y += 46;
@@ -1409,21 +1518,12 @@ lv_obj_t *build_setup_leitstelle_page() {
   lv_obj_align(kb, LV_ALIGN_BOTTOM_MID, 0, 0);
   lv_obj_add_flag(kb, LV_OBJ_FLAG_HIDDEN);
 
-  g_setup_leitstelle_kb_preview = lv_label_create(scr);
-  lv_label_set_text(g_setup_leitstelle_kb_preview, "");
-  lv_obj_set_style_text_color(g_setup_leitstelle_kb_preview, lv_color_hex(0xFFFFFF), 0);
-  lv_obj_set_style_text_font(g_setup_leitstelle_kb_preview, &lv_font_montserrat_18, 0);
-  lv_obj_set_style_bg_color(g_setup_leitstelle_kb_preview, lv_color_hex(COLOR_CHROME_BG), 0);
-  lv_obj_set_style_bg_opa(g_setup_leitstelle_kb_preview, LV_OPA_COVER, 0);
-  lv_obj_set_style_pad_all(g_setup_leitstelle_kb_preview, 8, 0);
-  lv_obj_set_width(g_setup_leitstelle_kb_preview, SCR);
-  lv_obj_align_to(g_setup_leitstelle_kb_preview, kb, LV_ALIGN_OUT_TOP_MID, 0, 0);
-  lv_obj_add_flag(g_setup_leitstelle_kb_preview, LV_OBJ_FLAG_HIDDEN);
+  lv_obj_t *edit_row = build_ta_edit_controls_row(scr, kb);
 
-  lv_obj_add_event_cb(g_setup_leitstelle_ta, setup_ta_focus_cb, LV_EVENT_FOCUSED, kb);
-  lv_obj_add_event_cb(g_setup_leitstelle_ta, setup_ta_changed_cb, LV_EVENT_VALUE_CHANGED, nullptr);
-  lv_obj_add_event_cb(kb, setup_kb_done_cb, LV_EVENT_READY, kb);
-  lv_obj_add_event_cb(kb, setup_kb_done_cb, LV_EVENT_CANCEL, kb);
+  lv_obj_add_event_cb(g_setup_leitstelle_ta, ta_generic_focus_cb, LV_EVENT_FOCUSED, kb);
+  lv_obj_add_event_cb(kb, ta_generic_kb_done_cb, LV_EVENT_READY, kb);
+  lv_obj_add_event_cb(kb, ta_generic_kb_done_cb, LV_EVENT_CANCEL, kb);
+  (void)edit_row;
 
   CtxSlot ctx[3] = {};
   ctx[1] = CtxSlot{true, LV_SYMBOL_LEFT, "Zurueck", COLOR_GREEN, nav_cb, g_scr_setup_landkreis};
