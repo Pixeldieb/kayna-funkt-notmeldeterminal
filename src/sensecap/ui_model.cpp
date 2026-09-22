@@ -1035,19 +1035,38 @@ TaSavedGeometry g_ta_saved_geometry{};
 constexpr int32_t kTaEnlargedHeight = 64;
 constexpr int32_t kTaEditRowHeight = 46;
 
+// LVGL zeichnet den Cursor eines Textfelds nur, solange es als fokussiert
+// gilt -- ein Tap auf einen der drei Knoepfe hier (eigenstaendige Buttons
+// neben dem Feld, nicht Teil davon) nimmt dem Feld genau diesen Fokus weg.
+// Die Aktion (Cursor bewegen/Text loeschen) griff dadurch zwar, war aber
+// unsichtbar -- "die Knoepfe machen scheinbar nichts" (Testprotokoll
+// 2026-09-23). LV_STATE_FOCUSED danach explizit zurueckgesetzt statt das
+// volle FOCUSED-Event erneut zu feuern -- das wuerde ta_generic_focus_cb
+// erneut auslösen und faelschlich die bereits vergroesserte Geometrie als
+// "Original" ueberschreiben.
+void ta_edit_reclaim_focus(lv_obj_t *ta) {
+  if (ta) lv_obj_add_state(ta, LV_STATE_FOCUSED);
+}
+
 void ta_edit_left_cb(lv_event_t *e) {
+  clear_pressed(lv_event_get_target(e));
   lv_obj_t *ta = lv_keyboard_get_textarea((lv_obj_t *)lv_event_get_user_data(e));
   if (ta) lv_textarea_cursor_left(ta);
+  ta_edit_reclaim_focus(ta);
 }
 
 void ta_edit_right_cb(lv_event_t *e) {
+  clear_pressed(lv_event_get_target(e));
   lv_obj_t *ta = lv_keyboard_get_textarea((lv_obj_t *)lv_event_get_user_data(e));
   if (ta) lv_textarea_cursor_right(ta);
+  ta_edit_reclaim_focus(ta);
 }
 
 void ta_edit_clear_cb(lv_event_t *e) {
+  clear_pressed(lv_event_get_target(e));
   lv_obj_t *ta = lv_keyboard_get_textarea((lv_obj_t *)lv_event_get_user_data(e));
   if (ta) lv_textarea_set_text(ta, "");
+  ta_edit_reclaim_focus(ta);
 }
 
 // Eine Zeile pro Tastatur (nicht global geteilt) -- der Zeiger wird ueber
