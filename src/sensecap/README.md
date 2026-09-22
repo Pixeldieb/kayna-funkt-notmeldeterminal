@@ -9,6 +9,24 @@ Build/Flash: `pio run -e sensecap_indicator -t upload`
 
 ---
 
+## Screenshots
+
+Echte Aufnahmen des laufenden Geräts (direkter Framebuffer-Dump, kein Mockup).
+Das Aufnahme-Tooling selbst (Serial-Befehle, Capture-Skript) lebt bewusst nur
+auf dem Branch `dev/screenshot-tooling`, nicht hier — es kann ungeprüft zu
+jedem Screen springen, auch der PIN-geschützten Einstellungen-Seite, und darf
+deshalb nicht in eine Firmware, die im Feld läuft.
+
+| Hauptmenü | Feuerwehr-Kategorien | Notfall-Bestätigung |
+|---|---|---|
+| ![Hauptmenü](../../docs/screenshots/hauptmenue.png) | ![Feuerwehr-Kategorien](../../docs/screenshots/feuerwehr-kategorien.png) | ![Notfall-Bestätigung](../../docs/screenshots/notfall-bestaetigen.png) |
+
+| Übertragung fehlgeschlagen (echter Zustand, kein Fake-Erfolg) | Einstellungen |
+|---|---|
+| ![Übertragung fehlgeschlagen](../../docs/screenshots/uebertragung-fehlgeschlagen.png) | ![Einstellungen](../../docs/screenshots/einstellungen.png) |
+
+---
+
 ## 1. Status (Stand 2026-09-18)
 
 | Teil | Status |

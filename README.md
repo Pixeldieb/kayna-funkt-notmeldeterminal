@@ -122,6 +122,13 @@ Funkgerät.
 
 Build/Flash: `pio run -e sensecap_indicator -t upload`
 
+<p align="center">
+  <img src="docs/screenshots/hauptmenue.png" width="200" alt="Hauptmenü">
+  <img src="docs/screenshots/notfall-bestaetigen.png" width="200" alt="Notfall-Bestätigung">
+  <img src="docs/screenshots/einstellungen.png" width="200" alt="Einstellungen">
+</p>
+<p align="center"><em>Echte Screenshots vom laufenden Gerät (kein Mockup) — mehr Screens in <a href="src/sensecap/README.md#screenshots">src/sensecap/README.md</a>.</em></p>
+
 Ausführliche Doku (Hardware-Bring-up-Story, bekannte Gotchas, Architektur,
 aktueller Stand der Meshtastic-Anbindung): **[src/sensecap/README.md](src/sensecap/README.md)**.
 
