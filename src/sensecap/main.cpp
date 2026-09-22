@@ -605,7 +605,8 @@ void setup() {
   Serial.println("Absender-Allowlist verwalten: allow add|revoke <hex-node-id>, allow list");
   Serial.println("Heartbeat sofort senden (laeuft sonst automatisch alle 15 Minuten): test heartbeat");
   Serial.println("Lokales Ereignisprotokoll ansehen: events");
-  Serial.println("Nur zum Testen (Status-UI ohne echten Zustand): testconnect on|off\n");
+  Serial.println("Nur zum Testen (Status-UI ohne echten Zustand): testconnect on|off");
+  Serial.println("Echten Screenshot vom aktuellen Bildschirm abgreifen: screenshot\n");
 }
 
 void loop() {
@@ -697,6 +698,32 @@ void loop() {
         Serial.printf("[SD] RP2040 antwortet, SD-Karte %s\n", sdOk ? "gemountet" : "NICHT gemountet/Fehler");
       } else {
         Serial.println("[SD] Keine Antwort vom RP2040 (nicht geflasht, nicht verbunden, oder Firmware haengt)");
+      }
+    } else if (line.startsWith("goto ")) {
+      // Dev-tooling only, screenshot-capture branch: jump straight to a
+      // named screen without touch, so screenshots can be scripted. See
+      // ui_model_test_goto_screen()'s doc comment for the known names and
+      // its "stale content" caveat for confirm/transmission*/emergency_details.
+      String target = line.substring(5);
+      target.trim();
+      if (ui_model_test_goto_screen(target.c_str())) {
+        Serial.printf("[GOTO] Screen '%s' geladen\n", target.c_str());
+      } else {
+        Serial.printf("[GOTO] Unbekannter Screen-Name: '%s'\n", target.c_str());
+      }
+    } else if (line == "screenshot") {
+      // Echter Framebuffer-Dump fuers README/Wiki -- kein Mockup, sondern
+      // exakt das, was gerade physisch auf dem Panel zu sehen ist (Panel-
+      // Rotation ist im Framebuffer bereits korrigiert, siehe lvgl_disp_flush).
+      if (lcd_framebuffer == nullptr) {
+        Serial.println("[SCREENSHOT] FEHLER: kein Framebuffer-Zugriff");
+      } else {
+        size_t byteCount = (size_t)SCREEN_WIDTH * SCREEN_HEIGHT * sizeof(uint16_t);
+        Serial.printf("SCREENSHOT_BEGIN %d %d\n", SCREEN_WIDTH, SCREEN_HEIGHT);
+        Serial.flush();
+        Serial.write((uint8_t *)lcd_framebuffer, byteCount);
+        Serial.flush();
+        Serial.println("\nSCREENSHOT_END");
       }
     }
   }

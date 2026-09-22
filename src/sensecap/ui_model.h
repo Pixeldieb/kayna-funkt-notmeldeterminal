@@ -34,3 +34,12 @@ void ui_model_set_connected(bool connected);
 // screen (B4) without physical touch access: that command's silence on
 // timeout wasn't a bug, it just never was driving that machinery at all.
 void ui_model_test_trigger_emergency(const char *category, const char *type, const char *label);
+
+// Dev-tooling only, screenshot-capture branch: jumps straight to a named
+// screen via nav_to(), bypassing touch so screens can be captured (see
+// main.cpp's "screenshot" command) without a human tapping the panel.
+// Returns false and leaves the current screen if the name isn't known.
+// Unknown-name behaviour is deliberate (no silent fallback) so a typo in
+// an automated capture script fails loudly instead of grabbing the wrong
+// screen. NOT for merging into main -- see docs/screenshots/README.md.
+bool ui_model_test_goto_screen(const char *name);

@@ -1970,5 +1970,45 @@ void ui_model_test_trigger_emergency(const char *category, const char *type, con
   do_trigger_emergency();
 }
 
+bool ui_model_test_goto_screen(const char *name) {
+  struct NamedScreen {
+    const char *name;
+    lv_obj_t **target;
+  };
+  static const NamedScreen screens[] = {
+      {"main", &g_scr_main},
+      {"fire", &g_scr_fire},
+      {"police", &g_scr_police},
+      {"ambulance", &g_scr_ambulance},
+      {"info", &g_scr_info},
+      {"confirm", &g_scr_confirm},
+      {"situation", &g_scr_situation},
+      {"crisis", &g_scr_crisis},
+      {"emergency_details", &g_scr_emergency_details},
+      {"transmission", &g_scr_transmission},
+      {"transmission_failed", &g_scr_transmission_failed},
+      {"history", &g_scr_history},
+      {"language", &g_scr_language},
+      {"pin_entry", &g_scr_pin_entry},
+      {"settings", &g_scr_settings},
+      {"setup_bundesland", &g_scr_setup_bundesland},
+      {"setup_landkreis", &g_scr_setup_landkreis},
+      {"setup_leitstelle", &g_scr_setup_leitstelle},
+  };
+  for (const NamedScreen &s : screens) {
+    if (strcmp(name, s.name) == 0) {
+      // "confirm"/"emergency_details"/"transmission*" show content set by
+      // whatever real flow last populated it (department name, VG number,
+      // ...) -- jumping straight here without going through "fire"/
+      // "police"/"ambulance" first, or ui_model_test_trigger_emergency(),
+      // may show stale or blank labels. Fine for a layout/style screenshot,
+      // not for verifying real content.
+      nav_to(*s.target);
+      return true;
+    }
+  }
+  return false;
+}
+
 void ui_model_notify_tx() { g_last_tx_flash = millis(); }
 void ui_model_notify_rx() { g_last_rx_flash = millis(); }
