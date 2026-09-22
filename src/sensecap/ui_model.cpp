@@ -1040,12 +1040,16 @@ constexpr int32_t kTaEditRowHeight = 46;
 // neben dem Feld, nicht Teil davon) nimmt dem Feld genau diesen Fokus weg.
 // Die Aktion (Cursor bewegen/Text loeschen) griff dadurch zwar, war aber
 // unsichtbar -- "die Knoepfe machen scheinbar nichts" (Testprotokoll
-// 2026-09-23). LV_STATE_FOCUSED danach explizit zurueckgesetzt statt das
-// volle FOCUSED-Event erneut zu feuern -- das wuerde ta_generic_focus_cb
-// erneut auslösen und faelschlich die bereits vergroesserte Geometrie als
-// "Original" ueberschreiben.
+// 2026-09-23). Ein echtes FOCUSED-Event statt nur lv_obj_add_state(), damit
+// LVGLs eigene lv_textarea-Logik die Blink-Animation korrekt (neu) startet
+// -- reines Status-Bit-Setzen tat das nicht zuverlaessig (Nachtrag zum
+// selben Testprotokoll: Cursor blieb dadurch teils dauerhaft an, ohne zu
+// blinken, was bei full_refresh=1 denselben Dauer-Flush verursacht wie ein
+// nie geschlossener Fokus). ta_generic_focus_cb ist extra dagegen
+// abgesichert (siehe dort), dass dieses erneute FOCUSED-Event die bereits
+// vergroesserte Geometrie faelschlich als "Original" ueberschreibt.
 void ta_edit_reclaim_focus(lv_obj_t *ta) {
-  if (ta) lv_obj_add_state(ta, LV_STATE_FOCUSED);
+  if (ta) lv_event_send(ta, LV_EVENT_FOCUSED, nullptr);
 }
 
 void ta_edit_left_cb(lv_event_t *e) {
@@ -1114,13 +1118,20 @@ void ta_generic_focus_cb(lv_event_t *e) {
   lv_obj_t *ta = lv_event_get_target(e);
   lv_keyboard_set_textarea(kb, ta);
 
-  g_ta_saved_geometry.x = lv_obj_get_x(ta);
-  g_ta_saved_geometry.y = lv_obj_get_y(ta);
-  g_ta_saved_geometry.w = lv_obj_get_width(ta);
-  g_ta_saved_geometry.h = lv_obj_get_height(ta);
-  g_ta_saved_geometry.font = lv_obj_get_style_text_font(ta, LV_PART_MAIN);
-  g_ta_saved_geometry.parent = lv_obj_get_parent(ta);
-  g_ta_saved_geometry.valid = true;
+  // Nur beim ERSTEN Fokussieren sichern -- ta_edit_reclaim_focus() feuert
+  // absichtlich ein echtes FOCUSED-Event erneut (siehe dort), damit LVGLs
+  // eigene Cursor-Blink-Logik nach </>/Alles-loeschen korrekt neu anspringt.
+  // Ohne diese Absicherung wuerde dieser zweite Aufruf die bereits
+  // vergroesserte Geometrie faelschlich als "Original" ueberschreiben.
+  if (!g_ta_saved_geometry.valid) {
+    g_ta_saved_geometry.x = lv_obj_get_x(ta);
+    g_ta_saved_geometry.y = lv_obj_get_y(ta);
+    g_ta_saved_geometry.w = lv_obj_get_width(ta);
+    g_ta_saved_geometry.h = lv_obj_get_height(ta);
+    g_ta_saved_geometry.font = lv_obj_get_style_text_font(ta, LV_PART_MAIN);
+    g_ta_saved_geometry.parent = lv_obj_get_parent(ta);
+    g_ta_saved_geometry.valid = true;
+  }
 
   // Aus einem ggf. scrollenden Inhalts-Container herausloesen: sonst waere
   // die gleich gesetzte, bildschirmfeste Position relativ zum aktuellen
@@ -1157,6 +1168,17 @@ void ta_generic_kb_done_cb(lv_event_t *e) {
     lv_obj_set_style_text_font(ta, g_ta_saved_geometry.font, 0);
     g_ta_saved_geometry.valid = false;
   }
+  // Echtes DEFOCUSED-Event feuern statt nur die Geometrie zurueckzusetzen:
+  // Testprotokoll 2026-09-23 (Nachtrag) -- ohne das blieb das Feld nach dem
+  // Schliessen der Tastatur intern weiterhin "fokussiert", der blinkende
+  // Cursor lief unsichtbar-aber-aktiv im Hintergrund weiter und loeste
+  // wegen full_refresh=1 (siehe main.cpp) bei jedem Blinken einen
+  // kompletten Bildschirm-Flush aus -- spuerbar als allgemein "schlechtere
+  // Bildfrequenz" auf genau diesen Seiten, nicht nur waehrend des Tippens.
+  // Ein echtes Event statt lv_obj_clear_state(), damit LVGLs eigene
+  // Aufraeumlogik in lv_textarea (Animation stoppen/loeschen) tatsaechlich
+  // greift, nicht nur das Status-Bit.
+  if (ta) lv_event_send(ta, LV_EVENT_DEFOCUSED, nullptr);
   lv_obj_add_flag(kb, LV_OBJ_FLAG_HIDDEN);
   lv_obj_t *row = (lv_obj_t *)lv_obj_get_user_data(kb);
   if (row) lv_obj_add_flag(row, LV_OBJ_FLAG_HIDDEN);
