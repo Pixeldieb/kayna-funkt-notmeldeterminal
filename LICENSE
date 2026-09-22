@@ -1,21 +1,286 @@
-MIT License
+# LICENSE
 
-Copyright (c) 2026 Pixeldieb
+## Projektlizenz
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+**Projekt:** kayna-funkt Notmeldeterminal
+**Copyright:** © 2026 Robert Bogs
+**Lizenzgeber:** Robert Bogs
+**E-Mail:** [robert@kayna-funkt.de](mailto:robert@kayna-funkt.de)
+**Website:** https://kayna-funkt.de
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+---
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+# 1. Kurz erklärt
+
+Diese Software wird unter der **Business Source License 1.1 (BSL 1.1)** veröffentlicht.
+
+Der Quellcode ist öffentlich zugänglich und soll insbesondere die technische, funktionale und sicherheitsbezogene Prüfung der Software ermöglichen.
+
+Die Lizenz unterscheidet zwischen:
+
+1. Entwicklung, Prüfung, Forschung und Test,
+2. kostenloser Nutzung durch berechtigte gemeinnützige und ehrenamtliche Betreiber,
+3. kommerzieller Nutzung.
+
+Eine kommerzielle Nutzung der Software als Bestandteil eines kommerziellen Produkts oder einer kommerziellen Softwaredienstleistung erfordert eine separate kommerzielle Lizenzvereinbarung mit dem Lizenzgeber.
+
+Diese Lizenz ist **keine Open-Source-Lizenz im Sinne der Open Source Definition**. Die Software wird jedoch zu einem späteren Zeitpunkt unter der in dieser Lizenz angegebenen Change License veröffentlicht.
+
+---
+
+# 2. Kostenlose Nutzung durch gemeinnützige und ehrenamtliche Betreiber
+
+## 2.1 Gemeinnützige Organisationen
+
+Eine Organisation, die nach deutschem Recht als gemeinnützig anerkannt ist, darf die Software kostenlos im Produktivbetrieb einsetzen.
+
+Auf Anfrage kann ein geeigneter Nachweis über die Gemeinnützigkeit verlangt werden.
+
+Hierzu können beispielsweise ein gültiger Freistellungsbescheid oder ein anderer geeigneter Nachweis der zuständigen Finanzbehörde vorgelegt werden.
+
+Es fallen für diese Nutzung **keine Lizenzgebühren** an.
+
+---
+
+## 2.2 Ehrenamtliche Initiativen
+
+Ehrenamtlich betriebene Initiativen, die nicht selbst als eingetragener Verein organisiert sind, können ebenfalls unter diese kostenlose Nutzungsregelung fallen, sofern sie einen geeigneten Nachweis über ihren gemeinnützigen bzw. nicht gewinnorientierten Zweck erbringen können und der Lizenzgeber die Initiative als berechtigten Nutzer anerkennt.
+
+Die kostenlose Nutzung soll insbesondere ehrenamtliche Projekte im Bereich:
+
+* Feuerwehr und Katastrophenschutz,
+* Bevölkerungsschutz,
+* kommunale Daseinsvorsorge,
+* Notfallkommunikation,
+* digitale Infrastruktur,
+* lokale Resilienz,
+* gemeinnützige Bildungs- und Forschungsprojekte
+
+ermöglichen.
+
+---
+
+# 3. Externes Hosting ist weiterhin kostenlos
+
+Die kostenlose Lizenz für eine berechtigte gemeinnützige oder ehrenamtliche Organisation bleibt bestehen, wenn diese Organisation die Software nicht selbst betreibt.
+
+Insbesondere ist es zulässig, dass ein kommerzielles Unternehmen im Auftrag des berechtigten Betreibers:
+
+* Server bereitstellt,
+* die Software hostet,
+* Updates installiert,
+* Backups erstellt,
+* die Software administriert,
+* technischen Support leistet,
+* die Infrastruktur überwacht,
+* die Software wartet.
+
+**Für die Nutzung der Software fallen in diesem Fall keine Lizenzgebühren an.**
+
+Der kommerzielle Dienstleister darf seine eigenen Hosting-, Wartungs- oder Supportleistungen selbstverständlich gegenüber dem gemeinnützigen Betreiber abrechnen.
+
+Die Tatsache, dass die Software auf der Infrastruktur eines kommerziellen Unternehmens betrieben wird, macht die Nutzung durch den berechtigten gemeinnützigen Betreiber nicht zu einer lizenzpflichtigen kommerziellen Nutzung.
+
+---
+
+# 4. Beispiele für Feuerwehren und gemeinnützige Initiativen
+
+### Beispiel 1 – Freiwillige Feuerwehr
+
+Eine Freiwillige Feuerwehr nutzt die Software für eine eigene Notrufstation.
+
+Die Feuerwehr bzw. der zuständige gemeinnützige Träger ist berechtigt, die Software kostenlos einzusetzen.
+
+**Keine Lizenzgebühr.**
+
+### Beispiel 2 – Feuerwehrverein
+
+Ein gemeinnütziger Feuerwehrverein betreibt eine digitale Informations- oder Notruflösung.
+
+Der Verein weist seine Gemeinnützigkeit nach.
+
+**Keine Lizenzgebühr.**
+
+### Beispiel 3 – Feuerwehr mit externem Server
+
+Eine Feuerwehr möchte die Software einsetzen, hat aber keinen eigenen Server.
+
+Ein kommerzieller IT-Dienstleister stellt einen Server zur Verfügung und übernimmt den Betrieb.
+
+Die Feuerwehr bleibt der berechtigte Betreiber.
+
+**Keine Lizenzgebühr für die Software.**
+
+Der IT-Dienstleister darf seine Hostingkosten berechnen.
+
+### Beispiel 4 – Landkreis mit externem IT-Dienstleister
+
+Ein Landkreis bzw. ein entsprechend berechtigter gemeinnütziger Träger setzt die Software ein und beauftragt ein IT-Unternehmen mit Installation und Betrieb.
+
+Der externe Dienstleister darf die Software für diesen Betreiber betreiben.
+
+**Keine Lizenzgebühr für die Software.**
+
+### Beispiel 5 – IT-Unternehmen verkauft eigene Leitstellenlösung
+
+Ein Unternehmen integriert die Software in eine eigene kommerzielle Leitstellenlösung und verkauft diese Lösung an Feuerwehren oder Kommunen.
+
+Das Unternehmen benötigt hierfür eine **kommerzielle Lizenzvereinbarung**.
+
+Die Tatsache, dass die späteren Kunden Feuerwehren oder gemeinnützige Organisationen sind, macht die kommerzielle Produktverwertung durch den Anbieter nicht kostenlos.
+
+### Beispiel 6 – SaaS-Angebot
+
+Ein Unternehmen betreibt die Software als Bestandteil einer kommerziellen Cloud- oder SaaS-Plattform und verkauft den Zugang an mehrere Kunden.
+
+Das ist kommerzielle Nutzung und erfordert eine **kommerzielle Lizenzvereinbarung**.
+
+---
+
+# 5. Was ausdrücklich erlaubt ist
+
+Im Rahmen dieser Lizenz darf die Software insbesondere:
+
+* gelesen und geprüft werden,
+* sicherheitstechnisch untersucht werden,
+* zu Forschungszwecken verwendet werden,
+* entwickelt und weiterentwickelt werden,
+* verändert werden,
+* in Testumgebungen eingesetzt werden,
+* für Demonstrationen verwendet werden,
+* zur Interoperabilitätsprüfung eingesetzt werden,
+* von berechtigten gemeinnützigen Organisationen produktiv eingesetzt werden,
+* von Dienstleistern für berechtigte gemeinnützige Betreiber gehostet und administriert werden.
+
+---
+
+# 6. Wann eine kommerzielle Lizenz erforderlich ist
+
+Eine kommerzielle Lizenzvereinbarung ist insbesondere erforderlich, wenn die Software:
+
+* Bestandteil eines kommerziellen Softwareprodukts wird,
+* Bestandteil einer kommerziellen Leitstellenlösung wird,
+* Bestandteil eines kommerziellen Alarmierungsprodukts wird,
+* Bestandteil eines kommerziell vertriebenen Geräts wird,
+* als Teil einer kommerziellen SaaS-Plattform angeboten wird,
+* von einem Unternehmen als eigene kommerzielle Softwarelösung angeboten wird,
+* als Bestandteil einer kommerziellen Dienstleistung gegenüber Kunden eingesetzt wird.
+
+Bei Fragen bitte an Initiator wenden:
+
+**Robert Bogs**
+**[robert@kayna-funkt.de](mailto:robert@kayna-funkt.de)**
+
+---
+
+# 7. Keine Einschränkung des Quellcodes
+
+Die Veröffentlichung des Quellcodes dient ausdrücklich dazu, unabhängige technische und sicherheitsbezogene Prüfungen zu ermöglichen.
+
+Der Lizenzgeber beabsichtigt insbesondere nicht, die Software für berechtigte Nutzer zu einer nicht überprüfbaren Blackbox zu machen.
+
+---
+
+# 8. Sicherheitskritische Verwendung
+
+Die Software kann für Anwendungen im Umfeld von Feuerwehr, Katastrophenschutz, Notfallkommunikation und Leitstellentechnik eingesetzt werden.
+
+Die Veröffentlichung unter dieser Lizenz stellt jedoch **keine Zertifizierung, Zulassung oder Sicherheitsfreigabe** für einen bestimmten Einsatzbereich dar.
+
+Der Betreiber ist dafür verantwortlich, die Software vor einem produktiven Einsatz entsprechend den für seinen Einsatzbereich geltenden technischen, organisatorischen, rechtlichen und sicherheitsbezogenen Anforderungen zu prüfen.
+
+Insbesondere darf aus der öffentlichen Verfügbarkeit des Quellcodes nicht geschlossen werden, dass die Software für einen bestimmten sicherheitskritischen Einsatz zertifiziert oder zugelassen ist.
+
+---
+
+# 9. BUSINESS SOURCE LICENSE 1.1
+
+## Terms
+
+The Licensor hereby grants you the right to copy, modify, create derivative works, redistribute, and make non-production use of the Licensed Work.
+
+The Licensor may make an Additional Use Grant, above, permitting limited production use.
+
+Effective on the Change Date, or the fourth anniversary of the first publicly available distribution of a specific version of the Licensed Work under this License, whichever comes first, the Licensor hereby grants you rights under the terms of the Change License, and the rights granted in the paragraph above terminate.
+
+If your use of the Licensed Work does not comply with the requirements currently in effect as described in this License, you must purchase a commercial license from the Licensor, its affiliated entities, or authorized resellers, or you must refrain from using the Licensed Work.
+
+All copies of the original and modified Licensed Work, and derivative works of the Licensed Work, are subject to this License.
+
+The Licensor hereby grants you permission to use this License’s text to license your works, and to refer to it using the trademark “Business Source License”, as long as you comply with the Covenants of Licensor below.
+
+---
+
+## Covenants of Licensor
+
+In consideration of the right to use this License’s text and the “Business Source License” name and trademark, Licensor covenants to MariaDB, and to all other recipients of the licensed work to be provided by Licensor:
+
+To specify as the Change License the GPL Version 2.0 or any later version, or a license that is compatible with GPL Version 2.0 or a later version, where “compatible” means that software provided under the Change License can be included in a program with software provided under GPL Version 2.0 or a later version.
+
+Licensor may specify additional Change Licenses without limitation.
+
+To either: (a) specify an additional grant of rights to use that does not impose any additional restriction on the right granted in this License, as the Additional Use Grant; or (b) insert the text “None” to specify a Change Date.
+
+Not to modify this License in any other way.
+
+---
+
+# 10. License Parameters
+
+## Licensor
+
+Robert Bogs
+
+[robert@kayna-funkt.de](mailto:robert@kayna-funkt.de)
+
+## Licensed Work
+kayna-funkt Notmeldeterminal
+
+## Copyright
+
+Copyright © 2026 Robert Bogs
+
+## Change Date
+
+2029-09-17
+
+## Change License
+
+GNU General Public License, version 2.0 or later.
+
+## Additional Use Grant
+
+The Additional Use Grant consists of the rights described in Sections 2 through 8 of this document.
+
+---
+
+# 11. Notice
+
+The Business Source License (this document, or the “License”) is not an Open Source license.
+
+However, the Licensed Work will eventually be made available under an Open Source License, as stated in this License.
+
+The Business Source License 1.1 is used pursuant to the permission granted by MariaDB plc.
+
+The official Business Source License 1.1 is available at:
+
+https://mariadb.com/bsl11/
+
+---
+
+# 12. Disclaimer of Warranty
+
+THE LICENSED WORK IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE AND NON-INFRINGEMENT.
+
+IN NO EVENT SHALL THE LICENSOR OR COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE LICENSED WORK OR THE USE OR OTHER DEALINGS IN THE LICENSED WORK.
+
+---
+
+# 13. Contact
+
+Questions regarding commercial licensing, permitted production use or interpretation of the Additional Use Grant may be directed to:
+
+**Robert Bogs**
+**[robert@kayna-funkt.de](mailto:robert@kayna-funkt.de)**
+
+Commercial licensing is handled individually based on the intended use, scope of deployment and integration into commercial products or services.

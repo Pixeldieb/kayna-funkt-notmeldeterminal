@@ -19,7 +19,7 @@ app:
   id: emergency_terminal
   name: "Emergency Terminal"
   description: "ESP32-based emergency and information terminal"
-  version: "1.0"
+  version: "1.1"
 
   operating_states:
     normal:
@@ -46,21 +46,50 @@ navigation:
     - id: main_menu
       title: "Hauptmenü"
       description: >
-        Main emergency selection menu. Only available when
-        external power has failed.
+        Main emergency selection menu. Original design intent was
+        "only available when external power has failed" (see
+        availability_note below) -- not yet true in the firmware:
+        there is no mains-loss detection hardware yet (see
+        Hardware-Bringup wiki page), so this page is always
+        available today. Revisit once #4 (Netzausfallerkennung)
+        lands.
 
-      availability:
-        condition: system.power_failure == true
+      availability_note: >
+        Design goal, not current behavior: system.power_failure ==
+        true. No power-sensing hardware exists yet, so the firmware
+        does not gate this page on anything.
 
       indicator:
         type: pulse
         target: signal_led
         description: "Light pulse indicating that the terminal is active."
 
+      # Root page: no parent, so the "back"/"cancel" middle slot (ctx_2)
+      # stays unused. The other two slots are real, always-visible
+      # menu entry points (ui_model.cpp's ctx_main[]), not context-
+      # dependent actions like on every other page.
+      context_bar:
+        - id: language
+          slot: ctx_1
+          type: button
+          label: "Sprache"
+          action:
+            type: navigate
+            target: language
+
+        - id: settings
+          slot: ctx_3
+          type: button
+          label: "Einstellungen"
+          action:
+            type: navigate
+            target: pin_entry
+
       elements:
 
         - id: fire_department
           type: menu_item
+          slot: sel_1
           label: "Feuerwehr"
           action:
             type: navigate
@@ -68,6 +97,7 @@ navigation:
 
         - id: police
           type: menu_item
+          slot: sel_2
           label: "Polizei"
           action:
             type: navigate
@@ -75,6 +105,7 @@ navigation:
 
         - id: ambulance
           type: menu_item
+          slot: sel_3
           label: "Krankenwagen"
           action:
             type: navigate
@@ -82,6 +113,7 @@ navigation:
 
         - id: information
           type: menu_item
+          slot: sel_4
           label: "Info"
           action:
             type: navigate
@@ -96,10 +128,19 @@ navigation:
       title: "Feuerwehr"
       parent: main_menu
 
+      context_bar:
+        - id: back
+          slot: ctx_2
+          type: button
+          label: "Zurück"
+          action:
+            type: back
+
       elements:
 
         - id: fire
           type: menu_item
+          slot: sel_1
           label: "Brand"
           action:
             type: navigate
@@ -111,6 +152,7 @@ navigation:
 
         - id: chemical
           type: menu_item
+          slot: sel_2
           label: "Chemie"
           action:
             type: navigate
@@ -122,6 +164,7 @@ navigation:
 
         - id: traffic_accident
           type: menu_item
+          slot: sel_3
           label: "Verkehrsunfall"
           action:
             type: navigate
@@ -133,6 +176,7 @@ navigation:
 
         - id: fire_other
           type: menu_item
+          slot: sel_4
           label: "Andere"
           action:
             type: navigate
@@ -141,12 +185,6 @@ navigation:
             emergency_type: other
             emergency_category: fire_department
             emergency_label: "Andere"
-
-        - id: back
-          type: button
-          label: "Zurück"
-          action:
-            type: back
 
 
     # ==========================================================
@@ -157,10 +195,19 @@ navigation:
       title: "Polizei"
       parent: main_menu
 
+      context_bar:
+        - id: back
+          slot: ctx_2
+          type: button
+          label: "Zurück"
+          action:
+            type: back
+
       elements:
 
         - id: burglary
           type: menu_item
+          slot: sel_1
           label: "Einbruch"
           action:
             type: navigate
@@ -172,6 +219,7 @@ navigation:
 
         - id: theft
           type: menu_item
+          slot: sel_2
           label: "Diebstahl"
           action:
             type: navigate
@@ -183,6 +231,7 @@ navigation:
 
         - id: security
           type: menu_item
+          slot: sel_3
           label: "Sicherheit"
           action:
             type: navigate
@@ -194,6 +243,7 @@ navigation:
 
         - id: police_other
           type: menu_item
+          slot: sel_4
           label: "Andere"
           action:
             type: navigate
@@ -202,12 +252,6 @@ navigation:
             emergency_type: other
             emergency_category: police
             emergency_label: "Andere"
-
-        - id: back
-          type: button
-          label: "Zurück"
-          action:
-            type: back
 
 
     # ==========================================================
@@ -218,10 +262,19 @@ navigation:
       title: "Krankenwagen"
       parent: main_menu
 
+      context_bar:
+        - id: back
+          slot: ctx_2
+          type: button
+          label: "Zurück"
+          action:
+            type: back
+
       elements:
 
         - id: injury
           type: menu_item
+          slot: sel_1
           label: "Verletzung"
           action:
             type: navigate
@@ -233,6 +286,7 @@ navigation:
 
         - id: emergency_doctor
           type: menu_item
+          slot: sel_2
           label: "Notarzt"
           action:
             type: navigate
@@ -244,6 +298,7 @@ navigation:
 
         - id: transport
           type: menu_item
+          slot: sel_3
           label: "Transport"
           action:
             type: navigate
@@ -255,6 +310,7 @@ navigation:
 
         - id: ambulance_other
           type: menu_item
+          slot: sel_4
           label: "Andere"
           action:
             type: navigate
@@ -263,12 +319,6 @@ navigation:
             emergency_type: other
             emergency_category: ambulance
             emergency_label: "Andere"
-
-        - id: back
-          type: button
-          label: "Zurück"
-          action:
-            type: back
 
 
     # ==========================================================
@@ -279,10 +329,19 @@ navigation:
       title: "Info"
       parent: main_menu
 
+      context_bar:
+        - id: back
+          slot: ctx_2
+          type: button
+          label: "Zurück"
+          action:
+            type: back
+
       elements:
 
         - id: request_situation_information
           type: menu_item
+          slot: sel_1
           label: "Lageinformationen anfordern"
           action:
             type: navigate
@@ -290,16 +349,13 @@ navigation:
 
         - id: crisis_staff_information
           type: menu_item
+          slot: sel_2
           label: "Systeminformationen Krisenstab"
           action:
             type: navigate
             target: crisis_staff_information
 
-        - id: back
-          type: button
-          label: "Zurück"
-          action:
-            type: back
+        # sel_3 / sel_4 unused on this page (only 2 menu items).
 
 
     # ==========================================================
@@ -319,15 +375,29 @@ navigation:
 
       elements:
 
+        - id: misuse_warning
+          type: notice
+          style: warning
+          label: "Nur bei Notfall benutzen. Missbrauch wird strafrechtlich verfolgt."
+
+      # Confirming an emergency requires holding two context buttons at
+      # once (ctx_1 + ctx_3) for `hold_confirm.default_duration_ms`
+      # (see hardware.input), so a single accidental press cannot
+      # trigger a transmission. ctx_2 stays a plain single-press cancel.
+      context_bar:
         - id: cancel
+          slot: ctx_2
           type: button
           label: "Abbruch"
           action:
             type: back
 
         - id: confirm
-          type: button
+          slot: [ctx_1, ctx_3]
+          type: hold_button
           label: "Bestätigung"
+          hold:
+            duration_ms: 1500
           action:
             type: execute
             command: trigger_emergency
@@ -394,8 +464,23 @@ navigation:
           type: value
           label: "Notfalldetails"
           data_source: emergency.last_transmission
+          fields:
+            - id: case_number
+              label: "Vorgangsnummer"
+              data_source: emergency.last_transmission.case_number
+            - id: timestamp
+              label: "Zeitstempel"
+              data_source: emergency.last_transmission.timestamp
+            - id: station_id
+              label: "Notfallsäule"
+              data_source: emergency.last_transmission.station_id
+            - id: location
+              label: "Ort"
+              data_source: emergency.last_transmission.location
 
+      context_bar:
         - id: acknowledge
+          slot: ctx_2
           type: button
           label: "Zurück"
           action:
@@ -413,9 +498,9 @@ navigation:
         Display shown when the emergency message could not
         be transmitted successfully.
 
-      elements:
-
+      context_bar:
         - id: retry
+          slot: ctx_1
           type: button
           label: "Erneut senden"
           action:
@@ -423,6 +508,7 @@ navigation:
             command: retry_emergency_transmission
 
         - id: cancel
+          slot: ctx_2
           type: button
           label: "Abbruch"
           action:
@@ -447,25 +533,29 @@ navigation:
           label: "Letzte Meldungen"
           data_source: situation_information.messages
 
+      context_bar:
         - id: scroll_up
+          slot: ctx_1
           type: button
           label: "Hoch"
           action:
             type: scroll
             direction: up
 
+        - id: back
+          slot: ctx_2
+          type: button
+          label: "Zurück"
+          action:
+            type: back
+
         - id: scroll_down
+          slot: ctx_3
           type: button
           label: "Runter"
           action:
             type: scroll
             direction: down
-
-        - id: back
-          type: button
-          label: "Zurück"
-          action:
-            type: back
 
 
     # ==========================================================
@@ -485,25 +575,199 @@ navigation:
           label: "Letzte Meldungen"
           data_source: crisis_staff_information.messages
 
+      context_bar:
         - id: scroll_up
+          slot: ctx_1
           type: button
           label: "Hoch"
           action:
             type: scroll
             direction: up
 
+        - id: back
+          slot: ctx_2
+          type: button
+          label: "Zurück"
+          action:
+            type: back
+
         - id: scroll_down
+          slot: ctx_3
           type: button
           label: "Runter"
           action:
             type: scroll
             direction: down
 
+
+    # ==========================================================
+    # LANGUAGE (placeholder)
+    # ==========================================================
+
+    - id: language
+      title: "Sprache"
+      parent: main_menu
+      description: >
+        Reachable from main_menu's ctx_1. Honestly shows "not
+        implemented yet" instead of a language picker that doesn't
+        work -- real per-string translation is a separate, larger
+        project (see UI-Bedienkonzept wiki page), not a quick add.
+
+      elements:
+        - id: not_implemented_notice
+          type: notice
+          style: info
+          label: "Andere Sprachen sind noch nicht umgesetzt. Die Oberflaeche ist bisher nur auf Deutsch verfuegbar."
+
+      context_bar:
         - id: back
+          slot: ctx_2
           type: button
           label: "Zurück"
           action:
             type: back
+
+
+    # ==========================================================
+    # SETTINGS: PIN ENTRY
+    # ==========================================================
+
+    - id: pin_entry
+      title: "Einstellungen (PIN)"
+      parent: main_menu
+      description: >
+        Numeric-keyboard PIN gate in front of the settings page.
+        PIN is currently a hardcoded placeholder ("1234", see
+        station_config.h) -- no UI to change it yet.
+
+      elements:
+        - id: pin_input
+          type: text_input
+          input_mode: numeric
+          masked: true
+          label: "Code"
+
+        - id: pin_error
+          type: notice
+          style: warning
+          label: "Falscher Code."
+          visible_on: pin_incorrect
+
+      context_bar:
+        - id: back
+          slot: ctx_2
+          type: button
+          label: "Zurück"
+          action:
+            type: back
+
+
+    # ==========================================================
+    # SETTINGS
+    # ==========================================================
+
+    - id: settings
+      title: "Einstellungen"
+      parent: pin_entry
+      description: >
+        Reached only after a correct PIN. Fields are edited in
+        place and applied together by one "Speichern" button --
+        there is no per-field save. All fields share one popup
+        on-screen keyboard bound to whichever text field currently
+        has focus, with a live preview line above the keyboard
+        (the field itself is covered by the keyboard popup while
+        typing).
+
+      elements:
+        - id: test_mode_toggle
+          type: button
+          label: "Testmodus umschalten"
+          description: >
+            Forces the status bar's ONLINE/OFFLINE indicator for
+            testing -- the touchscreen equivalent of the serial
+            command "testconnect on|off".
+
+        - id: dispatch_node
+          type: text_input
+          label: "Leitstelle (Node-ID, z.B. !ce0ffa28):"
+          description: >
+            Hex Meshtastic node number of the configured Leitstelle.
+            Free text -- no picker/allowlist of "certified" dispatch
+            nodes exists yet. Persisted to NVS.
+
+        - id: location
+          type: text_input
+          label: "Ort (Freitext, kein GPS auf diesem Board):"
+          description: >
+            Manual location text shown on the emergency success
+            screen. No GPS on this board, so this is the only way
+            to set it. Persisted to NVS.
+
+        - id: clock
+          type: text_input
+          label: "Uhrzeit (JJJJ-MM-TT HH:MM:SS):"
+          description: >
+            Manual wall-clock set, added 2026-09-21 -- this board
+            has no RTC chip and no NTP/GPS, so without this field
+            there was no way to correct the clock in the field
+            without a laptop (see Hardware-Bringup wiki page). Same
+            "YYYY-MM-DD HH:MM:SS" format as the serial "settime"
+            command. Prefilled with the board's current time; a
+            field that fails to parse gets its own error instead of
+            silently being ignored.
+
+        - id: save
+          type: button
+          label: "Speichern"
+          action:
+            type: execute
+            command: save_settings
+
+        - id: saved_feedback
+          type: notice
+          label: "Gespeichert."
+          visible_on: settings_saved
+
+      context_bar:
+        - id: back
+          slot: ctx_2
+          type: button
+          label: "Zurück"
+          action:
+            type: back
+
+
+# ============================================================
+# GLOBAL UI CHROME
+# ============================================================
+#
+# Rendered on every page, independent of the current navigation state.
+
+chrome:
+
+  status_bar:
+    description: >
+      Persistent header. Not part of navigation — the firmware renders
+      it regardless of which page is active.
+    fields:
+      - id: power_state
+        values: [online, offline]
+        data_source: system.power_failure
+      - id: station_id
+        label: "Notfallsäulennummer"
+        data_source: system.station_id
+      - id: location
+        label: "Ort"
+        data_source: system.location
+      - id: signal_strength
+        type: signal_bars
+        data_source: meshtastic.signal_strength
+
+  breadcrumb:
+    description: >
+      Page title shown beneath the status bar reflects the navigation
+      path (e.g. "Polizei > Einbruch"), built from each page's `title`
+      and its `parent` chain.
 
 
 # ============================================================
@@ -526,10 +790,78 @@ actions:
 
 
 # ============================================================
-# HARDWARE INDICATORS
+# HARDWARE
 # ============================================================
 
 hardware:
+
+  displays:
+
+    - id: sensecap_indicator
+      status: current_target
+      shape: rectangular
+      resolution: "480x480"
+      touch: capacitive
+      description: >
+        Seeed SenseCAP Indicator (D1L). ESP32-S3 + RP2040 dual-MCU,
+        color touchscreen. The built-in LoRa radio (SX1262) is wired
+        to the ESP32-S3, not the RP2040, and is driven directly via
+        RadioLib with this project's own Meshtastic-wire-format-
+        compatible implementation (packet header, AES-CTR, protobuf,
+        channel hash) -- no external Meshtastic node needed, unlike
+        the older XIAO ESP32-S3 + XIAO nRF52 hardware path (no
+        screen, not listed here). The RP2040 co-processor's role is
+        the Micro-SD card (only reachable from that side, see
+        Hardware-Bringup wiki page) and Seeed's sensor telemetry,
+        neither of which this project's own code reads; ESP32-S3
+        <-> RP2040 talk over a plain COBS-framed UART link this
+        project defined itself, not the Meshtastic serial client
+        protocol (that one only runs between src/xiao/ and an
+        external XIAO nRF52).
+
+    - id: epaper_touch_dev
+      status: ui_smoke_test_only
+      shape: rectangular
+      touch: capacitive
+      description: >
+        Seeed ePaper touch panel used for quick, radio-independent
+        layout checks. No LoRa/UART on this board — not a candidate
+        for the final terminal, just a fast way to see the menu render.
+
+  input:
+    description: >
+      Input roles are hardware-neutral: 4 selection slots (one per
+      screen quadrant) + 3 context slots below/around the content
+      area. On touchscreen targets (SenseCAP Indicator, ePaper touch)
+      these are capacitive touch zones over the rendered tiles/bar; a
+      future board with physical buttons would bind the same IDs to
+      GPIO pins instead, without changing any page definition above.
+
+    selection_slots:
+      - id: sel_1
+        position: top_left
+      - id: sel_2
+        position: top_right
+      - id: sel_3
+        position: bottom_left
+      - id: sel_4
+        position: bottom_right
+
+    context_slots:
+      - id: ctx_1
+        convention: "Context-dependent, e.g. 'Vor' / scroll up / part of a hold_confirm pair."
+      - id: ctx_2
+        convention: "Fixed role across the whole UI: 'Zurück' / 'Abbruch' when present on the page."
+      - id: ctx_3
+        convention: "Context-dependent, e.g. 'Bestätigen' / scroll down / part of a hold_confirm pair."
+
+    hold_confirm:
+      description: >
+        Safety-critical confirmations (currently: triggering an
+        emergency) require holding two slots at once for a minimum
+        duration, so a single accidental touch/press cannot fire a
+        transmission.
+      default_duration_ms: 1500
 
   leds:
 

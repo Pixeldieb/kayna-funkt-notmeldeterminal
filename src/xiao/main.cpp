@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include <Meshtastic.h>
 #include "lage_db.h"
+#include "mesh_security.h"
 
 #define MT_RX_PIN 44
 #define MT_TX_PIN 43
@@ -84,9 +85,19 @@ void onTextMessage(uint32_t from, uint32_t to, uint8_t channel, const char* text
 
   for (const ZustandsBefehl& befehl : ZUSTANDS_BEFEHLE) {
     if (msg.equalsIgnoreCase(befehl.code)) {
+      // Issue #1: ein Zustandswechsel (z.B. SABOTAGE/STROMAUSFALL) ist
+      // sicherheitskritischer als eine einzelne Lagemeldung -- dieselbe
+      // Allowlist-Pruefung gilt daher auch hier, nicht nur fuer LAGE:.
+      if (!meshSecurityCheck(from, /*isNewReport=*/false)) return;
       Serial.print("!!! Befehl '"); Serial.print(befehl.code);
       Serial.print("' empfangen, Zustand wechselt von "); Serial.print(zustandName(aktuellerZustand));
       Serial.print(" auf "); Serial.println(zustandName(befehl.zustand));
+      { // Issue #33: Zustandswechsel sind fuer die Nachbereitung relevant
+        char logMsg[64];
+        snprintf(logMsg, sizeof(logMsg), "%s -> %s (Befehl '%s')", zustandName(aktuellerZustand),
+                 zustandName(befehl.zustand), befehl.code);
+        eventLog("aktivierung", logMsg);
+      }
       aktuellerZustand = befehl.zustand;
       return;
     }
@@ -108,11 +119,14 @@ void onTextMessage(uint32_t from, uint32_t to, uint8_t channel, const char* text
   String status = payload.substring(p2 + 1, p3); status.trim();
   String content = payload.substring(p3 + 1); content.trim();
 
+  bool istNeu = idPart.equalsIgnoreCase("NEU");
+  if (!meshSecurityCheck(from, istNeu)) return; // Issues #1 (Allowlist) / #3 (Ratenlimit)
+
   char fromBuf[12];
   snprintf(fromBuf, sizeof(fromBuf), "!%08x", from);
   String fromNode(fromBuf);
 
-  if (idPart.equalsIgnoreCase("NEU")) {
+  if (istNeu) {
     int newId = lageDbCreate(kategorie, status, content, fromNode);
     Serial.print(">>> Neue Lagemeldung angelegt, ID "); Serial.println(newId);
   } else {
@@ -151,8 +165,29 @@ void handleSerialCommand(const String& cmd) {
     lageDbShowDetail(cmd.substring(7).toInt());
   } else if (cmd == "status") {
     Serial.print("Zustand: "); Serial.println(zustandName(aktuellerZustand));
+  } else if (cmd.startsWith("allow add ")) {
+    uint32_t nodeNum = strtoul(cmd.substring(10).c_str(), nullptr, 16);
+    if (meshSecurityAllow(nodeNum)) {
+      Serial.printf("[SECURITY] !%08x freigeschaltet.\n", (unsigned)nodeNum);
+    }
+  } else if (cmd.startsWith("allow revoke ")) {
+    uint32_t nodeNum = strtoul(cmd.substring(13).c_str(), nullptr, 16);
+    Serial.printf("[SECURITY] !%08x %s.\n", (unsigned)nodeNum,
+                  meshSecurityRevoke(nodeNum) ? "entfernt" : "war nicht auf der Allowlist");
+  } else if (cmd == "allow list") {
+    meshSecurityListAllowed();
+  } else if (cmd == "events") {
+    // Issue #33: lokale Betriebshistorie, unabhaengig von der Leitstelle einsehbar.
+    EventLogEntry events[20];
+    int count = eventLogGetRecent(events, 20);
+    Serial.printf("--- Ereignisprotokoll (%d) ---\n", count);
+    for (int i = 0; i < count; i++) {
+      Serial.printf("#%d [%lu] %s: %s\n", events[i].id, events[i].zeit, events[i].kategorie.c_str(),
+                    events[i].text.c_str());
+    }
   } else if (cmd == "help") {
-    Serial.println("Befehle: liste | liste kategorie <X> | liste status <X> | detail <ID> | status | help");
+    Serial.println("Befehle: liste | liste kategorie <X> | liste status <X> | detail <ID> | status | "
+                    "allow add|revoke <hex-node-id> | allow list | events | help");
   } else if (cmd.length() > 0) {
     Serial.println("Unbekannter Befehl. 'help' fuer Uebersicht.");
   }
@@ -166,6 +201,7 @@ void setup() {
   ledOff();
 
   lageDbBegin();
+  meshSecurityInit(); // Issues #1/#3: sicherer Default, leere Allowlist verwirft alles
 
   Serial.println("Starte Meshtastic-Verbindung...");
   mt_serial_init(MT_RX_PIN, MT_TX_PIN, MT_BAUD);
@@ -183,6 +219,7 @@ void setup() {
     blinkWaiting();
     if (millis() - handshakeStart > HANDSHAKE_TIMEOUT_MS) {
       Serial.println(">>> WARNUNG: Config-Handshake nach 15s nicht abgeschlossen, mache trotzdem weiter.");
+      eventLog("fehler", "Config-Handshake nach 15s nicht abgeschlossen");
       break;
     }
   }
@@ -190,6 +227,7 @@ void setup() {
   set_text_message_callback(onTextMessage); // NACH erfolgtem Handshake registrieren
 
   Serial.println(">>> VERBUNDEN mit der Node. Tippe 'help' fuer CLI-Befehle.");
+  eventLog("system", "Boot: verbunden mit Meshtastic-Node");
 
   // --- Erfolg: 5x schnell blinken ---
   blinkFast(5, 100);

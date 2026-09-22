@@ -72,6 +72,9 @@ Bei aktiviertem Hauptmenü pulsiert die `signal_led` leicht.
 | Krankenwagen | `ambulance` | `ambulance_menu` |
 | Info | `information` | `information_menu` |
 
+Die vier Punkte belegen `sel_1`–`sel_4`. Als Root-Seite hat `main_menu`
+keinen leeren Kontext-Bereich — alle drei Kontext-Slots sind hier inaktiv.
+
 ## 3. Feuerwehr
 
 Page ID: `fire_department_menu`
@@ -83,6 +86,10 @@ Feuerwehr
 ├── Verkehrsunfall
 └── Andere
 ```
+
+Die vier Auswahlpunkte belegen die vier Auswahl-Slots (`sel_1`–`sel_4`,
+siehe Abschnitt 19). „Zurück" ist kein fünfter Menüpunkt mehr, sondern
+liegt auf dem Kontext-Slot `ctx_2` unterhalb des Displays.
 
 Jede Auswahl führt zur Seite `emergency_confirmation`. Dabei werden die
 Informationen zum gewählten Notfall an die Bestätigungsseite übergeben.
@@ -107,7 +114,8 @@ Polizei
 └── Andere
 ```
 
-Jede Auswahl führt zu `emergency_confirmation`.
+Slots wie bei Feuerwehr: `sel_1`–`sel_4` für die Auswahl, `ctx_2` für
+„Zurück". Jede Auswahl führt zu `emergency_confirmation`.
 
 ## 5. Krankenwagen
 
@@ -121,24 +129,35 @@ Krankenwagen
 └── Andere
 ```
 
-Jede Auswahl führt zu `emergency_confirmation`.
+Slots wie bei Feuerwehr: `sel_1`–`sel_4` für die Auswahl, `ctx_2` für
+„Zurück". Jede Auswahl führt zu `emergency_confirmation`.
 
 ## 6. Notfall bestätigen
 
 Page ID: `emergency_confirmation`
 
-Vor dem Absenden eines Notfalls wird immer eine Bestätigungsseite angezeigt.
+Vor dem Absenden eines Notfalls wird immer eine Bestätigungsseite mit
+Warnhinweis angezeigt.
 
 ```
 Notfall bestätigen
 
-[Abbruch]    [Bestätigung]
+⚠ Nur bei Notfall benutzen.
+  Missbrauch wird strafrechtlich verfolgt.
+
+  ctx_1        ctx_2         ctx_3
+              [Abbruch]
+[——————— Bestätigung (halten) ———————]
 ```
 
-**Abbruch** — ID: `cancel`, Aktion: `back`. Der Notfall wird nicht ausgelöst.
+**Abbruch** — ID: `cancel`, Slot `ctx_2`, Aktion: `back`. Einfacher Druck
+genügt. Der Notfall wird nicht ausgelöst.
 
-**Bestätigung** — ID: `confirm`, Aktion: `trigger_emergency`. Danach wird die
-Notfallübertragung gestartet.
+**Bestätigung** — ID: `confirm`, Slots `ctx_1` + `ctx_3` gemeinsam,
+Elementtyp `hold_button`. Beide Slots müssen gleichzeitig für
+`hold.duration_ms` (Default 1500 ms, siehe Abschnitt 19) gehalten werden,
+bevor `trigger_emergency` ausgeführt wird. Damit kann ein einzelner
+versehentlicher Tastendruck/Touch keine Notfallmeldung auslösen.
 
 ## 7. Notfallübertragung
 
@@ -161,7 +180,17 @@ Page ID: `emergency_details`
 Nach erfolgreicher Übertragung werden die Notfalldetails auf dem Display
 angezeigt. Diese Informationen sollen vom Benutzer notiert werden können.
 
-Die angezeigten Daten stammen aus `emergency.last_transmission`.
+Angezeigte Felder (aus `emergency.last_transmission`):
+
+| Feld | Bedeutung |
+|---|---|
+| `case_number` | Vorgangsnummer |
+| `timestamp` | Zeitstempel |
+| `station_id` | Notfallsäule |
+| `location` | Ort |
+
+„Zurück" (ID `acknowledge`) liegt auf Kontext-Slot `ctx_2` und navigiert
+zu `main_menu`.
 
 ## 9. Fehlgeschlagene Übertragung
 
@@ -172,11 +201,12 @@ Bei einem Übertragungsfehler werden zwei Möglichkeiten angeboten:
 ```
 Übertragung fehlgeschlagen
 
-[Erneut senden]    [Abbruch]
+ ctx_1            ctx_2
+[Erneut senden]  [Abbruch]
 ```
 
-**Erneut senden** — startet die Übertragung erneut.
-**Abbruch** — kehrt zum Hauptmenü zurück.
+**Erneut senden** — Slot `ctx_1`, startet die Übertragung erneut.
+**Abbruch** — Slot `ctx_2`, kehrt zum Hauptmenü zurück.
 
 ## 10. Info
 
@@ -187,6 +217,10 @@ Info
 ├── Lageinformationen anfordern
 └── Systeminformationen Krisenstab
 ```
+
+Nur zwei Auswahlpunkte, belegen `sel_1`/`sel_2`. `sel_3`/`sel_4` sind auf
+dieser Seite ungenutzt. „Zurück" liegt wie bei den anderen Menüs auf
+`ctx_2`.
 
 ## 11. Lageinformationen
 
@@ -205,7 +239,8 @@ beiden rechten Bedienelemente dienen zum Scrollen.
 │ Meldung 2                    │
 │ Meldung 3                    │
 │                              │
-│ [Hoch] [Runter] [Zurück]     │
+│  ctx_1    ctx_2    ctx_3     │
+│ [Hoch]  [Zurück]  [Runter]   │
 └──────────────────────────────┘
 ```
 
@@ -229,7 +264,8 @@ dienen die beiden rechten Bedienelemente zum Scrollen.
 │ Meldung 2                    │
 │ Meldung 3                    │
 │                              │
-│ [Hoch] [Runter] [Zurück]     │
+│  ctx_1    ctx_2    ctx_3     │
+│ [Hoch]  [Zurück]  [Runter]   │
 └──────────────────────────────┘
 ```
 
@@ -310,6 +346,7 @@ Die UI verwendet standardisierte Aktionstypen.
 | `execute` | Eine Firmware-Funktion ausführen |
 | `scroll` | Inhalt scrollen |
 | `view` | Inhalt anzeigen |
+| `hold_button` (Elementtyp) | Element muss über zwei Slots gleichzeitig für eine Mindestdauer gehalten werden, bevor die hinterlegte `action` ausgeführt wird (siehe Abschnitt 19) |
 
 ## 16. KI-Agenten
 
@@ -444,6 +481,62 @@ Hauptmenü
             ├── Scroll runter
             └── Zurück
 ```
+
+## 19. Hardware-Bedienkonzept
+
+Die UI-Definition ist hardware-neutral: `ui.yaml` beschreibt Seiten und
+Elemente, nicht Pins oder Displaytreiber. Die physische Anbindung läuft
+über zwei generische Rollen-Gruppen (Details: `hardware.input` in
+`ui.yaml`).
+
+### Auswahl-Slots (`sel_1`–`sel_4`)
+
+Vier Slots, je einem Bildschirm-Quadranten zugeordnet (oben-links,
+oben-rechts, unten-links, unten-rechts). Werden für Menüauswahl
+verwendet — maximal 4 Auswahlpunkte pro Seite. Ein Seiten-Element bindet
+sich über `slot: sel_1` (usw.) an einen Slot.
+
+### Kontext-Slots (`ctx_1`–`ctx_3`)
+
+Drei Slots unterhalb/um den Inhaltsbereich, Belegung ist pro Seite
+unterschiedlich (`context_bar` in `ui.yaml`):
+
+| Slot | Konvention |
+|---|---|
+| `ctx_1` | Kontextabhängig — z.B. „Vor", Scroll hoch, oder Teil einer Halte-Kombination |
+| `ctx_2` | Feste Rolle über die gesamte UI: „Zurück"/„Abbruch", sofern auf der Seite vorhanden |
+| `ctx_3` | Kontextabhängig — z.B. „Bestätigen", Scroll runter, oder Teil einer Halte-Kombination |
+
+### Halte-Bestätigung (`hold_button` / `hold_confirm`)
+
+Sicherheitskritische Aktionen (aktuell: Notfall auslösen) erfordern das
+gleichzeitige Halten zweier Slots für eine Mindestdauer
+(`hold.duration_ms`, Default 1500 ms) statt eines einzelnen Tastendrucks
+— ein einzelner versehentlicher Druck/Touch kann so nichts auslösen.
+
+### Persistente Statusleiste (`chrome.status_bar`)
+
+Auf jeder Seite sichtbar, unabhängig von der Navigation: Online/Offline,
+Notfallsäulennummer, Ort, Signalstärke. Darunter zeigt der Breadcrumb
+(`chrome.breadcrumb`) den Navigationspfad (z.B. „Polizei > Einbruch").
+
+### Hardware-neutral heißt: austauschbares Backend
+
+Auf einem Touch-Display sind `sel_*`/`ctx_*` Touch-Zonen über den
+gerenderten Kacheln/der Kontextleiste. Auf einem Board mit physischen
+Tasten wären es GPIO-Pins. Die Seiten-Definitionen in `ui.yaml` ändern
+sich in beiden Fällen nicht — nur die Firmware-Bindung der Slot-IDs auf
+die jeweilige Eingabequelle.
+
+**Aktuell evaluierte Displays** (siehe `hardware.displays` in `ui.yaml`):
+
+| Display | Rolle |
+|---|---|
+| Seeed SenseCAP Indicator (D1L) | Aktuelles Zielboard: ESP32-S3 + RP2040, Farb-Touch 480×480, eingebautes LoRa (SX1262) mit vorinstallierter Meshtastic-Firmware auf dem RP2040, microSD. Kandidat, um Funk + Speicher + UI auf einem Board zu konsolidieren — RP2040 spricht intern per UART das gleiche Meshtastic-Serial-Protokoll, das dieses Projekt schon zu einer externen Node nutzt. Offen: ob/wie sich die ESP32-S3-Seite mit eigener Firmware bespielen lässt, während der RP2040 bei Stock-Meshtastic bleibt. |
+| Seeed ePaper-Touchpanel | Nur für schnellen, funkunabhängigen Layout-Check des Menüs — kein LoRa/UART, kein Kandidat fürs finale Terminal. |
+
+Das ursprünglich angedachte XIAO Round Display ist damit vorerst vom
+Tisch.
 
 ## Hinweis zur weiteren Entwicklung
 
