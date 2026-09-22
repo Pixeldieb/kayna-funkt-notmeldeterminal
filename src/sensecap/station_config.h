@@ -35,6 +35,14 @@ struct StationConfig {
   // stationId/operatorName above -- a real onboarding flow should make
   // this operator-settable instead.
   String settingsPin = "1234";
+
+  // First-boot setup wizard (Ort + Leitstelle), 2026-09-23. false on a
+  // fresh device/after a flash -- ui_model_build() checks this to show the
+  // wizard instead of the main menu. Also reachable afterward from
+  // Einstellungen ("Ersteinrichtung erneut starten"), which does NOT reset
+  // this flag -- only actually finishing the wizard again does, via
+  // station_config_set_setup_completed(true).
+  bool setupCompleted = false;
 };
 
 // Single shared instance. Other fields are hardcoded for now (see the
@@ -50,3 +58,7 @@ void station_config_set_dispatch_node(uint32_t nodeNum);
 // Sets locationText (live + persisted to NVS), same pattern as
 // station_config_set_dispatch_node().
 void station_config_set_location(const String &text);
+
+// Sets setupCompleted (live + persisted to NVS). Called with true only when
+// the setup wizard's last step is actually finished -- see ui_model.cpp.
+void station_config_set_setup_completed(bool completed);

@@ -5,6 +5,7 @@ namespace {
 const char *kPrefsNamespace = "kaynafunkt";
 const char *kDispatchKey = "dispatch";
 const char *kLocationKey = "location";
+const char *kSetupDoneKey = "setupdone";
 bool g_loaded = false;
 } // namespace
 
@@ -31,6 +32,7 @@ StationConfig &station_config() {
     // line on a station's very first boot, before anyone has ever set a
     // location.
     cfg.locationText = prefs.isKey(kLocationKey) ? prefs.getString(kLocationKey, "") : "";
+    cfg.setupCompleted = prefs.getBool(kSetupDoneKey, false);
     prefs.end();
     g_loaded = true;
   }
@@ -52,5 +54,14 @@ void station_config_set_location(const String &text) {
   Preferences prefs;
   prefs.begin(kPrefsNamespace, /*readOnly=*/false);
   prefs.putString(kLocationKey, text);
+  prefs.end();
+}
+
+void station_config_set_setup_completed(bool completed) {
+  station_config().setupCompleted = completed; // ensures cfg is loaded first
+
+  Preferences prefs;
+  prefs.begin(kPrefsNamespace, /*readOnly=*/false);
+  prefs.putBool(kSetupDoneKey, completed);
   prefs.end();
 }

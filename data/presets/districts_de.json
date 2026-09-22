@@ -1,0 +1,4478 @@
+{
+  "locale": "de-DE",
+  "label": "Deutschland -- Landkreise und kreisfreie Staedte (Kfz-Kennzeichen)",
+  "system": "Amtliches Unterscheidungszeichen nach Fahrzeug-Zulassungsverordnung (FZV)",
+  "source": [
+    "https://de.wikipedia.org/wiki/Liste_der_Landkreise_in_Deutschland",
+    "https://de.wikipedia.org/wiki/Liste_der_kreisfreien_St%C3%A4dte_in_Deutschland"
+  ],
+  "stand": "2026-09-23",
+  "count": 401,
+  "states": [
+    {
+      "code": "BW",
+      "name": "Baden-Württemberg"
+    },
+    {
+      "code": "BY",
+      "name": "Bayern"
+    },
+    {
+      "code": "BE",
+      "name": "Berlin"
+    },
+    {
+      "code": "BB",
+      "name": "Brandenburg"
+    },
+    {
+      "code": "HB",
+      "name": "Bremen"
+    },
+    {
+      "code": "HH",
+      "name": "Hamburg"
+    },
+    {
+      "code": "HE",
+      "name": "Hessen"
+    },
+    {
+      "code": "MV",
+      "name": "Mecklenburg-Vorpommern"
+    },
+    {
+      "code": "NI",
+      "name": "Niedersachsen"
+    },
+    {
+      "code": "NW",
+      "name": "Nordrhein-Westfalen"
+    },
+    {
+      "code": "RP",
+      "name": "Rheinland-Pfalz"
+    },
+    {
+      "code": "SL",
+      "name": "Saarland"
+    },
+    {
+      "code": "SN",
+      "name": "Sachsen"
+    },
+    {
+      "code": "ST",
+      "name": "Sachsen-Anhalt"
+    },
+    {
+      "code": "SH",
+      "name": "Schleswig-Holstein"
+    },
+    {
+      "code": "TH",
+      "name": "Thüringen"
+    }
+  ],
+  "districts": [
+    {
+      "id": "12060",
+      "name": "Barnim",
+      "type": "landkreis",
+      "kennzeichen": "BAR",
+      "kennzeichenAlle": [
+        "BAR",
+        "BER",
+        "EW"
+      ],
+      "bundesland": "BB"
+    },
+    {
+      "id": "12051",
+      "name": "Brandenburg an der Havel",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "BRB",
+      "kennzeichenAlle": [
+        "BRB"
+      ],
+      "bundesland": "BB"
+    },
+    {
+      "id": "12052",
+      "name": "Cottbus",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "CB",
+      "kennzeichenAlle": [
+        "CB"
+      ],
+      "bundesland": "BB"
+    },
+    {
+      "id": "12061",
+      "name": "Dahme-Spreewald",
+      "type": "landkreis",
+      "kennzeichen": "LDS",
+      "kennzeichenAlle": [
+        "LDS",
+        "KW",
+        "LC",
+        "LN"
+      ],
+      "bundesland": "BB"
+    },
+    {
+      "id": "12062",
+      "name": "Elbe-Elster",
+      "type": "landkreis",
+      "kennzeichen": "EE",
+      "kennzeichenAlle": [
+        "EE",
+        "FI",
+        "LIB"
+      ],
+      "bundesland": "BB"
+    },
+    {
+      "id": "12053",
+      "name": "Frankfurt",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "FF",
+      "kennzeichenAlle": [
+        "FF"
+      ],
+      "bundesland": "BB"
+    },
+    {
+      "id": "12063",
+      "name": "Havelland",
+      "type": "landkreis",
+      "kennzeichen": "HVL",
+      "kennzeichenAlle": [
+        "HVL",
+        "NAU",
+        "RN"
+      ],
+      "bundesland": "BB"
+    },
+    {
+      "id": "12064",
+      "name": "Märkisch-Oderland",
+      "type": "landkreis",
+      "kennzeichen": "MOL",
+      "kennzeichenAlle": [
+        "MOL",
+        "FRW",
+        "SEE",
+        "SRB"
+      ],
+      "bundesland": "BB"
+    },
+    {
+      "id": "12065",
+      "name": "Oberhavel",
+      "type": "landkreis",
+      "kennzeichen": "OHV",
+      "kennzeichenAlle": [
+        "OHV"
+      ],
+      "bundesland": "BB"
+    },
+    {
+      "id": "12066",
+      "name": "Oberspreewald-Lausitz",
+      "type": "landkreis",
+      "kennzeichen": "OSL",
+      "kennzeichenAlle": [
+        "OSL",
+        "CA",
+        "SFB"
+      ],
+      "bundesland": "BB"
+    },
+    {
+      "id": "12067",
+      "name": "Oder-Spree",
+      "type": "landkreis",
+      "kennzeichen": "LOS",
+      "kennzeichenAlle": [
+        "LOS",
+        "BSK",
+        "EH",
+        "FW"
+      ],
+      "bundesland": "BB"
+    },
+    {
+      "id": "12068",
+      "name": "Ostprignitz-Ruppin",
+      "type": "landkreis",
+      "kennzeichen": "OPR",
+      "kennzeichenAlle": [
+        "OPR",
+        "KY",
+        "NP",
+        "WK"
+      ],
+      "bundesland": "BB"
+    },
+    {
+      "id": "12054",
+      "name": "Potsdam",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "P",
+      "kennzeichenAlle": [
+        "P"
+      ],
+      "bundesland": "BB"
+    },
+    {
+      "id": "12069",
+      "name": "Potsdam-Mittelmark",
+      "type": "landkreis",
+      "kennzeichen": "PM",
+      "kennzeichenAlle": [
+        "PM",
+        "BEL"
+      ],
+      "bundesland": "BB"
+    },
+    {
+      "id": "12070",
+      "name": "Prignitz",
+      "type": "landkreis",
+      "kennzeichen": "PR",
+      "kennzeichenAlle": [
+        "PR"
+      ],
+      "bundesland": "BB"
+    },
+    {
+      "id": "12071",
+      "name": "Spree-Neiße",
+      "type": "landkreis",
+      "kennzeichen": "SPN",
+      "kennzeichenAlle": [
+        "SPN",
+        "FOR",
+        "GUB",
+        "SPB"
+      ],
+      "bundesland": "BB"
+    },
+    {
+      "id": "12072",
+      "name": "Teltow-Fläming",
+      "type": "landkreis",
+      "kennzeichen": "TF",
+      "kennzeichenAlle": [
+        "TF",
+        "JB",
+        "LUK",
+        "ZS"
+      ],
+      "bundesland": "BB"
+    },
+    {
+      "id": "12073",
+      "name": "Uckermark",
+      "type": "landkreis",
+      "kennzeichen": "UM",
+      "kennzeichenAlle": [
+        "UM",
+        "ANG",
+        "PZ",
+        "SDT",
+        "TP"
+      ],
+      "bundesland": "BB"
+    },
+    {
+      "id": "11000",
+      "name": "Berlin",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "B",
+      "kennzeichenAlle": [
+        "B"
+      ],
+      "bundesland": "BE"
+    },
+    {
+      "id": "08425",
+      "name": "Alb-Donau-Kreis",
+      "type": "landkreis",
+      "kennzeichen": "UL",
+      "kennzeichenAlle": [
+        "UL"
+      ],
+      "bundesland": "BW"
+    },
+    {
+      "id": "08211",
+      "name": "Baden-Baden",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "BAD",
+      "kennzeichenAlle": [
+        "BAD"
+      ],
+      "bundesland": "BW"
+    },
+    {
+      "id": "08426",
+      "name": "Biberach",
+      "type": "landkreis",
+      "kennzeichen": "BC",
+      "kennzeichenAlle": [
+        "BC"
+      ],
+      "bundesland": "BW"
+    },
+    {
+      "id": "08435",
+      "name": "Bodenseekreis",
+      "type": "landkreis",
+      "kennzeichen": "FN",
+      "kennzeichenAlle": [
+        "FN",
+        "TT",
+        "ÜB"
+      ],
+      "bundesland": "BW"
+    },
+    {
+      "id": "08315",
+      "name": "Breisgau-Hochschwarzwald",
+      "type": "landkreis",
+      "kennzeichen": "FR",
+      "kennzeichenAlle": [
+        "FR",
+        "MÜL",
+        "NEU"
+      ],
+      "bundesland": "BW"
+    },
+    {
+      "id": "08115",
+      "name": "Böblingen",
+      "type": "landkreis",
+      "kennzeichen": "BB",
+      "kennzeichenAlle": [
+        "BB",
+        "LEO"
+      ],
+      "bundesland": "BW"
+    },
+    {
+      "id": "08235",
+      "name": "Calw",
+      "type": "landkreis",
+      "kennzeichen": "CW",
+      "kennzeichenAlle": [
+        "CW"
+      ],
+      "bundesland": "BW"
+    },
+    {
+      "id": "08316",
+      "name": "Emmendingen",
+      "type": "landkreis",
+      "kennzeichen": "EM",
+      "kennzeichenAlle": [
+        "EM"
+      ],
+      "bundesland": "BW"
+    },
+    {
+      "id": "08236",
+      "name": "Enzkreis",
+      "type": "landkreis",
+      "kennzeichen": "PF",
+      "kennzeichenAlle": [
+        "PF"
+      ],
+      "bundesland": "BW"
+    },
+    {
+      "id": "08116",
+      "name": "Esslingen",
+      "type": "landkreis",
+      "kennzeichen": "ES",
+      "kennzeichenAlle": [
+        "ES",
+        "NT"
+      ],
+      "bundesland": "BW"
+    },
+    {
+      "id": "08311",
+      "name": "Freiburg im Breisgau",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "FR",
+      "kennzeichenAlle": [
+        "FR"
+      ],
+      "bundesland": "BW"
+    },
+    {
+      "id": "08237",
+      "name": "Freudenstadt",
+      "type": "landkreis",
+      "kennzeichen": "FDS",
+      "kennzeichenAlle": [
+        "FDS",
+        "HCH",
+        "HOR",
+        "WOL"
+      ],
+      "bundesland": "BW"
+    },
+    {
+      "id": "08117",
+      "name": "Göppingen",
+      "type": "landkreis",
+      "kennzeichen": "GP",
+      "kennzeichenAlle": [
+        "GP"
+      ],
+      "bundesland": "BW"
+    },
+    {
+      "id": "08221",
+      "name": "Heidelberg",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "HD",
+      "kennzeichenAlle": [
+        "HD"
+      ],
+      "bundesland": "BW"
+    },
+    {
+      "id": "08135",
+      "name": "Heidenheim",
+      "type": "landkreis",
+      "kennzeichen": "HDH",
+      "kennzeichenAlle": [
+        "HDH"
+      ],
+      "bundesland": "BW"
+    },
+    {
+      "id": "08125",
+      "name": "Heilbronn",
+      "type": "landkreis",
+      "kennzeichen": "HN",
+      "kennzeichenAlle": [
+        "HN"
+      ],
+      "bundesland": "BW"
+    },
+    {
+      "id": "08121",
+      "name": "Heilbronn",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "HN",
+      "kennzeichenAlle": [
+        "HN"
+      ],
+      "bundesland": "BW"
+    },
+    {
+      "id": "08126",
+      "name": "Hohenlohekreis",
+      "type": "landkreis",
+      "kennzeichen": "KÜN",
+      "kennzeichenAlle": [
+        "KÜN",
+        "ÖHR"
+      ],
+      "bundesland": "BW"
+    },
+    {
+      "id": "08215",
+      "name": "Karlsruhe",
+      "type": "landkreis",
+      "kennzeichen": "KA",
+      "kennzeichenAlle": [
+        "KA",
+        "BR"
+      ],
+      "bundesland": "BW"
+    },
+    {
+      "id": "08212",
+      "name": "Karlsruhe",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "KA",
+      "kennzeichenAlle": [
+        "KA"
+      ],
+      "bundesland": "BW"
+    },
+    {
+      "id": "08335",
+      "name": "Konstanz",
+      "type": "landkreis",
+      "kennzeichen": "KN",
+      "kennzeichenAlle": [
+        "KN",
+        "STO (BÜS)"
+      ],
+      "bundesland": "BW"
+    },
+    {
+      "id": "08118",
+      "name": "Ludwigsburg",
+      "type": "landkreis",
+      "kennzeichen": "LB",
+      "kennzeichenAlle": [
+        "LB",
+        "VAI"
+      ],
+      "bundesland": "BW"
+    },
+    {
+      "id": "08336",
+      "name": "Lörrach",
+      "type": "landkreis",
+      "kennzeichen": "LÖ",
+      "kennzeichenAlle": [
+        "LÖ"
+      ],
+      "bundesland": "BW"
+    },
+    {
+      "id": "08128",
+      "name": "Main-Tauber-Kreis",
+      "type": "landkreis",
+      "kennzeichen": "TBB",
+      "kennzeichenAlle": [
+        "TBB",
+        "MGH"
+      ],
+      "bundesland": "BW"
+    },
+    {
+      "id": "08222",
+      "name": "Mannheim",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "MA",
+      "kennzeichenAlle": [
+        "MA"
+      ],
+      "bundesland": "BW"
+    },
+    {
+      "id": "08225",
+      "name": "Neckar-Odenwald-Kreis",
+      "type": "landkreis",
+      "kennzeichen": "MOS",
+      "kennzeichenAlle": [
+        "MOS",
+        "BCH"
+      ],
+      "bundesland": "BW"
+    },
+    {
+      "id": "08317",
+      "name": "Ortenaukreis",
+      "type": "landkreis",
+      "kennzeichen": "OG",
+      "kennzeichenAlle": [
+        "OG",
+        "BH",
+        "KEL",
+        "LR",
+        "WOL"
+      ],
+      "bundesland": "BW"
+    },
+    {
+      "id": "08136",
+      "name": "Ostalbkreis",
+      "type": "landkreis",
+      "kennzeichen": "AA",
+      "kennzeichenAlle": [
+        "AA",
+        "GD"
+      ],
+      "bundesland": "BW"
+    },
+    {
+      "id": "08231",
+      "name": "Pforzheim",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "PF",
+      "kennzeichenAlle": [
+        "PF"
+      ],
+      "bundesland": "BW"
+    },
+    {
+      "id": "08216",
+      "name": "Rastatt",
+      "type": "landkreis",
+      "kennzeichen": "RA",
+      "kennzeichenAlle": [
+        "RA",
+        "BH"
+      ],
+      "bundesland": "BW"
+    },
+    {
+      "id": "08436",
+      "name": "Ravensburg",
+      "type": "landkreis",
+      "kennzeichen": "RV",
+      "kennzeichenAlle": [
+        "RV",
+        "SLG",
+        "ÜB",
+        "WG"
+      ],
+      "bundesland": "BW"
+    },
+    {
+      "id": "08119",
+      "name": "Rems-Murr-Kreis",
+      "type": "landkreis",
+      "kennzeichen": "WN",
+      "kennzeichenAlle": [
+        "WN",
+        "BK"
+      ],
+      "bundesland": "BW"
+    },
+    {
+      "id": "08415",
+      "name": "Reutlingen",
+      "type": "landkreis",
+      "kennzeichen": "RT",
+      "kennzeichenAlle": [
+        "RT"
+      ],
+      "bundesland": "BW"
+    },
+    {
+      "id": "08226",
+      "name": "Rhein-Neckar-Kreis",
+      "type": "landkreis",
+      "kennzeichen": "HD",
+      "kennzeichenAlle": [
+        "HD"
+      ],
+      "bundesland": "BW"
+    },
+    {
+      "id": "08325",
+      "name": "Rottweil",
+      "type": "landkreis",
+      "kennzeichen": "RW",
+      "kennzeichenAlle": [
+        "RW"
+      ],
+      "bundesland": "BW"
+    },
+    {
+      "id": "08326",
+      "name": "Schwarzwald-Baar-Kreis",
+      "type": "landkreis",
+      "kennzeichen": "VS",
+      "kennzeichenAlle": [
+        "VS",
+        "DS"
+      ],
+      "bundesland": "BW"
+    },
+    {
+      "id": "08127",
+      "name": "Schwäbisch Hall",
+      "type": "landkreis",
+      "kennzeichen": "SHA",
+      "kennzeichenAlle": [
+        "SHA",
+        "BK",
+        "CR"
+      ],
+      "bundesland": "BW"
+    },
+    {
+      "id": "08437",
+      "name": "Sigmaringen",
+      "type": "landkreis",
+      "kennzeichen": "SIG",
+      "kennzeichenAlle": [
+        "SIG",
+        "SLG",
+        "STO",
+        "ÜB"
+      ],
+      "bundesland": "BW"
+    },
+    {
+      "id": "08111",
+      "name": "Stuttgart",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "S",
+      "kennzeichenAlle": [
+        "S"
+      ],
+      "bundesland": "BW"
+    },
+    {
+      "id": "08327",
+      "name": "Tuttlingen",
+      "type": "landkreis",
+      "kennzeichen": "TUT",
+      "kennzeichenAlle": [
+        "TUT"
+      ],
+      "bundesland": "BW"
+    },
+    {
+      "id": "08416",
+      "name": "Tübingen",
+      "type": "landkreis",
+      "kennzeichen": "TÜ",
+      "kennzeichenAlle": [
+        "TÜ"
+      ],
+      "bundesland": "BW"
+    },
+    {
+      "id": "08421",
+      "name": "Ulm",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "UL",
+      "kennzeichenAlle": [
+        "UL"
+      ],
+      "bundesland": "BW"
+    },
+    {
+      "id": "08337",
+      "name": "Waldshut",
+      "type": "landkreis",
+      "kennzeichen": "WT",
+      "kennzeichenAlle": [
+        "WT",
+        "SÄK"
+      ],
+      "bundesland": "BW"
+    },
+    {
+      "id": "08417",
+      "name": "Zollernalbkreis",
+      "type": "landkreis",
+      "kennzeichen": "BL",
+      "kennzeichenAlle": [
+        "BL",
+        "HCH"
+      ],
+      "bundesland": "BW"
+    },
+    {
+      "id": "09771",
+      "name": "Aichach-Friedberg",
+      "type": "landkreis",
+      "kennzeichen": "AIC",
+      "kennzeichenAlle": [
+        "AIC",
+        "FDB"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09171",
+      "name": "Altötting",
+      "type": "landkreis",
+      "kennzeichen": "AÖ",
+      "kennzeichenAlle": [
+        "AÖ",
+        "LF"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09361",
+      "name": "Amberg",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "AM",
+      "kennzeichenAlle": [
+        "AM"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09371",
+      "name": "Amberg-Sulzbach",
+      "type": "landkreis",
+      "kennzeichen": "AS",
+      "kennzeichenAlle": [
+        "AS",
+        "BUL",
+        "ESB",
+        "NAB",
+        "SUL"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09571",
+      "name": "Ansbach",
+      "type": "landkreis",
+      "kennzeichen": "AN",
+      "kennzeichenAlle": [
+        "AN",
+        "DKB",
+        "FEU",
+        "ROT"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09561",
+      "name": "Ansbach",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "AN",
+      "kennzeichenAlle": [
+        "AN"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09671",
+      "name": "Aschaffenburg",
+      "type": "landkreis",
+      "kennzeichen": "AB",
+      "kennzeichenAlle": [
+        "AB",
+        "ALZ"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09661",
+      "name": "Aschaffenburg",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "AB",
+      "kennzeichenAlle": [
+        "AB"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09772",
+      "name": "Augsburg",
+      "type": "landkreis",
+      "kennzeichen": "A",
+      "kennzeichenAlle": [
+        "A",
+        "SMÜ",
+        "WER"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09761",
+      "name": "Augsburg",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "A",
+      "kennzeichenAlle": [
+        "A"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09672",
+      "name": "Bad Kissingen",
+      "type": "landkreis",
+      "kennzeichen": "KG",
+      "kennzeichenAlle": [
+        "KG",
+        "BRK",
+        "HAB"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09173",
+      "name": "Bad Tölz-Wolfratshausen",
+      "type": "landkreis",
+      "kennzeichen": "TÖL",
+      "kennzeichenAlle": [
+        "TÖL",
+        "WOR"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09471",
+      "name": "Bamberg",
+      "type": "landkreis",
+      "kennzeichen": "BA",
+      "kennzeichenAlle": [
+        "BA"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09461",
+      "name": "Bamberg",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "BA",
+      "kennzeichenAlle": [
+        "BA"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09472",
+      "name": "Bayreuth",
+      "type": "landkreis",
+      "kennzeichen": "BT",
+      "kennzeichenAlle": [
+        "BT",
+        "EBS",
+        "ESB",
+        "KEM",
+        "MÜB",
+        "PEG"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09462",
+      "name": "Bayreuth",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "BT",
+      "kennzeichenAlle": [
+        "BT"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09172",
+      "name": "Berchtesgadener Land",
+      "type": "landkreis",
+      "kennzeichen": "BGL",
+      "kennzeichenAlle": [
+        "BGL",
+        "BGD",
+        "LF",
+        "REI"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09372",
+      "name": "Cham",
+      "type": "landkreis",
+      "kennzeichen": "CHA",
+      "kennzeichenAlle": [
+        "CHA",
+        "KÖZ",
+        "ROD",
+        "WÜM"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09473",
+      "name": "Coburg",
+      "type": "landkreis",
+      "kennzeichen": "CO",
+      "kennzeichenAlle": [
+        "CO",
+        "NEC"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09463",
+      "name": "Coburg",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "CO",
+      "kennzeichenAlle": [
+        "CO",
+        "NEC"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09174",
+      "name": "Dachau",
+      "type": "landkreis",
+      "kennzeichen": "DAH",
+      "kennzeichenAlle": [
+        "DAH"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09271",
+      "name": "Deggendorf",
+      "type": "landkreis",
+      "kennzeichen": "DEG",
+      "kennzeichenAlle": [
+        "DEG"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09773",
+      "name": "Dillingen an der Donau",
+      "type": "landkreis",
+      "kennzeichen": "DLG",
+      "kennzeichenAlle": [
+        "DLG",
+        "WER"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09279",
+      "name": "Dingolfing-Landau",
+      "type": "landkreis",
+      "kennzeichen": "DGF",
+      "kennzeichenAlle": [
+        "DGF",
+        "LAN"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09779",
+      "name": "Donau-Ries",
+      "type": "landkreis",
+      "kennzeichen": "DON",
+      "kennzeichenAlle": [
+        "DON",
+        "NÖ"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09175",
+      "name": "Ebersberg",
+      "type": "landkreis",
+      "kennzeichen": "EBE",
+      "kennzeichenAlle": [
+        "EBE"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09176",
+      "name": "Eichstätt",
+      "type": "landkreis",
+      "kennzeichen": "EI",
+      "kennzeichenAlle": [
+        "EI"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09177",
+      "name": "Erding",
+      "type": "landkreis",
+      "kennzeichen": "ED",
+      "kennzeichenAlle": [
+        "ED"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09562",
+      "name": "Erlangen",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "ER",
+      "kennzeichenAlle": [
+        "ER"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09572",
+      "name": "Erlangen-Höchstadt",
+      "type": "landkreis",
+      "kennzeichen": "ERH",
+      "kennzeichenAlle": [
+        "ERH",
+        "HÖS"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09474",
+      "name": "Forchheim",
+      "type": "landkreis",
+      "kennzeichen": "FO",
+      "kennzeichenAlle": [
+        "FO",
+        "EBS",
+        "PEG"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09178",
+      "name": "Freising",
+      "type": "landkreis",
+      "kennzeichen": "FS",
+      "kennzeichenAlle": [
+        "FS"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09272",
+      "name": "Freyung-Grafenau",
+      "type": "landkreis",
+      "kennzeichen": "FRG",
+      "kennzeichenAlle": [
+        "FRG",
+        "GRA",
+        "WOS"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09179",
+      "name": "Fürstenfeldbruck",
+      "type": "landkreis",
+      "kennzeichen": "FFB",
+      "kennzeichenAlle": [
+        "FFB"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09573",
+      "name": "Fürth",
+      "type": "landkreis",
+      "kennzeichen": "FÜ",
+      "kennzeichenAlle": [
+        "FÜ"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09563",
+      "name": "Fürth",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "FÜ",
+      "kennzeichenAlle": [
+        "FÜ"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09180",
+      "name": "Garmisch-Partenkirchen",
+      "type": "landkreis",
+      "kennzeichen": "GAP",
+      "kennzeichenAlle": [
+        "GAP"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09774",
+      "name": "Günzburg",
+      "type": "landkreis",
+      "kennzeichen": "GZ",
+      "kennzeichenAlle": [
+        "GZ",
+        "KRU"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09674",
+      "name": "Haßberge",
+      "type": "landkreis",
+      "kennzeichen": "HAS",
+      "kennzeichenAlle": [
+        "HAS",
+        "EBN",
+        "GEO",
+        "HOH"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09475",
+      "name": "Hof",
+      "type": "landkreis",
+      "kennzeichen": "HO",
+      "kennzeichenAlle": [
+        "HO",
+        "MÜB",
+        "NAI",
+        "REH",
+        "SAN"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09464",
+      "name": "Hof",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "HO",
+      "kennzeichenAlle": [
+        "HO"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09161",
+      "name": "Ingolstadt",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "IN",
+      "kennzeichenAlle": [
+        "IN"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09762",
+      "name": "Kaufbeuren",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "KF",
+      "kennzeichenAlle": [
+        "KF"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09273",
+      "name": "Kelheim",
+      "type": "landkreis",
+      "kennzeichen": "KEH",
+      "kennzeichenAlle": [
+        "KEH",
+        "MAI",
+        "PAR",
+        "RID",
+        "ROL"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09763",
+      "name": "Kempten",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "KE",
+      "kennzeichenAlle": [
+        "KE"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09675",
+      "name": "Kitzingen",
+      "type": "landkreis",
+      "kennzeichen": "KT",
+      "kennzeichenAlle": [
+        "KT"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09476",
+      "name": "Kronach",
+      "type": "landkreis",
+      "kennzeichen": "KC",
+      "kennzeichenAlle": [
+        "KC",
+        "SAN"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09477",
+      "name": "Kulmbach",
+      "type": "landkreis",
+      "kennzeichen": "KU",
+      "kennzeichenAlle": [
+        "KU",
+        "EBS",
+        "SAN"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09181",
+      "name": "Landsberg am Lech",
+      "type": "landkreis",
+      "kennzeichen": "LL",
+      "kennzeichenAlle": [
+        "LL"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09274",
+      "name": "Landshut",
+      "type": "landkreis",
+      "kennzeichen": "LA",
+      "kennzeichenAlle": [
+        "LA",
+        "MAI",
+        "MAL",
+        "ROL",
+        "VIB"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09261",
+      "name": "Landshut",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "LA",
+      "kennzeichenAlle": [
+        "LA"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09478",
+      "name": "Lichtenfels",
+      "type": "landkreis",
+      "kennzeichen": "LIF",
+      "kennzeichenAlle": [
+        "LIF",
+        "STE"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09776",
+      "name": "Lindau (Bodensee)",
+      "type": "landkreis",
+      "kennzeichen": "LI",
+      "kennzeichenAlle": [
+        "LI"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09677",
+      "name": "Main-Spessart",
+      "type": "landkreis",
+      "kennzeichen": "MSP",
+      "kennzeichenAlle": [
+        "MSP"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09764",
+      "name": "Memmingen",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "MM",
+      "kennzeichenAlle": [
+        "MM"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09182",
+      "name": "Miesbach",
+      "type": "landkreis",
+      "kennzeichen": "MB",
+      "kennzeichenAlle": [
+        "MB"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09676",
+      "name": "Miltenberg",
+      "type": "landkreis",
+      "kennzeichen": "MIL",
+      "kennzeichenAlle": [
+        "MIL",
+        "OBB"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09183",
+      "name": "Mühldorf am Inn",
+      "type": "landkreis",
+      "kennzeichen": "MÜ",
+      "kennzeichenAlle": [
+        "MÜ",
+        "VIB",
+        "WS"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09184",
+      "name": "München",
+      "type": "landkreis",
+      "kennzeichen": "M",
+      "kennzeichenAlle": [
+        "M",
+        "AIB",
+        "MU",
+        "WOR"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09162",
+      "name": "München",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "M",
+      "kennzeichenAlle": [
+        "M",
+        "MUC"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09775",
+      "name": "Neu-Ulm",
+      "type": "landkreis",
+      "kennzeichen": "NU",
+      "kennzeichenAlle": [
+        "NU",
+        "ILL"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09185",
+      "name": "Neuburg-Schrobenhausen",
+      "type": "landkreis",
+      "kennzeichen": "ND",
+      "kennzeichenAlle": [
+        "ND",
+        "SOB"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09373",
+      "name": "Neumarkt in der Oberpfalz",
+      "type": "landkreis",
+      "kennzeichen": "NM",
+      "kennzeichenAlle": [
+        "NM",
+        "PAR"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09575",
+      "name": "Neustadt an der Aisch-Bad Windsheim",
+      "type": "landkreis",
+      "kennzeichen": "NEA",
+      "kennzeichenAlle": [
+        "NEA",
+        "SEF",
+        "UFF"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09374",
+      "name": "Neustadt an der Waldnaab",
+      "type": "landkreis",
+      "kennzeichen": "NEW",
+      "kennzeichenAlle": [
+        "NEW",
+        "ESB",
+        "VOH"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09564",
+      "name": "Nürnberg",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "N",
+      "kennzeichenAlle": [
+        "N"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09574",
+      "name": "Nürnberger Land",
+      "type": "landkreis",
+      "kennzeichen": "LAU",
+      "kennzeichenAlle": [
+        "LAU",
+        "ESB",
+        "HEB",
+        "N",
+        "PEG"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09780",
+      "name": "Oberallgäu",
+      "type": "landkreis",
+      "kennzeichen": "OA",
+      "kennzeichenAlle": [
+        "OA"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09777",
+      "name": "Ostallgäu",
+      "type": "landkreis",
+      "kennzeichen": "OAL",
+      "kennzeichenAlle": [
+        "OAL",
+        "FÜS",
+        "MOD"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09275",
+      "name": "Passau",
+      "type": "landkreis",
+      "kennzeichen": "PA",
+      "kennzeichenAlle": [
+        "PA"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09262",
+      "name": "Passau",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "PA",
+      "kennzeichenAlle": [
+        "PA"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09186",
+      "name": "Pfaffenhofen an der Ilm",
+      "type": "landkreis",
+      "kennzeichen": "PAF",
+      "kennzeichenAlle": [
+        "PAF"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09276",
+      "name": "Regen",
+      "type": "landkreis",
+      "kennzeichen": "REG",
+      "kennzeichenAlle": [
+        "REG",
+        "VIT"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09375",
+      "name": "Regensburg",
+      "type": "landkreis",
+      "kennzeichen": "R",
+      "kennzeichenAlle": [
+        "R"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09362",
+      "name": "Regensburg",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "R",
+      "kennzeichenAlle": [
+        "R"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09673",
+      "name": "Rhön-Grabfeld",
+      "type": "landkreis",
+      "kennzeichen": "NES",
+      "kennzeichenAlle": [
+        "NES",
+        "KÖN",
+        "MET"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09187",
+      "name": "Rosenheim",
+      "type": "landkreis",
+      "kennzeichen": "RO",
+      "kennzeichenAlle": [
+        "RO",
+        "AIB",
+        "WS"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09163",
+      "name": "Rosenheim",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "RO",
+      "kennzeichenAlle": [
+        "RO"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09576",
+      "name": "Roth",
+      "type": "landkreis",
+      "kennzeichen": "RH",
+      "kennzeichenAlle": [
+        "RH",
+        "HIP"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09277",
+      "name": "Rottal-Inn",
+      "type": "landkreis",
+      "kennzeichen": "PAN",
+      "kennzeichenAlle": [
+        "PAN",
+        "EG",
+        "GRI",
+        "VIB"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09565",
+      "name": "Schwabach",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "SC",
+      "kennzeichenAlle": [
+        "SC"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09376",
+      "name": "Schwandorf",
+      "type": "landkreis",
+      "kennzeichen": "SAD",
+      "kennzeichenAlle": [
+        "SAD",
+        "BUL",
+        "NAB",
+        "NEN",
+        "OVI",
+        "ROD"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09678",
+      "name": "Schweinfurt",
+      "type": "landkreis",
+      "kennzeichen": "SW",
+      "kennzeichenAlle": [
+        "SW",
+        "GEO"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09662",
+      "name": "Schweinfurt",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "SW",
+      "kennzeichenAlle": [
+        "SW"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09188",
+      "name": "Starnberg",
+      "type": "landkreis",
+      "kennzeichen": "STA",
+      "kennzeichenAlle": [
+        "STA",
+        "WOR"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09263",
+      "name": "Straubing",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "SR",
+      "kennzeichenAlle": [
+        "SR"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09278",
+      "name": "Straubing-Bogen",
+      "type": "landkreis",
+      "kennzeichen": "SR",
+      "kennzeichenAlle": [
+        "SR",
+        "BOG",
+        "MAL"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09377",
+      "name": "Tirschenreuth",
+      "type": "landkreis",
+      "kennzeichen": "TIR",
+      "kennzeichenAlle": [
+        "TIR",
+        "KEM"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09189",
+      "name": "Traunstein",
+      "type": "landkreis",
+      "kennzeichen": "TS",
+      "kennzeichenAlle": [
+        "TS",
+        "LF"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09778",
+      "name": "Unterallgäu",
+      "type": "landkreis",
+      "kennzeichen": "MN",
+      "kennzeichenAlle": [
+        "MN"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09363",
+      "name": "Weiden in der Oberpfalz",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "WEN",
+      "kennzeichenAlle": [
+        "WEN"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09190",
+      "name": "Weilheim-Schongau",
+      "type": "landkreis",
+      "kennzeichen": "WM",
+      "kennzeichenAlle": [
+        "WM",
+        "SOG"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09577",
+      "name": "Weißenburg-Gunzenhausen",
+      "type": "landkreis",
+      "kennzeichen": "WUG",
+      "kennzeichenAlle": [
+        "WUG",
+        "GUN"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09479",
+      "name": "Wunsiedel im Fichtelgebirge",
+      "type": "landkreis",
+      "kennzeichen": "WUN",
+      "kennzeichenAlle": [
+        "WUN",
+        "MAK",
+        "REH",
+        "SEL"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09679",
+      "name": "Würzburg",
+      "type": "landkreis",
+      "kennzeichen": "WÜ",
+      "kennzeichenAlle": [
+        "WÜ",
+        "OCH"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "09663",
+      "name": "Würzburg",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "WÜ",
+      "kennzeichenAlle": [
+        "WÜ"
+      ],
+      "bundesland": "BY"
+    },
+    {
+      "id": "04011",
+      "name": "Bremen",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "HB",
+      "kennzeichenAlle": [
+        "HB"
+      ],
+      "bundesland": "HB"
+    },
+    {
+      "id": "04012",
+      "name": "Bremerhaven",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "HB",
+      "kennzeichenAlle": [
+        "HB"
+      ],
+      "bundesland": "HB"
+    },
+    {
+      "id": "06431",
+      "name": "Bergstraße",
+      "type": "landkreis",
+      "kennzeichen": "HP",
+      "kennzeichenAlle": [
+        "HP"
+      ],
+      "bundesland": "HE"
+    },
+    {
+      "id": "06411",
+      "name": "Darmstadt",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "DA",
+      "kennzeichenAlle": [
+        "DA"
+      ],
+      "bundesland": "HE"
+    },
+    {
+      "id": "06432",
+      "name": "Darmstadt-Dieburg",
+      "type": "landkreis",
+      "kennzeichen": "DA",
+      "kennzeichenAlle": [
+        "DA",
+        "DI"
+      ],
+      "bundesland": "HE"
+    },
+    {
+      "id": "06412",
+      "name": "Frankfurt am Main",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "F",
+      "kennzeichenAlle": [
+        "F"
+      ],
+      "bundesland": "HE"
+    },
+    {
+      "id": "06631",
+      "name": "Fulda",
+      "type": "landkreis",
+      "kennzeichen": "FD",
+      "kennzeichenAlle": [
+        "FD"
+      ],
+      "bundesland": "HE"
+    },
+    {
+      "id": "06531",
+      "name": "Gießen",
+      "type": "landkreis",
+      "kennzeichen": "GI",
+      "kennzeichenAlle": [
+        "GI"
+      ],
+      "bundesland": "HE"
+    },
+    {
+      "id": "06433",
+      "name": "Groß-Gerau",
+      "type": "landkreis",
+      "kennzeichen": "GG",
+      "kennzeichenAlle": [
+        "GG"
+      ],
+      "bundesland": "HE"
+    },
+    {
+      "id": "06415",
+      "name": "Hanau",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "HU",
+      "kennzeichenAlle": [
+        "HU"
+      ],
+      "bundesland": "HE"
+    },
+    {
+      "id": "06632",
+      "name": "Hersfeld-Rotenburg",
+      "type": "landkreis",
+      "kennzeichen": "HEF",
+      "kennzeichenAlle": [
+        "HEF",
+        "ROF"
+      ],
+      "bundesland": "HE"
+    },
+    {
+      "id": "06434",
+      "name": "Hochtaunuskreis",
+      "type": "landkreis",
+      "kennzeichen": "HG",
+      "kennzeichenAlle": [
+        "HG",
+        "USI"
+      ],
+      "bundesland": "HE"
+    },
+    {
+      "id": "06633",
+      "name": "Kassel",
+      "type": "landkreis",
+      "kennzeichen": "KS",
+      "kennzeichenAlle": [
+        "KS",
+        "HOG",
+        "WOH"
+      ],
+      "bundesland": "HE"
+    },
+    {
+      "id": "06611",
+      "name": "Kassel",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "KS",
+      "kennzeichenAlle": [
+        "KS"
+      ],
+      "bundesland": "HE"
+    },
+    {
+      "id": "06532",
+      "name": "Lahn-Dill-Kreis",
+      "type": "landkreis",
+      "kennzeichen": "LDK",
+      "kennzeichenAlle": [
+        "LDK",
+        "DIL",
+        "WZ"
+      ],
+      "bundesland": "HE"
+    },
+    {
+      "id": "06533",
+      "name": "Limburg-Weilburg",
+      "type": "landkreis",
+      "kennzeichen": "LM",
+      "kennzeichenAlle": [
+        "LM",
+        "WEL"
+      ],
+      "bundesland": "HE"
+    },
+    {
+      "id": "06435",
+      "name": "Main-Kinzig-Kreis",
+      "type": "landkreis",
+      "kennzeichen": "MKK",
+      "kennzeichenAlle": [
+        "MKK",
+        "HU",
+        "GN",
+        "SLÜ"
+      ],
+      "bundesland": "HE"
+    },
+    {
+      "id": "06436",
+      "name": "Main-Taunus-Kreis",
+      "type": "landkreis",
+      "kennzeichen": "MTK",
+      "kennzeichenAlle": [
+        "MTK"
+      ],
+      "bundesland": "HE"
+    },
+    {
+      "id": "06534",
+      "name": "Marburg-Biedenkopf",
+      "type": "landkreis",
+      "kennzeichen": "MR",
+      "kennzeichenAlle": [
+        "MR",
+        "BID"
+      ],
+      "bundesland": "HE"
+    },
+    {
+      "id": "06437",
+      "name": "Odenwaldkreis",
+      "type": "landkreis",
+      "kennzeichen": "ERB",
+      "kennzeichenAlle": [
+        "ERB"
+      ],
+      "bundesland": "HE"
+    },
+    {
+      "id": "06438",
+      "name": "Offenbach",
+      "type": "landkreis",
+      "kennzeichen": "OF",
+      "kennzeichenAlle": [
+        "OF"
+      ],
+      "bundesland": "HE"
+    },
+    {
+      "id": "06413",
+      "name": "Offenbach am Main",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "OF",
+      "kennzeichenAlle": [
+        "OF"
+      ],
+      "bundesland": "HE"
+    },
+    {
+      "id": "06439",
+      "name": "Rheingau-Taunus-Kreis",
+      "type": "landkreis",
+      "kennzeichen": "RÜD",
+      "kennzeichenAlle": [
+        "RÜD",
+        "SWA"
+      ],
+      "bundesland": "HE"
+    },
+    {
+      "id": "06634",
+      "name": "Schwalm-Eder-Kreis",
+      "type": "landkreis",
+      "kennzeichen": "HR",
+      "kennzeichenAlle": [
+        "HR",
+        "FZ",
+        "MEG",
+        "ZIG"
+      ],
+      "bundesland": "HE"
+    },
+    {
+      "id": "06535",
+      "name": "Vogelsbergkreis",
+      "type": "landkreis",
+      "kennzeichen": "VB",
+      "kennzeichenAlle": [
+        "VB"
+      ],
+      "bundesland": "HE"
+    },
+    {
+      "id": "06635",
+      "name": "Waldeck-Frankenberg",
+      "type": "landkreis",
+      "kennzeichen": "KB",
+      "kennzeichenAlle": [
+        "KB",
+        "FKB",
+        "WA"
+      ],
+      "bundesland": "HE"
+    },
+    {
+      "id": "06636",
+      "name": "Werra-Meißner-Kreis",
+      "type": "landkreis",
+      "kennzeichen": "ESW",
+      "kennzeichenAlle": [
+        "ESW",
+        "WIZ"
+      ],
+      "bundesland": "HE"
+    },
+    {
+      "id": "06440",
+      "name": "Wetteraukreis",
+      "type": "landkreis",
+      "kennzeichen": "FB",
+      "kennzeichenAlle": [
+        "FB",
+        "BÜD"
+      ],
+      "bundesland": "HE"
+    },
+    {
+      "id": "06414",
+      "name": "Wiesbaden",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "WI",
+      "kennzeichenAlle": [
+        "WI"
+      ],
+      "bundesland": "HE"
+    },
+    {
+      "id": "02000",
+      "name": "Hamburg",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "HH",
+      "kennzeichenAlle": [
+        "HH"
+      ],
+      "bundesland": "HH"
+    },
+    {
+      "id": "13076",
+      "name": "Ludwigslust-Parchim",
+      "type": "landkreis",
+      "kennzeichen": "LUP",
+      "kennzeichenAlle": [
+        "LUP",
+        "HGN",
+        "LBZ",
+        "LWL",
+        "PCH",
+        "STB"
+      ],
+      "bundesland": "MV"
+    },
+    {
+      "id": "13071",
+      "name": "Mecklenburgische Seenplatte",
+      "type": "landkreis",
+      "kennzeichen": "MSE",
+      "kennzeichenAlle": [
+        "MSE",
+        "AT",
+        "DM",
+        "MC",
+        "MST",
+        "MÜR",
+        "NZ",
+        "RM",
+        "WRN",
+        "(NB)"
+      ],
+      "bundesland": "MV"
+    },
+    {
+      "id": "13074",
+      "name": "Nordwestmecklenburg",
+      "type": "landkreis",
+      "kennzeichen": "NWM",
+      "kennzeichenAlle": [
+        "NWM",
+        "GDB",
+        "GVM",
+        "WIS",
+        "(HWI)"
+      ],
+      "bundesland": "MV"
+    },
+    {
+      "id": "13072",
+      "name": "Rostock",
+      "type": "landkreis",
+      "kennzeichen": "LRO",
+      "kennzeichenAlle": [
+        "LRO",
+        "BÜZ",
+        "DBR",
+        "GÜ",
+        "ROS",
+        "TET"
+      ],
+      "bundesland": "MV"
+    },
+    {
+      "id": "13003",
+      "name": "Rostock",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "HRO",
+      "kennzeichenAlle": [
+        "HRO"
+      ],
+      "bundesland": "MV"
+    },
+    {
+      "id": "13004",
+      "name": "Schwerin",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "SN",
+      "kennzeichenAlle": [
+        "SN"
+      ],
+      "bundesland": "MV"
+    },
+    {
+      "id": "13075",
+      "name": "Vorpommern-Greifswald",
+      "type": "landkreis",
+      "kennzeichen": "VG",
+      "kennzeichenAlle": [
+        "VG",
+        "ANK",
+        "GW",
+        "PW",
+        "SBG",
+        "UEM",
+        "WLG",
+        "(HGW)"
+      ],
+      "bundesland": "MV"
+    },
+    {
+      "id": "13073",
+      "name": "Vorpommern-Rügen",
+      "type": "landkreis",
+      "kennzeichen": "VR",
+      "kennzeichenAlle": [
+        "VR",
+        "GMN",
+        "NVP",
+        "RDG",
+        "RÜG",
+        "(HST)"
+      ],
+      "bundesland": "MV"
+    },
+    {
+      "id": "03451",
+      "name": "Ammerland",
+      "type": "landkreis",
+      "kennzeichen": "WST",
+      "kennzeichenAlle": [
+        "WST"
+      ],
+      "bundesland": "NI"
+    },
+    {
+      "id": "03452",
+      "name": "Aurich",
+      "type": "landkreis",
+      "kennzeichen": "AUR",
+      "kennzeichenAlle": [
+        "AUR",
+        "NOR"
+      ],
+      "bundesland": "NI"
+    },
+    {
+      "id": "03101",
+      "name": "Braunschweig",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "BS",
+      "kennzeichenAlle": [
+        "BS"
+      ],
+      "bundesland": "NI"
+    },
+    {
+      "id": "03351",
+      "name": "Celle",
+      "type": "landkreis",
+      "kennzeichen": "CE",
+      "kennzeichenAlle": [
+        "CE"
+      ],
+      "bundesland": "NI"
+    },
+    {
+      "id": "03453",
+      "name": "Cloppenburg",
+      "type": "landkreis",
+      "kennzeichen": "CLP",
+      "kennzeichenAlle": [
+        "CLP"
+      ],
+      "bundesland": "NI"
+    },
+    {
+      "id": "03352",
+      "name": "Cuxhaven",
+      "type": "landkreis",
+      "kennzeichen": "CUX",
+      "kennzeichenAlle": [
+        "CUX"
+      ],
+      "bundesland": "NI"
+    },
+    {
+      "id": "03401",
+      "name": "Delmenhorst",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "DEL",
+      "kennzeichenAlle": [
+        "DEL"
+      ],
+      "bundesland": "NI"
+    },
+    {
+      "id": "03251",
+      "name": "Diepholz",
+      "type": "landkreis",
+      "kennzeichen": "DH",
+      "kennzeichenAlle": [
+        "DH",
+        "SY"
+      ],
+      "bundesland": "NI"
+    },
+    {
+      "id": "03402",
+      "name": "Emden",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "EMD",
+      "kennzeichenAlle": [
+        "EMD"
+      ],
+      "bundesland": "NI"
+    },
+    {
+      "id": "03454",
+      "name": "Emsland",
+      "type": "landkreis",
+      "kennzeichen": "EL",
+      "kennzeichenAlle": [
+        "EL"
+      ],
+      "bundesland": "NI"
+    },
+    {
+      "id": "03455",
+      "name": "Friesland",
+      "type": "landkreis",
+      "kennzeichen": "FRI",
+      "kennzeichenAlle": [
+        "FRI"
+      ],
+      "bundesland": "NI"
+    },
+    {
+      "id": "03151",
+      "name": "Gifhorn",
+      "type": "landkreis",
+      "kennzeichen": "GF",
+      "kennzeichenAlle": [
+        "GF"
+      ],
+      "bundesland": "NI"
+    },
+    {
+      "id": "03153",
+      "name": "Goslar",
+      "type": "landkreis",
+      "kennzeichen": "GS",
+      "kennzeichenAlle": [
+        "GS",
+        "BRL",
+        "CLZ"
+      ],
+      "bundesland": "NI"
+    },
+    {
+      "id": "03456",
+      "name": "Grafschaft Bentheim",
+      "type": "landkreis",
+      "kennzeichen": "NOH",
+      "kennzeichenAlle": [
+        "NOH"
+      ],
+      "bundesland": "NI"
+    },
+    {
+      "id": "03159",
+      "name": "Göttingen",
+      "type": "landkreis",
+      "kennzeichen": "GÖ",
+      "kennzeichenAlle": [
+        "GÖ",
+        "DUD",
+        "HMÜ",
+        "OHA"
+      ],
+      "bundesland": "NI"
+    },
+    {
+      "id": "03252",
+      "name": "Hameln-Pyrmont",
+      "type": "landkreis",
+      "kennzeichen": "HM",
+      "kennzeichenAlle": [
+        "HM"
+      ],
+      "bundesland": "NI"
+    },
+    {
+      "id": "03241",
+      "name": "Hannover, Region",
+      "type": "landkreis",
+      "kennzeichen": "H",
+      "kennzeichenAlle": [
+        "H"
+      ],
+      "bundesland": "NI"
+    },
+    {
+      "id": "03353",
+      "name": "Harburg",
+      "type": "landkreis",
+      "kennzeichen": "WL",
+      "kennzeichenAlle": [
+        "WL"
+      ],
+      "bundesland": "NI"
+    },
+    {
+      "id": "03358",
+      "name": "Heidekreis",
+      "type": "landkreis",
+      "kennzeichen": "HK",
+      "kennzeichenAlle": [
+        "HK"
+      ],
+      "bundesland": "NI"
+    },
+    {
+      "id": "03154",
+      "name": "Helmstedt",
+      "type": "landkreis",
+      "kennzeichen": "HE",
+      "kennzeichenAlle": [
+        "HE"
+      ],
+      "bundesland": "NI"
+    },
+    {
+      "id": "03254",
+      "name": "Hildesheim",
+      "type": "landkreis",
+      "kennzeichen": "HI",
+      "kennzeichenAlle": [
+        "HI",
+        "ALF"
+      ],
+      "bundesland": "NI"
+    },
+    {
+      "id": "03255",
+      "name": "Holzminden",
+      "type": "landkreis",
+      "kennzeichen": "HOL",
+      "kennzeichenAlle": [
+        "HOL"
+      ],
+      "bundesland": "NI"
+    },
+    {
+      "id": "03457",
+      "name": "Leer",
+      "type": "landkreis",
+      "kennzeichen": "LER",
+      "kennzeichenAlle": [
+        "LER"
+      ],
+      "bundesland": "NI"
+    },
+    {
+      "id": "03354",
+      "name": "Lüchow-Dannenberg",
+      "type": "landkreis",
+      "kennzeichen": "DAN",
+      "kennzeichenAlle": [
+        "DAN"
+      ],
+      "bundesland": "NI"
+    },
+    {
+      "id": "03355",
+      "name": "Lüneburg",
+      "type": "landkreis",
+      "kennzeichen": "LG",
+      "kennzeichenAlle": [
+        "LG"
+      ],
+      "bundesland": "NI"
+    },
+    {
+      "id": "03256",
+      "name": "Nienburg/Weser",
+      "type": "landkreis",
+      "kennzeichen": "NI",
+      "kennzeichenAlle": [
+        "NI"
+      ],
+      "bundesland": "NI"
+    },
+    {
+      "id": "03155",
+      "name": "Northeim",
+      "type": "landkreis",
+      "kennzeichen": "NOM",
+      "kennzeichenAlle": [
+        "NOM",
+        "EIN",
+        "GAN"
+      ],
+      "bundesland": "NI"
+    },
+    {
+      "id": "03458",
+      "name": "Oldenburg",
+      "type": "landkreis",
+      "kennzeichen": "OL",
+      "kennzeichenAlle": [
+        "OL"
+      ],
+      "bundesland": "NI"
+    },
+    {
+      "id": "03403",
+      "name": "Oldenburg",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "OL",
+      "kennzeichenAlle": [
+        "OL"
+      ],
+      "bundesland": "NI"
+    },
+    {
+      "id": "03459",
+      "name": "Osnabrück",
+      "type": "landkreis",
+      "kennzeichen": "OS",
+      "kennzeichenAlle": [
+        "OS",
+        "BSB",
+        "MEL",
+        "WTL"
+      ],
+      "bundesland": "NI"
+    },
+    {
+      "id": "03404",
+      "name": "Osnabrück",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "OS",
+      "kennzeichenAlle": [
+        "OS"
+      ],
+      "bundesland": "NI"
+    },
+    {
+      "id": "03356",
+      "name": "Osterholz",
+      "type": "landkreis",
+      "kennzeichen": "OHZ",
+      "kennzeichenAlle": [
+        "OHZ"
+      ],
+      "bundesland": "NI"
+    },
+    {
+      "id": "03157",
+      "name": "Peine",
+      "type": "landkreis",
+      "kennzeichen": "PE",
+      "kennzeichenAlle": [
+        "PE"
+      ],
+      "bundesland": "NI"
+    },
+    {
+      "id": "03357",
+      "name": "Rotenburg (Wümme)",
+      "type": "landkreis",
+      "kennzeichen": "ROW",
+      "kennzeichenAlle": [
+        "ROW",
+        "BRV"
+      ],
+      "bundesland": "NI"
+    },
+    {
+      "id": "03102",
+      "name": "Salzgitter",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "SZ",
+      "kennzeichenAlle": [
+        "SZ"
+      ],
+      "bundesland": "NI"
+    },
+    {
+      "id": "03257",
+      "name": "Schaumburg",
+      "type": "landkreis",
+      "kennzeichen": "SHG",
+      "kennzeichenAlle": [
+        "SHG",
+        "RI"
+      ],
+      "bundesland": "NI"
+    },
+    {
+      "id": "03359",
+      "name": "Stade",
+      "type": "landkreis",
+      "kennzeichen": "STD",
+      "kennzeichenAlle": [
+        "STD"
+      ],
+      "bundesland": "NI"
+    },
+    {
+      "id": "03360",
+      "name": "Uelzen",
+      "type": "landkreis",
+      "kennzeichen": "UE",
+      "kennzeichenAlle": [
+        "UE"
+      ],
+      "bundesland": "NI"
+    },
+    {
+      "id": "03460",
+      "name": "Vechta",
+      "type": "landkreis",
+      "kennzeichen": "VEC",
+      "kennzeichenAlle": [
+        "VEC"
+      ],
+      "bundesland": "NI"
+    },
+    {
+      "id": "03361",
+      "name": "Verden",
+      "type": "landkreis",
+      "kennzeichen": "VER",
+      "kennzeichenAlle": [
+        "VER"
+      ],
+      "bundesland": "NI"
+    },
+    {
+      "id": "03461",
+      "name": "Wesermarsch",
+      "type": "landkreis",
+      "kennzeichen": "BRA",
+      "kennzeichenAlle": [
+        "BRA"
+      ],
+      "bundesland": "NI"
+    },
+    {
+      "id": "03405",
+      "name": "Wilhelmshaven",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "WHV",
+      "kennzeichenAlle": [
+        "WHV"
+      ],
+      "bundesland": "NI"
+    },
+    {
+      "id": "03462",
+      "name": "Wittmund",
+      "type": "landkreis",
+      "kennzeichen": "WTM",
+      "kennzeichenAlle": [
+        "WTM"
+      ],
+      "bundesland": "NI"
+    },
+    {
+      "id": "03158",
+      "name": "Wolfenbüttel",
+      "type": "landkreis",
+      "kennzeichen": "WF",
+      "kennzeichenAlle": [
+        "WF"
+      ],
+      "bundesland": "NI"
+    },
+    {
+      "id": "03103",
+      "name": "Wolfsburg",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "WOB",
+      "kennzeichenAlle": [
+        "WOB"
+      ],
+      "bundesland": "NI"
+    },
+    {
+      "id": "05334",
+      "name": "Aachen, Städteregion",
+      "type": "landkreis",
+      "kennzeichen": "AC",
+      "kennzeichenAlle": [
+        "AC",
+        "MON"
+      ],
+      "bundesland": "NW"
+    },
+    {
+      "id": "05711",
+      "name": "Bielefeld",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "BI",
+      "kennzeichenAlle": [
+        "BI"
+      ],
+      "bundesland": "NW"
+    },
+    {
+      "id": "05911",
+      "name": "Bochum",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "BO",
+      "kennzeichenAlle": [
+        "BO",
+        "WAT"
+      ],
+      "bundesland": "NW"
+    },
+    {
+      "id": "05314",
+      "name": "Bonn",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "BN",
+      "kennzeichenAlle": [
+        "BN"
+      ],
+      "bundesland": "NW"
+    },
+    {
+      "id": "05554",
+      "name": "Borken",
+      "type": "landkreis",
+      "kennzeichen": "BOR",
+      "kennzeichenAlle": [
+        "BOR",
+        "AH",
+        "BOH"
+      ],
+      "bundesland": "NW"
+    },
+    {
+      "id": "05512",
+      "name": "Bottrop",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "BOT",
+      "kennzeichenAlle": [
+        "BOT"
+      ],
+      "bundesland": "NW"
+    },
+    {
+      "id": "05558",
+      "name": "Coesfeld",
+      "type": "landkreis",
+      "kennzeichen": "COE",
+      "kennzeichenAlle": [
+        "COE",
+        "LH"
+      ],
+      "bundesland": "NW"
+    },
+    {
+      "id": "05913",
+      "name": "Dortmund",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "DO",
+      "kennzeichenAlle": [
+        "DO"
+      ],
+      "bundesland": "NW"
+    },
+    {
+      "id": "05112",
+      "name": "Duisburg",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "DU",
+      "kennzeichenAlle": [
+        "DU"
+      ],
+      "bundesland": "NW"
+    },
+    {
+      "id": "05358",
+      "name": "Düren",
+      "type": "landkreis",
+      "kennzeichen": "DN",
+      "kennzeichenAlle": [
+        "DN",
+        "JÜL",
+        "MON",
+        "SLE"
+      ],
+      "bundesland": "NW"
+    },
+    {
+      "id": "05111",
+      "name": "Düsseldorf",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "D",
+      "kennzeichenAlle": [
+        "D"
+      ],
+      "bundesland": "NW"
+    },
+    {
+      "id": "05954",
+      "name": "Ennepe-Ruhr-Kreis",
+      "type": "landkreis",
+      "kennzeichen": "EN",
+      "kennzeichenAlle": [
+        "EN",
+        "WIT"
+      ],
+      "bundesland": "NW"
+    },
+    {
+      "id": "05113",
+      "name": "Essen",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "E",
+      "kennzeichenAlle": [
+        "E"
+      ],
+      "bundesland": "NW"
+    },
+    {
+      "id": "05366",
+      "name": "Euskirchen",
+      "type": "landkreis",
+      "kennzeichen": "EU",
+      "kennzeichenAlle": [
+        "EU",
+        "SLE"
+      ],
+      "bundesland": "NW"
+    },
+    {
+      "id": "05513",
+      "name": "Gelsenkirchen",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "GE",
+      "kennzeichenAlle": [
+        "GE"
+      ],
+      "bundesland": "NW"
+    },
+    {
+      "id": "05754",
+      "name": "Gütersloh",
+      "type": "landkreis",
+      "kennzeichen": "GT",
+      "kennzeichenAlle": [
+        "GT"
+      ],
+      "bundesland": "NW"
+    },
+    {
+      "id": "05914",
+      "name": "Hagen",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "HA",
+      "kennzeichenAlle": [
+        "HA"
+      ],
+      "bundesland": "NW"
+    },
+    {
+      "id": "05915",
+      "name": "Hamm",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "HAM",
+      "kennzeichenAlle": [
+        "HAM"
+      ],
+      "bundesland": "NW"
+    },
+    {
+      "id": "05370",
+      "name": "Heinsberg",
+      "type": "landkreis",
+      "kennzeichen": "HS",
+      "kennzeichenAlle": [
+        "HS",
+        "ERK",
+        "GK"
+      ],
+      "bundesland": "NW"
+    },
+    {
+      "id": "05758",
+      "name": "Herford",
+      "type": "landkreis",
+      "kennzeichen": "HF",
+      "kennzeichenAlle": [
+        "HF"
+      ],
+      "bundesland": "NW"
+    },
+    {
+      "id": "05916",
+      "name": "Herne",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "HER",
+      "kennzeichenAlle": [
+        "HER",
+        "WAN"
+      ],
+      "bundesland": "NW"
+    },
+    {
+      "id": "05958",
+      "name": "Hochsauerlandkreis",
+      "type": "landkreis",
+      "kennzeichen": "HSK",
+      "kennzeichenAlle": [
+        "HSK"
+      ],
+      "bundesland": "NW"
+    },
+    {
+      "id": "05762",
+      "name": "Höxter",
+      "type": "landkreis",
+      "kennzeichen": "HX",
+      "kennzeichenAlle": [
+        "HX",
+        "WAR"
+      ],
+      "bundesland": "NW"
+    },
+    {
+      "id": "05154",
+      "name": "Kleve",
+      "type": "landkreis",
+      "kennzeichen": "KLE",
+      "kennzeichenAlle": [
+        "KLE",
+        "GEL"
+      ],
+      "bundesland": "NW"
+    },
+    {
+      "id": "05114",
+      "name": "Krefeld",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "KR",
+      "kennzeichenAlle": [
+        "KR"
+      ],
+      "bundesland": "NW"
+    },
+    {
+      "id": "05315",
+      "name": "Köln",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "K",
+      "kennzeichenAlle": [
+        "K"
+      ],
+      "bundesland": "NW"
+    },
+    {
+      "id": "05316",
+      "name": "Leverkusen",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "LEV",
+      "kennzeichenAlle": [
+        "LEV",
+        "OP"
+      ],
+      "bundesland": "NW"
+    },
+    {
+      "id": "05766",
+      "name": "Lippe",
+      "type": "landkreis",
+      "kennzeichen": "LIP",
+      "kennzeichenAlle": [
+        "LIP",
+        "DT",
+        "LE"
+      ],
+      "bundesland": "NW"
+    },
+    {
+      "id": "05158",
+      "name": "Mettmann",
+      "type": "landkreis",
+      "kennzeichen": "ME",
+      "kennzeichenAlle": [
+        "ME"
+      ],
+      "bundesland": "NW"
+    },
+    {
+      "id": "05770",
+      "name": "Minden-Lübbecke",
+      "type": "landkreis",
+      "kennzeichen": "MI",
+      "kennzeichenAlle": [
+        "MI",
+        "LK"
+      ],
+      "bundesland": "NW"
+    },
+    {
+      "id": "05962",
+      "name": "Märkischer Kreis",
+      "type": "landkreis",
+      "kennzeichen": "MK",
+      "kennzeichenAlle": [
+        "MK"
+      ],
+      "bundesland": "NW"
+    },
+    {
+      "id": "05116",
+      "name": "Mönchengladbach",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "MG",
+      "kennzeichenAlle": [
+        "MG"
+      ],
+      "bundesland": "NW"
+    },
+    {
+      "id": "05117",
+      "name": "Mülheim an der Ruhr",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "MH",
+      "kennzeichenAlle": [
+        "MH"
+      ],
+      "bundesland": "NW"
+    },
+    {
+      "id": "05515",
+      "name": "Münster",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "MS",
+      "kennzeichenAlle": [
+        "MS"
+      ],
+      "bundesland": "NW"
+    },
+    {
+      "id": "05374",
+      "name": "Oberbergischer Kreis",
+      "type": "landkreis",
+      "kennzeichen": "GM",
+      "kennzeichenAlle": [
+        "GM"
+      ],
+      "bundesland": "NW"
+    },
+    {
+      "id": "05119",
+      "name": "Oberhausen",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "OB",
+      "kennzeichenAlle": [
+        "OB"
+      ],
+      "bundesland": "NW"
+    },
+    {
+      "id": "05966",
+      "name": "Olpe",
+      "type": "landkreis",
+      "kennzeichen": "OE",
+      "kennzeichenAlle": [
+        "OE"
+      ],
+      "bundesland": "NW"
+    },
+    {
+      "id": "05774",
+      "name": "Paderborn",
+      "type": "landkreis",
+      "kennzeichen": "PB",
+      "kennzeichenAlle": [
+        "PB",
+        "BÜR"
+      ],
+      "bundesland": "NW"
+    },
+    {
+      "id": "05562",
+      "name": "Recklinghausen",
+      "type": "landkreis",
+      "kennzeichen": "RE",
+      "kennzeichenAlle": [
+        "RE",
+        "CAS",
+        "GLA"
+      ],
+      "bundesland": "NW"
+    },
+    {
+      "id": "05120",
+      "name": "Remscheid",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "RS",
+      "kennzeichenAlle": [
+        "RS"
+      ],
+      "bundesland": "NW"
+    },
+    {
+      "id": "05362",
+      "name": "Rhein-Erft-Kreis",
+      "type": "landkreis",
+      "kennzeichen": "BM",
+      "kennzeichenAlle": [
+        "BM"
+      ],
+      "bundesland": "NW"
+    },
+    {
+      "id": "05162",
+      "name": "Rhein-Kreis Neuss",
+      "type": "landkreis",
+      "kennzeichen": "NE",
+      "kennzeichenAlle": [
+        "NE",
+        "GV"
+      ],
+      "bundesland": "NW"
+    },
+    {
+      "id": "05382",
+      "name": "Rhein-Sieg-Kreis",
+      "type": "landkreis",
+      "kennzeichen": "SU",
+      "kennzeichenAlle": [
+        "SU"
+      ],
+      "bundesland": "NW"
+    },
+    {
+      "id": "05378",
+      "name": "Rheinisch-Bergischer Kreis",
+      "type": "landkreis",
+      "kennzeichen": "GL",
+      "kennzeichenAlle": [
+        "GL"
+      ],
+      "bundesland": "NW"
+    },
+    {
+      "id": "05970",
+      "name": "Siegen-Wittgenstein",
+      "type": "landkreis",
+      "kennzeichen": "SI",
+      "kennzeichenAlle": [
+        "SI",
+        "BLB"
+      ],
+      "bundesland": "NW"
+    },
+    {
+      "id": "05974",
+      "name": "Soest",
+      "type": "landkreis",
+      "kennzeichen": "SO",
+      "kennzeichenAlle": [
+        "SO",
+        "LP"
+      ],
+      "bundesland": "NW"
+    },
+    {
+      "id": "05122",
+      "name": "Solingen",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "SG",
+      "kennzeichenAlle": [
+        "SG"
+      ],
+      "bundesland": "NW"
+    },
+    {
+      "id": "05566",
+      "name": "Steinfurt",
+      "type": "landkreis",
+      "kennzeichen": "ST",
+      "kennzeichenAlle": [
+        "ST",
+        "BF",
+        "TE"
+      ],
+      "bundesland": "NW"
+    },
+    {
+      "id": "05978",
+      "name": "Unna",
+      "type": "landkreis",
+      "kennzeichen": "UN",
+      "kennzeichenAlle": [
+        "UN",
+        "LH",
+        "LÜN"
+      ],
+      "bundesland": "NW"
+    },
+    {
+      "id": "05166",
+      "name": "Viersen",
+      "type": "landkreis",
+      "kennzeichen": "VIE",
+      "kennzeichenAlle": [
+        "VIE",
+        "KK"
+      ],
+      "bundesland": "NW"
+    },
+    {
+      "id": "05570",
+      "name": "Warendorf",
+      "type": "landkreis",
+      "kennzeichen": "WAF",
+      "kennzeichenAlle": [
+        "WAF",
+        "BE"
+      ],
+      "bundesland": "NW"
+    },
+    {
+      "id": "05170",
+      "name": "Wesel",
+      "type": "landkreis",
+      "kennzeichen": "WES",
+      "kennzeichenAlle": [
+        "WES",
+        "DIN",
+        "MO"
+      ],
+      "bundesland": "NW"
+    },
+    {
+      "id": "05124",
+      "name": "Wuppertal",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "W",
+      "kennzeichenAlle": [
+        "W"
+      ],
+      "bundesland": "NW"
+    },
+    {
+      "id": "07131",
+      "name": "Ahrweiler",
+      "type": "landkreis",
+      "kennzeichen": "AW",
+      "kennzeichenAlle": [
+        "AW"
+      ],
+      "bundesland": "RP"
+    },
+    {
+      "id": "07132",
+      "name": "Altenkirchen (Westerwald)",
+      "type": "landkreis",
+      "kennzeichen": "AK",
+      "kennzeichenAlle": [
+        "AK"
+      ],
+      "bundesland": "RP"
+    },
+    {
+      "id": "07331",
+      "name": "Alzey-Worms",
+      "type": "landkreis",
+      "kennzeichen": "AZ",
+      "kennzeichenAlle": [
+        "AZ"
+      ],
+      "bundesland": "RP"
+    },
+    {
+      "id": "07332",
+      "name": "Bad Dürkheim",
+      "type": "landkreis",
+      "kennzeichen": "DÜW",
+      "kennzeichenAlle": [
+        "DÜW"
+      ],
+      "bundesland": "RP"
+    },
+    {
+      "id": "07133",
+      "name": "Bad Kreuznach",
+      "type": "landkreis",
+      "kennzeichen": "KH",
+      "kennzeichenAlle": [
+        "KH"
+      ],
+      "bundesland": "RP"
+    },
+    {
+      "id": "07231",
+      "name": "Bernkastel-Wittlich",
+      "type": "landkreis",
+      "kennzeichen": "WIL",
+      "kennzeichenAlle": [
+        "WIL",
+        "BKS"
+      ],
+      "bundesland": "RP"
+    },
+    {
+      "id": "07134",
+      "name": "Birkenfeld",
+      "type": "landkreis",
+      "kennzeichen": "BIR",
+      "kennzeichenAlle": [
+        "BIR"
+      ],
+      "bundesland": "RP"
+    },
+    {
+      "id": "07135",
+      "name": "Cochem-Zell",
+      "type": "landkreis",
+      "kennzeichen": "COC",
+      "kennzeichenAlle": [
+        "COC",
+        "ZEL"
+      ],
+      "bundesland": "RP"
+    },
+    {
+      "id": "07333",
+      "name": "Donnersbergkreis",
+      "type": "landkreis",
+      "kennzeichen": "KIB",
+      "kennzeichenAlle": [
+        "KIB",
+        "ROK"
+      ],
+      "bundesland": "RP"
+    },
+    {
+      "id": "07232",
+      "name": "Eifelkreis Bitburg-Prüm",
+      "type": "landkreis",
+      "kennzeichen": "BIT",
+      "kennzeichenAlle": [
+        "BIT",
+        "PRÜ"
+      ],
+      "bundesland": "RP"
+    },
+    {
+      "id": "07311",
+      "name": "Frankenthal",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "FT",
+      "kennzeichenAlle": [
+        "FT"
+      ],
+      "bundesland": "RP"
+    },
+    {
+      "id": "07334",
+      "name": "Germersheim",
+      "type": "landkreis",
+      "kennzeichen": "GER",
+      "kennzeichenAlle": [
+        "GER"
+      ],
+      "bundesland": "RP"
+    },
+    {
+      "id": "07335",
+      "name": "Kaiserslautern",
+      "type": "landkreis",
+      "kennzeichen": "KL",
+      "kennzeichenAlle": [
+        "KL"
+      ],
+      "bundesland": "RP"
+    },
+    {
+      "id": "07312",
+      "name": "Kaiserslautern",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "KL",
+      "kennzeichenAlle": [
+        "KL"
+      ],
+      "bundesland": "RP"
+    },
+    {
+      "id": "07111",
+      "name": "Koblenz",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "KO",
+      "kennzeichenAlle": [
+        "KO"
+      ],
+      "bundesland": "RP"
+    },
+    {
+      "id": "07336",
+      "name": "Kusel",
+      "type": "landkreis",
+      "kennzeichen": "KUS",
+      "kennzeichenAlle": [
+        "KUS"
+      ],
+      "bundesland": "RP"
+    },
+    {
+      "id": "07313",
+      "name": "Landau in der Pfalz",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "LD",
+      "kennzeichenAlle": [
+        "LD"
+      ],
+      "bundesland": "RP"
+    },
+    {
+      "id": "07314",
+      "name": "Ludwigshafen am Rhein",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "LU",
+      "kennzeichenAlle": [
+        "LU"
+      ],
+      "bundesland": "RP"
+    },
+    {
+      "id": "07315",
+      "name": "Mainz",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "MZ",
+      "kennzeichenAlle": [
+        "MZ"
+      ],
+      "bundesland": "RP"
+    },
+    {
+      "id": "07339",
+      "name": "Mainz-Bingen",
+      "type": "landkreis",
+      "kennzeichen": "MZ",
+      "kennzeichenAlle": [
+        "MZ",
+        "BIN"
+      ],
+      "bundesland": "RP"
+    },
+    {
+      "id": "07137",
+      "name": "Mayen-Koblenz",
+      "type": "landkreis",
+      "kennzeichen": "MYK",
+      "kennzeichenAlle": [
+        "MYK",
+        "MY"
+      ],
+      "bundesland": "RP"
+    },
+    {
+      "id": "07316",
+      "name": "Neustadt an der Weinstraße",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "NW",
+      "kennzeichenAlle": [
+        "NW"
+      ],
+      "bundesland": "RP"
+    },
+    {
+      "id": "07138",
+      "name": "Neuwied",
+      "type": "landkreis",
+      "kennzeichen": "NR",
+      "kennzeichenAlle": [
+        "NR"
+      ],
+      "bundesland": "RP"
+    },
+    {
+      "id": "07317",
+      "name": "Pirmasens",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "PS",
+      "kennzeichenAlle": [
+        "PS"
+      ],
+      "bundesland": "RP"
+    },
+    {
+      "id": "07140",
+      "name": "Rhein-Hunsrück-Kreis",
+      "type": "landkreis",
+      "kennzeichen": "SIM",
+      "kennzeichenAlle": [
+        "SIM",
+        "GOA"
+      ],
+      "bundesland": "RP"
+    },
+    {
+      "id": "07141",
+      "name": "Rhein-Lahn-Kreis",
+      "type": "landkreis",
+      "kennzeichen": "EMS",
+      "kennzeichenAlle": [
+        "EMS",
+        "DIZ",
+        "GOH"
+      ],
+      "bundesland": "RP"
+    },
+    {
+      "id": "07338",
+      "name": "Rhein-Pfalz-Kreis",
+      "type": "landkreis",
+      "kennzeichen": "RP",
+      "kennzeichenAlle": [
+        "RP"
+      ],
+      "bundesland": "RP"
+    },
+    {
+      "id": "07318",
+      "name": "Speyer",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "SP",
+      "kennzeichenAlle": [
+        "SP"
+      ],
+      "bundesland": "RP"
+    },
+    {
+      "id": "07337",
+      "name": "Südliche Weinstraße",
+      "type": "landkreis",
+      "kennzeichen": "SÜW",
+      "kennzeichenAlle": [
+        "SÜW"
+      ],
+      "bundesland": "RP"
+    },
+    {
+      "id": "07340",
+      "name": "Südwestpfalz",
+      "type": "landkreis",
+      "kennzeichen": "PS",
+      "kennzeichenAlle": [
+        "PS",
+        "ZW"
+      ],
+      "bundesland": "RP"
+    },
+    {
+      "id": "07211",
+      "name": "Trier",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "TR",
+      "kennzeichenAlle": [
+        "TR"
+      ],
+      "bundesland": "RP"
+    },
+    {
+      "id": "07235",
+      "name": "Trier-Saarburg",
+      "type": "landkreis",
+      "kennzeichen": "TR",
+      "kennzeichenAlle": [
+        "TR",
+        "SAB"
+      ],
+      "bundesland": "RP"
+    },
+    {
+      "id": "07233",
+      "name": "Vulkaneifel",
+      "type": "landkreis",
+      "kennzeichen": "DAU",
+      "kennzeichenAlle": [
+        "DAU"
+      ],
+      "bundesland": "RP"
+    },
+    {
+      "id": "07143",
+      "name": "Westerwaldkreis",
+      "type": "landkreis",
+      "kennzeichen": "WW",
+      "kennzeichenAlle": [
+        "WW"
+      ],
+      "bundesland": "RP"
+    },
+    {
+      "id": "07319",
+      "name": "Worms",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "WO",
+      "kennzeichenAlle": [
+        "WO"
+      ],
+      "bundesland": "RP"
+    },
+    {
+      "id": "07320",
+      "name": "Zweibrücken",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "ZW",
+      "kennzeichenAlle": [
+        "ZW"
+      ],
+      "bundesland": "RP"
+    },
+    {
+      "id": "01051",
+      "name": "Dithmarschen",
+      "type": "landkreis",
+      "kennzeichen": "HEI",
+      "kennzeichenAlle": [
+        "HEI",
+        "MED"
+      ],
+      "bundesland": "SH"
+    },
+    {
+      "id": "01001",
+      "name": "Flensburg",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "FL",
+      "kennzeichenAlle": [
+        "FL"
+      ],
+      "bundesland": "SH"
+    },
+    {
+      "id": "01053",
+      "name": "Herzogtum Lauenburg",
+      "type": "landkreis",
+      "kennzeichen": "RZ",
+      "kennzeichenAlle": [
+        "RZ"
+      ],
+      "bundesland": "SH"
+    },
+    {
+      "id": "01002",
+      "name": "Kiel",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "KI",
+      "kennzeichenAlle": [
+        "KI"
+      ],
+      "bundesland": "SH"
+    },
+    {
+      "id": "01003",
+      "name": "Lübeck",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "HL",
+      "kennzeichenAlle": [
+        "HL"
+      ],
+      "bundesland": "SH"
+    },
+    {
+      "id": "01004",
+      "name": "Neumünster",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "NMS",
+      "kennzeichenAlle": [
+        "NMS"
+      ],
+      "bundesland": "SH"
+    },
+    {
+      "id": "01054",
+      "name": "Nordfriesland",
+      "type": "landkreis",
+      "kennzeichen": "NF",
+      "kennzeichenAlle": [
+        "NF"
+      ],
+      "bundesland": "SH"
+    },
+    {
+      "id": "01055",
+      "name": "Ostholstein",
+      "type": "landkreis",
+      "kennzeichen": "OH",
+      "kennzeichenAlle": [
+        "OH"
+      ],
+      "bundesland": "SH"
+    },
+    {
+      "id": "01056",
+      "name": "Pinneberg",
+      "type": "landkreis",
+      "kennzeichen": "PI",
+      "kennzeichenAlle": [
+        "PI"
+      ],
+      "bundesland": "SH"
+    },
+    {
+      "id": "01057",
+      "name": "Plön",
+      "type": "landkreis",
+      "kennzeichen": "PLÖ",
+      "kennzeichenAlle": [
+        "PLÖ"
+      ],
+      "bundesland": "SH"
+    },
+    {
+      "id": "01058",
+      "name": "Rendsburg-Eckernförde",
+      "type": "landkreis",
+      "kennzeichen": "RD",
+      "kennzeichenAlle": [
+        "RD",
+        "ECK"
+      ],
+      "bundesland": "SH"
+    },
+    {
+      "id": "01059",
+      "name": "Schleswig-Flensburg",
+      "type": "landkreis",
+      "kennzeichen": "SL",
+      "kennzeichenAlle": [
+        "SL"
+      ],
+      "bundesland": "SH"
+    },
+    {
+      "id": "01060",
+      "name": "Segeberg",
+      "type": "landkreis",
+      "kennzeichen": "SE",
+      "kennzeichenAlle": [
+        "SE"
+      ],
+      "bundesland": "SH"
+    },
+    {
+      "id": "01061",
+      "name": "Steinburg",
+      "type": "landkreis",
+      "kennzeichen": "IZ",
+      "kennzeichenAlle": [
+        "IZ"
+      ],
+      "bundesland": "SH"
+    },
+    {
+      "id": "01062",
+      "name": "Stormarn",
+      "type": "landkreis",
+      "kennzeichen": "OD",
+      "kennzeichenAlle": [
+        "OD"
+      ],
+      "bundesland": "SH"
+    },
+    {
+      "id": "10042",
+      "name": "Merzig-Wadern",
+      "type": "landkreis",
+      "kennzeichen": "MZG",
+      "kennzeichenAlle": [
+        "MZG"
+      ],
+      "bundesland": "SL"
+    },
+    {
+      "id": "10043",
+      "name": "Neunkirchen",
+      "type": "landkreis",
+      "kennzeichen": "NK",
+      "kennzeichenAlle": [
+        "NK",
+        "OTW"
+      ],
+      "bundesland": "SL"
+    },
+    {
+      "id": "10041",
+      "name": "Saarbrücken, Regionalverband",
+      "type": "landkreis",
+      "kennzeichen": "SB",
+      "kennzeichenAlle": [
+        "SB",
+        "(VK)"
+      ],
+      "bundesland": "SL"
+    },
+    {
+      "id": "10044",
+      "name": "Saarlouis",
+      "type": "landkreis",
+      "kennzeichen": "SLS",
+      "kennzeichenAlle": [
+        "SLS"
+      ],
+      "bundesland": "SL"
+    },
+    {
+      "id": "10045",
+      "name": "Saarpfalz-Kreis",
+      "type": "landkreis",
+      "kennzeichen": "HOM",
+      "kennzeichenAlle": [
+        "HOM",
+        "(IGB)"
+      ],
+      "bundesland": "SL"
+    },
+    {
+      "id": "10046",
+      "name": "St. Wendel",
+      "type": "landkreis",
+      "kennzeichen": "WND",
+      "kennzeichenAlle": [
+        "WND"
+      ],
+      "bundesland": "SL"
+    },
+    {
+      "id": "14625",
+      "name": "Bautzen",
+      "type": "landkreis",
+      "kennzeichen": "BZ",
+      "kennzeichenAlle": [
+        "BZ",
+        "BIW",
+        "HY",
+        "KM"
+      ],
+      "bundesland": "SN"
+    },
+    {
+      "id": "14511",
+      "name": "Chemnitz",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "C",
+      "kennzeichenAlle": [
+        "C"
+      ],
+      "bundesland": "SN"
+    },
+    {
+      "id": "14612",
+      "name": "Dresden",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "DD",
+      "kennzeichenAlle": [
+        "DD"
+      ],
+      "bundesland": "SN"
+    },
+    {
+      "id": "14521",
+      "name": "Erzgebirgskreis",
+      "type": "landkreis",
+      "kennzeichen": "ERZ",
+      "kennzeichenAlle": [
+        "ERZ",
+        "ANA",
+        "ASZ",
+        "AU",
+        "MAB",
+        "MEK",
+        "STL",
+        "SZB",
+        "ZP"
+      ],
+      "bundesland": "SN"
+    },
+    {
+      "id": "14626",
+      "name": "Görlitz",
+      "type": "landkreis",
+      "kennzeichen": "GR",
+      "kennzeichenAlle": [
+        "GR",
+        "LÖB",
+        "NOL",
+        "NY",
+        "WSW",
+        "ZI"
+      ],
+      "bundesland": "SN"
+    },
+    {
+      "id": "14729",
+      "name": "Leipzig",
+      "type": "landkreis",
+      "kennzeichen": "L",
+      "kennzeichenAlle": [
+        "L",
+        "BNA",
+        "GHA",
+        "GRM",
+        "MTL",
+        "WUR"
+      ],
+      "bundesland": "SN"
+    },
+    {
+      "id": "14713",
+      "name": "Leipzig",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "L",
+      "kennzeichenAlle": [
+        "L"
+      ],
+      "bundesland": "SN"
+    },
+    {
+      "id": "14627",
+      "name": "Meißen",
+      "type": "landkreis",
+      "kennzeichen": "MEI",
+      "kennzeichenAlle": [
+        "MEI",
+        "GRH",
+        "RG",
+        "RIE"
+      ],
+      "bundesland": "SN"
+    },
+    {
+      "id": "14522",
+      "name": "Mittelsachsen",
+      "type": "landkreis",
+      "kennzeichen": "FG",
+      "kennzeichenAlle": [
+        "FG",
+        "BED",
+        "DL",
+        "FLÖ",
+        "HC",
+        "MW",
+        "RL"
+      ],
+      "bundesland": "SN"
+    },
+    {
+      "id": "14730",
+      "name": "Nordsachsen",
+      "type": "landkreis",
+      "kennzeichen": "TDO",
+      "kennzeichenAlle": [
+        "TDO",
+        "DZ",
+        "EB",
+        "OZ",
+        "TG",
+        "TO"
+      ],
+      "bundesland": "SN"
+    },
+    {
+      "id": "14628",
+      "name": "Sächsische Schweiz-Osterzgebirge",
+      "type": "landkreis",
+      "kennzeichen": "PIR",
+      "kennzeichenAlle": [
+        "PIR",
+        "DW",
+        "FTL",
+        "SEB"
+      ],
+      "bundesland": "SN"
+    },
+    {
+      "id": "14523",
+      "name": "Vogtlandkreis",
+      "type": "landkreis",
+      "kennzeichen": "V",
+      "kennzeichenAlle": [
+        "V",
+        "AE",
+        "OVL",
+        "PL",
+        "RC"
+      ],
+      "bundesland": "SN"
+    },
+    {
+      "id": "14524",
+      "name": "Zwickau",
+      "type": "landkreis",
+      "kennzeichen": "Z",
+      "kennzeichenAlle": [
+        "Z",
+        "GC",
+        "HOT",
+        "WDA"
+      ],
+      "bundesland": "SN"
+    },
+    {
+      "id": "15081",
+      "name": "Altmarkkreis Salzwedel",
+      "type": "landkreis",
+      "kennzeichen": "SAW",
+      "kennzeichenAlle": [
+        "SAW",
+        "GA",
+        "KLZ"
+      ],
+      "bundesland": "ST"
+    },
+    {
+      "id": "15082",
+      "name": "Anhalt-Bitterfeld",
+      "type": "landkreis",
+      "kennzeichen": "ABI",
+      "kennzeichenAlle": [
+        "ABI",
+        "AZE",
+        "BTF",
+        "KÖT",
+        "ZE"
+      ],
+      "bundesland": "ST"
+    },
+    {
+      "id": "15084",
+      "name": "Burgenlandkreis",
+      "type": "landkreis",
+      "kennzeichen": "BLK",
+      "kennzeichenAlle": [
+        "BLK",
+        "HHM",
+        "NEB",
+        "NMB",
+        "WSF",
+        "ZZ"
+      ],
+      "bundesland": "ST"
+    },
+    {
+      "id": "15083",
+      "name": "Börde",
+      "type": "landkreis",
+      "kennzeichen": "BK",
+      "kennzeichenAlle": [
+        "BK",
+        "BÖ",
+        "HDL",
+        "OC",
+        "OK",
+        "WMS",
+        "WZL"
+      ],
+      "bundesland": "ST"
+    },
+    {
+      "id": "15001",
+      "name": "Dessau-Roßlau",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "DE",
+      "kennzeichenAlle": [
+        "DE",
+        "RSL"
+      ],
+      "bundesland": "ST"
+    },
+    {
+      "id": "15002",
+      "name": "Halle",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "HAL",
+      "kennzeichenAlle": [
+        "HAL"
+      ],
+      "bundesland": "ST"
+    },
+    {
+      "id": "15085",
+      "name": "Harz",
+      "type": "landkreis",
+      "kennzeichen": "HZ",
+      "kennzeichenAlle": [
+        "HZ",
+        "HBS",
+        "QLB",
+        "WR"
+      ],
+      "bundesland": "ST"
+    },
+    {
+      "id": "15086",
+      "name": "Jerichower Land",
+      "type": "landkreis",
+      "kennzeichen": "JL",
+      "kennzeichenAlle": [
+        "JL",
+        "BRG",
+        "GNT"
+      ],
+      "bundesland": "ST"
+    },
+    {
+      "id": "15003",
+      "name": "Magdeburg",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "MD",
+      "kennzeichenAlle": [
+        "MD"
+      ],
+      "bundesland": "ST"
+    },
+    {
+      "id": "15087",
+      "name": "Mansfeld-Südharz",
+      "type": "landkreis",
+      "kennzeichen": "MSH",
+      "kennzeichenAlle": [
+        "MSH",
+        "EIL",
+        "HET",
+        "ML",
+        "SGH"
+      ],
+      "bundesland": "ST"
+    },
+    {
+      "id": "15088",
+      "name": "Saalekreis",
+      "type": "landkreis",
+      "kennzeichen": "SK",
+      "kennzeichenAlle": [
+        "SK",
+        "MER",
+        "MQ",
+        "QFT"
+      ],
+      "bundesland": "ST"
+    },
+    {
+      "id": "15089",
+      "name": "Salzlandkreis",
+      "type": "landkreis",
+      "kennzeichen": "SLK",
+      "kennzeichenAlle": [
+        "SLK",
+        "ASL",
+        "BBG",
+        "SBK",
+        "SFT"
+      ],
+      "bundesland": "ST"
+    },
+    {
+      "id": "15090",
+      "name": "Stendal",
+      "type": "landkreis",
+      "kennzeichen": "SDL",
+      "kennzeichenAlle": [
+        "SDL",
+        "HV",
+        "OBG"
+      ],
+      "bundesland": "ST"
+    },
+    {
+      "id": "15091",
+      "name": "Wittenberg",
+      "type": "landkreis",
+      "kennzeichen": "WB",
+      "kennzeichenAlle": [
+        "WB",
+        "GHC",
+        "JE"
+      ],
+      "bundesland": "ST"
+    },
+    {
+      "id": "16077",
+      "name": "Altenburger Land",
+      "type": "landkreis",
+      "kennzeichen": "ABG",
+      "kennzeichenAlle": [
+        "ABG",
+        "SLN"
+      ],
+      "bundesland": "TH"
+    },
+    {
+      "id": "16061",
+      "name": "Eichsfeld",
+      "type": "landkreis",
+      "kennzeichen": "EIC",
+      "kennzeichenAlle": [
+        "EIC",
+        "HIG",
+        "WBS"
+      ],
+      "bundesland": "TH"
+    },
+    {
+      "id": "16051",
+      "name": "Erfurt",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "EF",
+      "kennzeichenAlle": [
+        "EF"
+      ],
+      "bundesland": "TH"
+    },
+    {
+      "id": "16052",
+      "name": "Gera",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "G",
+      "kennzeichenAlle": [
+        "G"
+      ],
+      "bundesland": "TH"
+    },
+    {
+      "id": "16067",
+      "name": "Gotha",
+      "type": "landkreis",
+      "kennzeichen": "GTH",
+      "kennzeichenAlle": [
+        "GTH"
+      ],
+      "bundesland": "TH"
+    },
+    {
+      "id": "16076",
+      "name": "Greiz",
+      "type": "landkreis",
+      "kennzeichen": "GRZ",
+      "kennzeichenAlle": [
+        "GRZ",
+        "ZR"
+      ],
+      "bundesland": "TH"
+    },
+    {
+      "id": "16069",
+      "name": "Hildburghausen",
+      "type": "landkreis",
+      "kennzeichen": "HBN",
+      "kennzeichenAlle": [
+        "HBN"
+      ],
+      "bundesland": "TH"
+    },
+    {
+      "id": "16070",
+      "name": "Ilm-Kreis",
+      "type": "landkreis",
+      "kennzeichen": "IK",
+      "kennzeichenAlle": [
+        "IK",
+        "ARN",
+        "IL"
+      ],
+      "bundesland": "TH"
+    },
+    {
+      "id": "16053",
+      "name": "Jena",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "J",
+      "kennzeichenAlle": [
+        "J"
+      ],
+      "bundesland": "TH"
+    },
+    {
+      "id": "16065",
+      "name": "Kyffhäuserkreis",
+      "type": "landkreis",
+      "kennzeichen": "KYF",
+      "kennzeichenAlle": [
+        "KYF",
+        "ART",
+        "SDH"
+      ],
+      "bundesland": "TH"
+    },
+    {
+      "id": "16062",
+      "name": "Nordhausen",
+      "type": "landkreis",
+      "kennzeichen": "NDH",
+      "kennzeichenAlle": [
+        "NDH"
+      ],
+      "bundesland": "TH"
+    },
+    {
+      "id": "16074",
+      "name": "Saale-Holzland-Kreis",
+      "type": "landkreis",
+      "kennzeichen": "SHK",
+      "kennzeichenAlle": [
+        "SHK",
+        "EIS",
+        "SRO"
+      ],
+      "bundesland": "TH"
+    },
+    {
+      "id": "16075",
+      "name": "Saale-Orla-Kreis",
+      "type": "landkreis",
+      "kennzeichen": "SOK",
+      "kennzeichenAlle": [
+        "SOK",
+        "LBS",
+        "PN",
+        "SCZ"
+      ],
+      "bundesland": "TH"
+    },
+    {
+      "id": "16073",
+      "name": "Saalfeld-Rudolstadt",
+      "type": "landkreis",
+      "kennzeichen": "SLF",
+      "kennzeichenAlle": [
+        "SLF",
+        "RU"
+      ],
+      "bundesland": "TH"
+    },
+    {
+      "id": "16066",
+      "name": "Schmalkalden-Meiningen",
+      "type": "landkreis",
+      "kennzeichen": "SM",
+      "kennzeichenAlle": [
+        "SM",
+        "MGN"
+      ],
+      "bundesland": "TH"
+    },
+    {
+      "id": "16072",
+      "name": "Sonneberg",
+      "type": "landkreis",
+      "kennzeichen": "SON",
+      "kennzeichenAlle": [
+        "SON",
+        "NH"
+      ],
+      "bundesland": "TH"
+    },
+    {
+      "id": "16054",
+      "name": "Suhl",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "SHL",
+      "kennzeichenAlle": [
+        "SHL"
+      ],
+      "bundesland": "TH"
+    },
+    {
+      "id": "16068",
+      "name": "Sömmerda",
+      "type": "landkreis",
+      "kennzeichen": "SÖM",
+      "kennzeichenAlle": [
+        "SÖM"
+      ],
+      "bundesland": "TH"
+    },
+    {
+      "id": "16064",
+      "name": "Unstrut-Hainich-Kreis",
+      "type": "landkreis",
+      "kennzeichen": "UH",
+      "kennzeichenAlle": [
+        "UH",
+        "LSZ",
+        "MHL"
+      ],
+      "bundesland": "TH"
+    },
+    {
+      "id": "16063",
+      "name": "Wartburgkreis",
+      "type": "landkreis",
+      "kennzeichen": "WAK",
+      "kennzeichenAlle": [
+        "WAK",
+        "EA",
+        "SLZ"
+      ],
+      "bundesland": "TH"
+    },
+    {
+      "id": "16055",
+      "name": "Weimar",
+      "type": "kreisfreie_stadt",
+      "kennzeichen": "WE",
+      "kennzeichenAlle": [
+        "WE"
+      ],
+      "bundesland": "TH"
+    },
+    {
+      "id": "16071",
+      "name": "Weimarer Land",
+      "type": "landkreis",
+      "kennzeichen": "AP",
+      "kennzeichenAlle": [
+        "AP",
+        "APD"
+      ],
+      "bundesland": "TH"
+    }
+  ]
+}
