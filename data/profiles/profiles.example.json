@@ -1,0 +1,14 @@
+{
+  "profiles": [
+    {
+      "name": "prototyp-sensecap-01",
+      "board_env": "sensecap_indicator",
+      "stationId": "STATION-PROTO-01",
+      "operatorName": "Testbetrieb AOT",
+      "localContact": "+49 00000 000000",
+      "settingsPin": "1234",
+      "dispatchNodeNum": "0xce0ffa28",
+      "locationText": "Schimberg, Testaufbau"
+    }
+  ]
+}
